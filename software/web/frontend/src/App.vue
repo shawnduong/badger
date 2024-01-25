@@ -11,10 +11,11 @@
 <style>
 
 :root {
-	--dark  : #575757;
-	--light : #D9D9D9;
-	--white : #FFFFFF;
-	--black : #000000;
+	--dark   : #575757;
+	--medium : #9A9A9A;
+	--light  : #D9D9D9;
+	--white  : #FFFFFF;
+	--black  : #000000;
 }
 
 @font-face {
@@ -42,6 +43,13 @@ h2 {
 	font-size: 20px;
 	font-weight: 200;
 	margin-bottom: 0.1em;
+}
+
+.proceed {
+	content: url("@/assets/svg/proceed.svg");
+	height: 32px;
+	vertical-align: middle;
+	cursor: pointer;
 }
 
 </style>

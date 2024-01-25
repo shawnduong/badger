@@ -9,8 +9,12 @@
 		<h2 id="caption">Log in to view your badge.</h2>
 		<form>
 			<label for="badgeId"><h2>Badge ID</h2></label>
-			<input type="text" name="badgeId" id="badgeId" />
+			<div id="flex-container">
+				<input type="text" name="badgeId" id="badgeId" />
+				<img class="proceed" id="proceed" />
+			</div>
 		</form>
+		<a href="" id="staff-link">Switch to Staff Login</a>
 	</div>
 
 	<div id="hint-container">
@@ -41,7 +45,8 @@
 	background-color: var(--light);
 	border-width: 0px;
 	border-radius: 10px;
-	font-size: 24px;
+	padding: 2px 0.5em;
+	font-size: 20px;
 }
 
 #caption {
@@ -56,6 +61,20 @@
 
 #cards center img {
 	padding: 16px;
+	height: 300px;
+}
+
+#proceed {
+	margin-left: 16px;
+}
+
+#staff-link {
+	position: absolute;
+	bottom: 8px;
+	right: 16px;
+	color: var(--medium);
+	text-decoration: none;
+	font-size: 16px;
 }
 
 /* Containers. */
@@ -77,9 +96,16 @@
 }
 
 #login-container {
+	position: relative;
 	background-color: var(--dark);
 	padding-left: 64px;
 	padding-top: 42px;
+}
+
+#flex-container {
+	display: flex;
+    align-items: center;
+	margin-top: 8px;
 }
 
 </style>
