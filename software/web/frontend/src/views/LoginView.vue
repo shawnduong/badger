@@ -14,7 +14,7 @@
 				<img class="proceed" id="proceed" />
 			</div>
 		</form>
-		<a href="" id="staff-link">Switch to Staff Login</a>
+		<router-link to="/staff-login" id="staff-link">Switch to Staff Login</router-link>
 	</div>
 
 	<div id="hint-container">

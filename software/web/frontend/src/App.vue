@@ -1,9 +1,7 @@
 <!-- Template -->
 
 <template>
-
 <router-view />
-
 </template>
 
 <!-- Style -->
