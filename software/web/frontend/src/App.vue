@@ -1,7 +1,13 @@
 <!-- Template -->
 
 <template>
-<router-view />
+
+<router-view v-slot="{ Component }">
+	<transition name="route" mode="out-in">
+		<component :is="Component" />
+	</transition>
+</router-view>
+
 </template>
 
 <!-- Style -->
@@ -48,6 +54,26 @@ h2 {
 	height: 32px;
 	vertical-align: middle;
 	cursor: pointer;
+}
+
+/* Transitions. */
+
+.route-enter-from {
+	opacity: 0;
+	transform: translateX(50%);
+}
+
+.route-enter-active {
+	transition: all 0.5s ease-out;
+}
+
+.route-leave-to {
+	opacity: 0;
+	transform: translateX(-50%);
+}
+
+.route-leave-active {
+	transition: all 0.5s ease-in;
 }
 
 </style>

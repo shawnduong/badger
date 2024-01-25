@@ -77,7 +77,7 @@
 	font-size: 16px;
 }
 
-/* Containers. */
+/* Containers */
 
 #container {
 	display: grid;
