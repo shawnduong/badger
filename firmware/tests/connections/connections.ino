@@ -1,10 +1,10 @@
-/* Connect Test
+/* Connections Test
  * Check to see if all the modules are connected correctly. If they are, then
  * the hardware is ready for firmware development.
  */
 
 #include <SPI.h>
-#include "sr_74hc165.h"
+#include "sr74hc165.h"
 
 char srData;
 

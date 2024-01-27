@@ -1,5 +1,4 @@
-#ifndef SR_74HC165_H
-#define SR_74HC165_H
+#pragma once
 
 enum SR_74HC165_PINOUT
 {
@@ -32,5 +31,3 @@ char sr_74hc165_read()
 
 	return data;
 }
-
-#endif
