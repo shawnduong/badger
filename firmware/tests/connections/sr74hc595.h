@@ -7,6 +7,7 @@ private:
 	uint8_t rclk;
 	uint8_t srclk;
 	uint8_t state;
+
 public:
 	/* Define the pins of a 74HC595 shift register and set its initial state. */
 	Sr74hc595(uint8_t ser, uint8_t rclk, uint8_t srclk, uint8_t state)

@@ -4,15 +4,21 @@
  */
 
 #include <SPI.h>
+#include "sr74hc165.h"
 #include "sr74hc595.h"
 
 /* Auxiliary shift register used for handling CS and other misc. outputs. Wire
  * it by SPI conventions.
  *
- * QA = CS for ID selector DIP switches (74HC165, aka PISO SR)
+ * QA = CE for ID selector DIP switches (74HC165, aka PISO SR)
  * QB = PL for ID selector DIP switches (74HC165, aka PISO SR)
  */
 Sr74hc595 auxSr(13, 15, 14, 0b11111111);
+
+/* Unit ID shift register (input) used for discovering the unit ID of a Badger
+ * unit upon first start.
+ */
+Sr74hc165 idSr(&auxSr, 14, 12, 0, 1);
 
 void setup()
 {
@@ -22,15 +28,6 @@ void setup()
 
 void loop()
 {
-	auxSr.sr_write_bit(5, 0);
-	auxSr.sr_write_bit(3, 0);
-	auxSr.sr_write_bit(2, 0);
-	Serial.println(auxSr.get_state(), BIN);
-	delay(1000);
-
-	auxSr.sr_write_bit(5, 1);
-	auxSr.sr_write_bit(3, 1);
-	auxSr.sr_write_bit(2, 1);
-	Serial.println(auxSr.get_state(), BIN);
+	Serial.println(idSr.sr_read(), BIN);
 	delay(1000);
 }
