@@ -4,25 +4,33 @@
  */
 
 #include <SPI.h>
-#include "sr74hc165.h"
+#include "sr74hc595.h"
 
-char srData;
+/* Auxiliary shift register used for handling CS and other misc. outputs. Wire
+ * it by SPI conventions.
+ *
+ * QA = CS for ID selector DIP switches (74HC165, aka PISO SR)
+ * QB = PL for ID selector DIP switches (74HC165, aka PISO SR)
+ */
+Sr74hc595 auxSr(13, 15, 14, 0b11111111);
 
 void setup()
 {
 	Serial.begin(9600);
-	sr_74hc165_init();
-
 	Serial.println("Initialized.");
 }
 
 void loop()
 {
-	srData = sr_74hc165_read();
+	auxSr.sr_write_bit(5, 0);
+	auxSr.sr_write_bit(3, 0);
+	auxSr.sr_write_bit(2, 0);
+	Serial.println(auxSr.get_state(), BIN);
+	delay(1000);
 
-	Serial.println("Shift Register 74HC165 Test");
-	Serial.print("Pin data: ");
-	Serial.println(srData, BIN);
-
+	auxSr.sr_write_bit(5, 1);
+	auxSr.sr_write_bit(3, 1);
+	auxSr.sr_write_bit(2, 1);
+	Serial.println(auxSr.get_state(), BIN);
 	delay(1000);
 }
