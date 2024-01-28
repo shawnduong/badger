@@ -15,8 +15,8 @@
  */
 Sr74hc595 auxSr(13, 15, 14, 0b11111111);
 
-/* Unit ID shift register (input) used for discovering the unit ID of a Badger
- * unit upon first start.
+/* Unit ID shift register (input) used for discovering the ID of a Badger unit
+ * upon first start.
  */
 Sr74hc165 idSr(&auxSr, 14, 12, 0, 1);
 
@@ -24,10 +24,12 @@ void setup()
 {
 	Serial.begin(9600);
 	Serial.println("Initialized.");
+	Serial.println("-----------------");
+	Serial.print("Unit ID: ");
+	Serial.println(idSr.sr_read(), BIN);
 }
 
 void loop()
 {
-	Serial.println(idSr.sr_read(), BIN);
 	delay(1000);
 }
