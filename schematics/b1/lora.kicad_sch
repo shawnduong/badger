@@ -6,8 +6,9 @@
 
   (title_block
     (title "B1")
-    (date "2024-02-01")
+    (date "2024-02-05")
     (rev "1")
+    (company "shawnd.xyz")
     (comment 2 "scanning as well as radio communications and outputs/displays.")
     (comment 3 "A B1 (Badger One) node is the core hardware unit of the Badger sytem. It handles card")
   )

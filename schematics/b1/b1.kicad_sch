@@ -6,7 +6,7 @@
 
   (title_block
     (title "B1")
-    (date "2024-02-01")
+    (date "2024-02-05")
     (rev "1")
     (company "shawnd.xyz")
     (comment 3 "scanning as well as radio communications and outputs/displays.")
@@ -24,7 +24,7 @@
     (property "Sheetname" "Initial State Register" (at 44.45 33.5784 0)
       (effects (font (size 1.27 1.27)) (justify left bottom))
     )
-    (property "Sheetfile" "initial_state.kicad_sch" (at 44.45 53.9246 0)
+    (property "Sheetfile" "initial_state_register.kicad_sch" (at 44.45 53.9246 0)
       (effects (font (size 1.27 1.27)) (justify left top) hide)
     )
     (pin "PL" input (at 44.45 41.91 180)
@@ -122,14 +122,14 @@
     )
   )
 
-  (sheet (at 91.44 34.29) (size 19.05 17.78) (fields_autoplaced)
+  (sheet (at 44.45 58.42) (size 20.32 17.78) (fields_autoplaced)
     (stroke (width 0.1524) (type solid))
     (fill (color 0 0 0 0.0000))
     (uuid fdcf7d10-3243-4165-8310-96b25d91ab12)
-    (property "Sheetname" "Status Register" (at 91.44 33.5784 0)
+    (property "Sheetname" "Status Block" (at 44.45 57.7084 0)
       (effects (font (size 1.27 1.27)) (justify left bottom))
     )
-    (property "Sheetfile" "status.kicad_sch" (at 91.44 52.6546 0)
+    (property "Sheetfile" "status_block.kicad_sch" (at 44.45 76.7846 0)
       (effects (font (size 1.27 1.27)) (justify left top) hide)
     )
     (instances
