@@ -27,7 +27,9 @@ byte tests[] = {
 	0b00100100,  // (Blink) Red
 	0b00010010,  // (Blink) White
 	0b00001010,  // (Blink) Red
-	0b00000001,  // Buzzer
+	0b10010100,  // (Blink) Green, White
+	0b10010110,  // (Blink) Green, (Blink) White
+	0b10010111,  // Green, Red, Buzzer
 };
 
 void setup()
@@ -47,7 +49,7 @@ void loop()
 		digitalWrite(RCLK, LOW);
 		shiftOut(SER, SRCLK, LSBFIRST, tests[i]);
 		digitalWrite(RCLK, HIGH);
-		delay(2500);
+		delay(5000);
 	}
 
 	tone(BUZZ, 513);
@@ -56,5 +58,5 @@ void loop()
 	delay(300);
 
 	noTone(BUZZ);
-	delay(1000);
+	delay(1500);
 }
