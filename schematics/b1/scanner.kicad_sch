@@ -112,7 +112,7 @@
 
   (no_connect (at 110.49 58.42) (uuid f29a2ee8-fbd7-43e7-9bfa-0e71d516004e))
 
-  (text "A bypass capacitor is not needed\nas the module itself has its own\nonboard."
+  (text "Bypass capacitors are not needed\nas the module itself has its own\nonboard."
     (at 120.65 59.69 0)
     (effects (font (size 1.27 1.27)) (justify left bottom))
     (uuid 69518dec-e916-47ee-9cbe-10f11d224cba)
