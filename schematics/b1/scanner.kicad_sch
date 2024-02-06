@@ -112,6 +112,12 @@
 
   (no_connect (at 110.49 58.42) (uuid f29a2ee8-fbd7-43e7-9bfa-0e71d516004e))
 
+  (text "A bypass capacitor is not needed\nas the module itself has its own\nonboard."
+    (at 120.65 59.69 0)
+    (effects (font (size 1.27 1.27)) (justify left bottom))
+    (uuid 69518dec-e916-47ee-9cbe-10f11d224cba)
+  )
+
   (hierarchical_label "VCC" (shape input) (at 99.06 50.8 90) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify left))
     (uuid 8b1237e4-decb-4c2d-840f-254e1644d821)
@@ -163,9 +169,6 @@
     (instances
       (project "b1"
         (path "/d6142fa5-2354-4512-9919-37616259c364/64a24a3a-7315-4dfd-86dd-98547cdfac2f"
-          (reference "P1") (unit 1)
-        )
-        (path "/d6142fa5-2354-4512-9919-37616259c364/fdcf7d10-3243-4165-8310-96b25d91ab12"
           (reference "P1") (unit 1)
         )
       )
