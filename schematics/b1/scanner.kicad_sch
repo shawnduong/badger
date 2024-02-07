@@ -130,7 +130,7 @@
     (effects (font (size 1.27 1.27)) (justify right))
     (uuid 9d95c2d9-242b-42b1-8482-4d991ec7877a)
   )
-  (hierarchical_label "SCK" (shape input) (at 88.9 58.42 180) (fields_autoplaced)
+  (hierarchical_label "~{SS}" (shape input) (at 88.9 58.42 180) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify right))
     (uuid bcc0a17e-688c-4402-89c1-2c58f6f1cea5)
   )
