@@ -1,0 +1,19 @@
+(kicad_sch (version 20230121) (generator eeschema)
+
+  (uuid 4aa84f8e-f252-47dd-998d-d3cee3402931)
+
+  (paper "A4")
+
+  (title_block
+    (title "B1")
+    (date "2024-02-06")
+    (rev "1")
+    (company "shawnd.xyz")
+    (comment 2 "scanning as well as radio communications and outputs/displays.")
+    (comment 3 "A B1 (Badger One) node is the core hardware unit of the Badger sytem. It handles card")
+  )
+
+  (lib_symbols
+  )
+
+)

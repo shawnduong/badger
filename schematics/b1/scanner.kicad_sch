@@ -126,11 +126,11 @@
     (effects (font (size 1.27 1.27)) (justify right))
     (uuid 8b6ee0f3-fdcc-449c-addc-1329909f999c)
   )
-  (hierarchical_label "SDA" (shape input) (at 88.9 55.88 180) (fields_autoplaced)
+  (hierarchical_label "~{SS}" (shape input) (at 88.9 55.88 180) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify right))
     (uuid 9d95c2d9-242b-42b1-8482-4d991ec7877a)
   )
-  (hierarchical_label "~{SS}" (shape input) (at 88.9 58.42 180) (fields_autoplaced)
+  (hierarchical_label "SCK" (shape input) (at 88.9 58.42 180) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify right))
     (uuid bcc0a17e-688c-4402-89c1-2c58f6f1cea5)
   )
@@ -178,7 +178,7 @@
   (symbol (lib_id "power:GND") (at 99.06 68.58 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 22e9434c-ab14-4c6d-b83c-5a702d11a9ab)
-    (property "Reference" "#PWR021" (at 99.06 74.93 0)
+    (property "Reference" "#PWR022" (at 99.06 74.93 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 99.06 73.66 0)
@@ -194,7 +194,7 @@
     (instances
       (project "b1"
         (path "/d6142fa5-2354-4512-9919-37616259c364/64a24a3a-7315-4dfd-86dd-98547cdfac2f"
-          (reference "#PWR021") (unit 1)
+          (reference "#PWR022") (unit 1)
         )
       )
     )
