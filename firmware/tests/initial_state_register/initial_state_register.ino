@@ -1,27 +1,28 @@
 /* Initial State Register
  * See b1/Initial State Register schematic for more details.
  *
- * Block <-> ESP8266
+ * Block <-> Arduino Uno
  * VCC   <-> 3V3
- * PL    <-> D1
- * CP    <-> D5 (SCLK)
- * ~CE   <-> D8 (CS)
- * Q7    <-> D6 (MISO)
+ * CP    <-> D13 (SCLK)
+ * Q7    <-> D12 (MISO)
+ * ~CE   <-> D10 (CS)
+ * PL    <-> D5
  */
 
-#define PL 5
-#define CP 14
-#define Q7 12
-#define CE 15
+#define SCLK 13  // D13 | Pin 19: PB5
+#define MISO 12  // D12 | Pin 18: PB4
+#define CS0  10  // D10 | Pin 16: PB2
+
+#define PL    5  // D5  | Pin 11: PD5
 
 void setup()
 {
 	Serial.begin(9600);
 
-	pinMode(PL, OUTPUT);
-	pinMode(CP, OUTPUT);
-	pinMode(Q7, INPUT );
-	pinMode(CE, OUTPUT);
+	pinMode(SCLK, OUTPUT);
+	pinMode(MISO, INPUT );
+	pinMode(CS0 , OUTPUT);
+	pinMode(PL  , OUTPUT);
 }
 
 void loop()
@@ -31,17 +32,17 @@ void loop()
 	digitalWrite(PL, LOW);
 	digitalWrite(PL, HIGH);
 
-	digitalWrite(CE, LOW);
-	digitalWrite(CP, LOW);
+	digitalWrite(CS0, LOW);
+	digitalWrite(SCLK, LOW);
 
 	/* Manual shift in. */
 	for (uint8_t i = 0; i < 8; i++)
 	{
-		data |= digitalRead(Q7) << i;
-		digitalWrite(CP, HIGH);
-		digitalWrite(CP, LOW);
+		data |= digitalRead(MISO) << i;
+		digitalWrite(SCLK, HIGH);
+		digitalWrite(SCLK, LOW);
 	}
-	digitalWrite(CE, HIGH);
+	digitalWrite(CS0, HIGH);
 
 	Serial.print("Value: ");
 	Serial.println(data >> 1, BIN);
