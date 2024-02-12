@@ -9,8 +9,8 @@
     (date "2024-02-06")
     (rev "1")
     (company "shawnd.xyz")
-    (comment 2 "clear EEPROM memory if high at boot time.")
-    (comment 3 "configure the unit ID by toggling the DIP switches. There is also a reset button that will")
+    (comment 2 "if high, will disregard EEPROM data upon boot.")
+    (comment 3 "configure the unit ID by toggling the DIP switches. There's also a \"clear\" switch, which")
     (comment 4 "The initial state register is used to read a B1 unit's ID upon first boot. The user can")
   )
 

@@ -9,8 +9,8 @@
     (date "2024-02-06")
     (rev "1")
     (company "shawnd.xyz")
-    (comment 2 "scanning as well as radio communications and outputs/displays.")
-    (comment 3 "A B1 (Badger One) node is the core hardware unit of the Badger sytem. It handles card")
+    (comment 3 "Wi-Fi networking as well as handling the e-paper display.")
+    (comment 4 "The ESP-12F has an ESP8266 microprocessor and onboard antenna, and handles all")
   )
 
   (lib_symbols
@@ -595,7 +595,7 @@
     (uuid de65ca7a-4eb0-4469-996f-dcaf762b685c)
   )
 
-  (hierarchical_label "CS" (shape output) (at 120.65 80.01 0) (fields_autoplaced)
+  (hierarchical_label "~{CS}" (shape output) (at 120.65 80.01 0) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify left))
     (uuid 33f72877-9d89-48b7-9b65-bcb2ae566258)
   )
