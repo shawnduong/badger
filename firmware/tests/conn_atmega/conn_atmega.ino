@@ -12,7 +12,7 @@
 
 /* Status Block */
 #define CS1   9  // D9  | Pin 15: PB1
-#define TONE 14  // A0  | Pin 23: PC0
+#define TONE  2  // D2  | Pin  4: PD2
 
 /* Status block tests. */
 byte tests[] = {
