@@ -29,21 +29,6 @@ byte tests[] = {
 	0b00000001,  // Buzzer
 };
 
-///* On the Uno, some SRs (especially clones) are too slow, so we need to slow
-//   down the rate at which data is shifted out. */
-//void _shiftOut(uint8_t outPin, uint8_t clkPin, uint8_t order, byte data)
-//{
-//	for (uint8_t i = 0; i < 8; i++)
-//	{
-//		delayMicroseconds(250);
-//		digitalWrite(clkPin, LOW);
-//		delayMicroseconds(250);
-//		digitalWrite(outPin, (data >> i) & 1);
-//		delayMicroseconds(250);
-//		digitalWrite(clkPin, HIGH);
-//	}
-//}
-
 void setup()
 {
 	Serial.begin(9600);
