@@ -9,10 +9,9 @@
     (date "2024-02-06")
     (rev "1")
     (company "shawnd.xyz")
-    (comment 1 "as potentiometers to adjust LED brightness and buzzer intensity.")
-    (comment 2 "last one enables the buzzer. This block has a hardware killswitch for the buzzer as well")
-    (comment 3 "shift register outputs are the LEDs. The next two enable the timer for certain LEDs. The")
-    (comment 4 "The status block is responsible for controlling the status LEDs and buzzer. The first five")
+    (comment 2 "the shift register.")
+    (comment 3 "buzzer has both a hardware killswitch as well as a software disable in the form of QH of")
+    (comment 4 "The status block is responsible for controlling the status LEDs and buzzer. Note that the")
   )
 
   (lib_symbols
