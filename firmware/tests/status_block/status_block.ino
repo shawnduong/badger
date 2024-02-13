@@ -18,34 +18,31 @@
 byte tests[] = {
 	0b00000000,  // Reset
 	0b10000000,  // Green
-	0b01000000,  // Blue
+	0b01000000,  // Yellow
 	0b00100000,  // Red
 	0b00010000,  // White
-	0b00001000,  // Red
-	0b10000100,  // (Blink) Green
-	0b01000100,  // (Blink) Blue
-	0b00100100,  // (Blink) Red
-	0b00010010,  // (Blink) White
-	0b00001010,  // (Blink) Red
-	0b10010100,  // (Blink) Green, White
-	0b10010110,  // (Blink) Green, (Blink) White
-	0b10010111,  // Green, Red, Buzzer
+	0b00001000,  // Blue
+	0b00000100,  // Red
+	0b00000010,  // Yellow
+	0b11100000,  // Multi
+	0b00011110,  // Multi
+	0b00000001,  // Buzzer
 };
 
-/* On the Uno, some SRs (especially clones) are too slow, so we need to slow
-   down the rate at which data is shifted out. */
-void _shiftOut(uint8_t outPin, uint8_t clkPin, uint8_t order, byte data)
-{
-	for (uint8_t i = 0; i < 8; i++)
-	{
-		delayMicroseconds(250);
-		digitalWrite(clkPin, LOW);
-		delayMicroseconds(250);
-		digitalWrite(outPin, (data >> i) & 1);
-		delayMicroseconds(250);
-		digitalWrite(clkPin, HIGH);
-	}
-}
+///* On the Uno, some SRs (especially clones) are too slow, so we need to slow
+//   down the rate at which data is shifted out. */
+//void _shiftOut(uint8_t outPin, uint8_t clkPin, uint8_t order, byte data)
+//{
+//	for (uint8_t i = 0; i < 8; i++)
+//	{
+//		delayMicroseconds(250);
+//		digitalWrite(clkPin, LOW);
+//		delayMicroseconds(250);
+//		digitalWrite(outPin, (data >> i) & 1);
+//		delayMicroseconds(250);
+//		digitalWrite(clkPin, HIGH);
+//	}
+//}
 
 void setup()
 {
@@ -64,9 +61,9 @@ void loop()
 	for (uint8_t i = 0; i < sizeof(tests); i++)
 	{
 		digitalWrite(CS1, LOW);
-		_shiftOut(MOSI, SCLK, LSBFIRST, tests[i]);
+		shiftOut(MOSI, SCLK, LSBFIRST, tests[i]);
 		digitalWrite(CS1, HIGH);
-		delay(2000);
+		delay(1000);
 	}
 
 	tone(TONE, 513);

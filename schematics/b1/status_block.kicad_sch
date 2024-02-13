@@ -752,6 +752,10 @@
     (stroke (width 0) (type default))
     (uuid 54c4693f-1257-4a46-bf6e-97eccc464908)
   )
+  (wire (pts (xy 83.82 87.63) (xy 91.44 87.63))
+    (stroke (width 0) (type default))
+    (uuid 5ccd9f18-c26c-4e4f-8d1a-c105bb828a79)
+  )
   (wire (pts (xy 48.26 25.4) (xy 48.26 26.67))
     (stroke (width 0) (type default))
     (uuid 66767d3c-a1e0-48b3-9a9f-3eb3fd3fef6a)
@@ -1628,32 +1632,6 @@
       (project "b1"
         (path "/d6142fa5-2354-4512-9919-37616259c364/fdcf7d10-3243-4165-8310-96b25d91ab12"
           (reference "#PWR09") (unit 1)
-        )
-      )
-    )
-  )
-
-  (symbol (lib_id "Device:R") (at 87.63 87.63 90) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
-    (uuid d790789c-2c56-4826-90f9-5bf14ab38bba)
-    (property "Reference" "R9" (at 87.63 81.28 90)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Value" "47" (at 87.63 83.82 90)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Footprint" "" (at 87.63 89.408 90)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "~" (at 87.63 87.63 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (pin "1" (uuid 632b8773-9b78-4151-913b-7cb9bde42b60))
-    (pin "2" (uuid c755d942-9883-447b-9187-4fd481534caf))
-    (instances
-      (project "b1"
-        (path "/d6142fa5-2354-4512-9919-37616259c364/fdcf7d10-3243-4165-8310-96b25d91ab12"
-          (reference "R9") (unit 1)
         )
       )
     )
