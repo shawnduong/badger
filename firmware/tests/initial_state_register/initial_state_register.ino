@@ -29,10 +29,12 @@ void loop()
 {
 	uint8_t data = 0;
 
+	digitalWrite(CS0, LOW);
+	delay(1000);
+
 	digitalWrite(PL, LOW);
 	digitalWrite(PL, HIGH);
 
-	digitalWrite(CS0, LOW);
 	digitalWrite(SCLK, LOW);
 
 	/* Manual shift in. */
