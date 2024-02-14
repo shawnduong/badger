@@ -74,15 +74,8 @@ void test_isr()
 		digitalWrite(PL, LOW);
 		digitalWrite(PL, HIGH);
 
-		digitalWrite(SCLK, LOW);
+		data = SPI.transfer(0);
 
-		/* Manual shift in. */
-		for (uint8_t i = 0; i < 8; i++)
-		{
-			data |= digitalRead(MISO) << i;
-			digitalWrite(SCLK, HIGH);
-			digitalWrite(SCLK, LOW);
-		}
 		digitalWrite(CS0, HIGH);
 	}
 
@@ -93,8 +86,6 @@ void test_isr()
 		Serial.println("Reset is high.");
 	else
 		Serial.println("Reset is low.");
-
-	Serial.println("");
 }
 
 /* Status block test. */
@@ -102,11 +93,11 @@ void test_status_block()
 {
 	for (uint8_t i = 0; i < sizeof(tests); i++)
 	{
-		SPI.beginTransaction(SPISettings(4000000, LSBFIRST, SPI_MODE0));
 		digitalWrite(CS1, LOW);
+		SPI.beginTransaction(SPISettings(4000000, LSBFIRST, SPI_MODE0));
 		SPI.transfer(tests[i]);
-		digitalWrite(CS1, HIGH);
 		SPI.endTransaction();
+		digitalWrite(CS1, HIGH);
 		delay(1000);
 	}
 
@@ -131,17 +122,17 @@ void test_scanner()
 
 void loop()
 {
-	Serial.println("==============");
+	Serial.println("\n==============");
 	Serial.println("Starting ISR test.");
 	test_isr();
 	delay(1000);
 
-	Serial.println("==============");
+	Serial.println("\n==============");
 	Serial.println("Starting status block test.");
 	test_status_block();
 	delay(1000);
 
-	Serial.println("==============");
+	Serial.println("\n==============");
 	Serial.println("Starting scanner test.");
 	test_scanner();
 	delay(1000);
