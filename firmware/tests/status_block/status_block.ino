@@ -1,19 +1,19 @@
 /* Status Block
  * See b1/Status Block schematic for more details.
  *
- * Block <-> ESP8266
+ * Block <-> Arduino Uno
  * VCC   <-> 3V3
- * SER   <-> D7 (MOSI)
- * RCLK  <-> D8 (CS)
- * SRCLK <-> D5 (SCLK)
- * BUZZ  <-> D1
+ * SRCLK <-> D13 (SCLK)
+ * SER   <-> D11 (MOSI)
+ * RCLK  <-> D9
+ * BUZZ  <-> D2
  */
 
 #define SCLK 13  // D13 | Pin 19: PB5
 #define MOSI 11  // D11 | Pin 17: PB3
-#define CS1   9  // D9  | Pin 15: PB1
 
-#define TONE 14  // A0  | Pin 23: PC0
+#define CS1   9  // D9  | Pin 15: PB1
+#define TONE  2  // D2  | Pin  4: PD2
 
 byte tests[] = {
 	0b00000000,  // Reset

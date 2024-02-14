@@ -1,25 +1,26 @@
 /* Scanner
  * See b1/Scanner schematic for more details.
  *
- * Block <-> ESP8266
+ * Block <-> Arduino Uno
  * VCC   <-> 3V3
- * RST   <-> D1
- * SCK   <-> D5 (SCLK)
- * MISO  <-> D6 (MISO)
- * MOSI  <-> D7 (MOSI)
- * SDA   <-> D8 (CS)
+ * SCK   <-> D13 (SCLK)
+ * MISO  <-> D12 (MISO)
+ * MOSI  <-> D11 (MOSI)
+ * SDA   <-> D8
+ * RST   <-> D4
  */
 
 #include <MFRC522.h> // MFRC522 by GithubCommunity (Miguel Balboa)
 #include <SPI.h>
 
-#define RST  5
-#define SCK  14
-#define MISO 12
-#define MOSI 13
-#define SDA  15
+#define SCLK 13  // D13 | Pin 19: PB5
+#define MISO 12  // D12 | Pin 18: PB4
+#define MOSI 11  // D11 | Pin 17: PB3
 
-MFRC522 mfrc522(SDA, RST);
+#define CS2   8  // D8  | Pin 14: PB0
+#define RST   4  // D4  | Pin  6: PD4
+
+MFRC522 mfrc522(CS2, RST);
 
 void setup()
 {

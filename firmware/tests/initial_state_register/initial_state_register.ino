@@ -11,8 +11,8 @@
 
 #define SCLK 13  // D13 | Pin 19: PB5
 #define MISO 12  // D12 | Pin 18: PB4
-#define CS0  10  // D10 | Pin 16: PB2
 
+#define CS0  10  // D10 | Pin 16: PB2
 #define PL    5  // D5  | Pin 11: PD5
 
 void setup()
