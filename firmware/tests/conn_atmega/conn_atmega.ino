@@ -2,6 +2,9 @@
  * See b1 schematic for more details.
  */
 
+#include <MFRC522.h> // MFRC522 by GithubCommunity (Miguel Balboa)
+#include <SPI.h>
+
 #define SCLK 13  // D13 | Pin 19: PB5
 #define MISO 12  // D12 | Pin 18: PB4
 #define MOSI 11  // D11 | Pin 17: PB3
@@ -13,6 +16,10 @@
 /* Status Block */
 #define CS1   9  // D9  | Pin 15: PB1
 #define TONE  2  // D2  | Pin  4: PD2
+
+/* Scanner */
+#define CS2   8  // D8  | Pin 14: PB0
+#define RST   4  // D4  | Pin  6: PD4
 
 /* Status block tests. */
 byte tests[] = {
@@ -28,6 +35,9 @@ byte tests[] = {
 	0b00011110,  // Multi
 	0b00000001,  // Buzzer
 };
+
+///* Scanner object. */
+MFRC522 mfrc522(CS2, RST);
 
 void setup()
 {
@@ -45,6 +55,8 @@ void setup()
 
 	digitalWrite(CS0, HIGH);
 	digitalWrite(CS1, HIGH);
+
+	mfrc522.PCD_Init();
 }
 
 /* ISR test. */
@@ -90,9 +102,11 @@ void test_status_block()
 {
 	for (uint8_t i = 0; i < sizeof(tests); i++)
 	{
+		SPI.beginTransaction(SPISettings(4000000, LSBFIRST, SPI_MODE0));
 		digitalWrite(CS1, LOW);
-		shiftOut(MOSI, SCLK, LSBFIRST, tests[i]);
+		SPI.transfer(tests[i]);
 		digitalWrite(CS1, HIGH);
+		SPI.endTransaction();
 		delay(1000);
 	}
 
@@ -105,6 +119,16 @@ void test_status_block()
 	delay(1500);
 }
 
+/* Scanner test. */
+void test_scanner()
+{
+	Serial.println("Please scan a card.");
+	while (!(mfrc522.PICC_IsNewCardPresent() && mfrc522.PICC_ReadCardSerial()))
+		delay(100);
+
+	mfrc522.PICC_DumpToSerial(&(mfrc522.uid));
+}
+
 void loop()
 {
 	Serial.println("==============");
@@ -115,5 +139,10 @@ void loop()
 	Serial.println("==============");
 	Serial.println("Starting status block test.");
 	test_status_block();
+	delay(1000);
+
+	Serial.println("==============");
+	Serial.println("Starting scanner test.");
+	test_scanner();
 	delay(1000);
 }
