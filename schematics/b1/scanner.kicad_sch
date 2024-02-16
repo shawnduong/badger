@@ -6,7 +6,7 @@
 
   (title_block
     (title "Scanner")
-    (date "2024-02-06")
+    (date "2024-02-15")
     (rev "1")
     (company "shawnd.xyz")
     (comment 2 "enclosure for better scanning ability.")
@@ -257,7 +257,7 @@
   (symbol (lib_id "power:GND") (at 99.06 68.58 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 22e9434c-ab14-4c6d-b83c-5a702d11a9ab)
-    (property "Reference" "#PWR022" (at 99.06 74.93 0)
+    (property "Reference" "#PWR018" (at 99.06 74.93 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 99.06 73.66 0)
@@ -273,7 +273,7 @@
     (instances
       (project "b1"
         (path "/d6142fa5-2354-4512-9919-37616259c364/64a24a3a-7315-4dfd-86dd-98547cdfac2f"
-          (reference "#PWR022") (unit 1)
+          (reference "#PWR018") (unit 1)
         )
       )
     )
@@ -308,7 +308,7 @@
   (symbol (lib_id "power:GND") (at 83.82 46.99 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 4db403d8-0f21-4f66-8be0-18b2efcd131c)
-    (property "Reference" "#PWR012" (at 83.82 53.34 0)
+    (property "Reference" "#PWR017" (at 83.82 53.34 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 83.82 50.8 0)
@@ -324,7 +324,7 @@
     (instances
       (project "b1"
         (path "/d6142fa5-2354-4512-9919-37616259c364/64a24a3a-7315-4dfd-86dd-98547cdfac2f"
-          (reference "#PWR012") (unit 1)
+          (reference "#PWR017") (unit 1)
         )
       )
     )

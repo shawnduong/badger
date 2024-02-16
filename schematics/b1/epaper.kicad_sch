@@ -6,7 +6,7 @@
 
   (title_block
     (title "B1")
-    (date "2024-02-06")
+    (date "2024-02-15")
     (rev "1")
     (company "shawnd.xyz")
     (comment 3 "for text, images, or shapes.")
@@ -150,7 +150,7 @@
   (symbol (lib_id "power:GND") (at 104.14 76.2 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 82f2a8b6-86df-4e43-b30d-c6a1c17d39b4)
-    (property "Reference" "#PWR04" (at 104.14 82.55 0)
+    (property "Reference" "#PWR021" (at 104.14 82.55 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 104.14 81.28 0)
@@ -166,7 +166,7 @@
     (instances
       (project "b1"
         (path "/d6142fa5-2354-4512-9919-37616259c364/793d8791-3733-41a0-9e62-38f7f458300f"
-          (reference "#PWR04") (unit 1)
+          (reference "#PWR021") (unit 1)
         )
       )
     )
@@ -175,7 +175,7 @@
   (symbol (lib_id "custom:E-paper_Display") (at 104.14 58.42 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid e2c77f6c-c7a8-4877-9732-dd19225bcbe3)
-    (property "Reference" "U5" (at 106.68 49.53 0)
+    (property "Reference" "U6" (at 106.68 49.53 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "~" (at 104.14 50.8 0)
@@ -198,7 +198,7 @@
     (instances
       (project "b1"
         (path "/d6142fa5-2354-4512-9919-37616259c364/793d8791-3733-41a0-9e62-38f7f458300f"
-          (reference "U5") (unit 1)
+          (reference "U6") (unit 1)
         )
       )
     )
