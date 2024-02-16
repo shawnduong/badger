@@ -328,12 +328,8 @@
       ""
     ],
     [
-      "c54abc85-6b3c-456e-a8eb-1ec3c5617327",
-      "MCU Primary"
-    ],
-    [
       "a74f58bd-54a1-4bdf-85a5-bb477b4492d8",
-      "Wi-Fi and MCU Secondary"
+      "Wi-Fi and MCU"
     ],
     [
       "15951702-f191-4c4b-b68c-efdb5de618b5",
@@ -354,6 +350,10 @@
     [
       "793d8791-3733-41a0-9e62-38f7f458300f",
       "E-Paper"
+    ],
+    [
+      "c54abc85-6b3c-456e-a8eb-1ec3c5617327",
+      "MCU Primary"
     ]
   ],
   "text_variables": {}
