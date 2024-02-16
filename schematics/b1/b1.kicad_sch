@@ -17,14 +17,6 @@
   )
 
 
-  (text_box "Blocks have their own bypass capacitors,\nso those aren't shown at this level."
-    (at 237.49 156.21 0) (size 44.45 5.08)
-    (stroke (width 0) (type default))
-    (fill (type none))
-    (effects (font (size 1.27 1.27)) (justify left top))
-    (uuid b55c02f2-1d3d-4d4b-8d5b-d0d40c95bb2d)
-  )
-
   (sheet (at 300.99 73.66) (size 20.32 19.05) (fields_autoplaced)
     (stroke (width 0.1524) (type solid))
     (fill (color 0 0 0 0.0000))
@@ -196,7 +188,7 @@
     )
     (instances
       (project "b1"
-        (path "/d6142fa5-2354-4512-9919-37616259c364" (page "3"))
+        (path "/d6142fa5-2354-4512-9919-37616259c364" (page "2"))
       )
     )
   )
