@@ -11,8 +11,7 @@
 #define MISO 12
 
 #define SB_RCLK 2  // MCP23017
-
-#define TONE 2
+#define SB_TONE 2
 
 #define MCP23017_I2C_ADDRESS 0x20
 MCP23017 mcp23017 = MCP23017(MCP23017_I2C_ADDRESS);
@@ -59,12 +58,12 @@ void test_status_block()
 		delay(1000);
 	}
 
-	tone(TONE, 513);
+	tone(SB_TONE, 513);
 	delay(200);
-	tone(TONE, 1046);
+	tone(SB_TONE, 1046);
 	delay(300);
 
-	noTone(TONE);
+	noTone(SB_TONE);
 	delay(1500);
 }
 
