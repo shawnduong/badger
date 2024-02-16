@@ -6,10 +6,6 @@
 #include <MCP23017.h>  // MCP23017 by Bertrand Lemasle
 #include <SPI.h>
 
-#define SCLK 14
-#define MOSI 13
-#define MISO 12
-
 #define SB_RCLK 2  // MCP23017
 #define SB_TONE 2
 

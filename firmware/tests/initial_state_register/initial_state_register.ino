@@ -6,10 +6,6 @@
 #include <MCP23017.h>  // MCP23017 by Bertrand Lemasle
 #include <SPI.h>
 
-#define SCLK 14
-#define MOSI 13
-#define MISO 12
-
 #define ISR_CE 0  // MCP23017
 #define ISR_PL 1  // MCP23017
 
