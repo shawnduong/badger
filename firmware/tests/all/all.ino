@@ -44,6 +44,11 @@ void setup()
 
 	mcp23017.pinMode(SB_RCLK, OUTPUT);
 
+	pinMode(SB_TONE, OUTPUT);
+
+	mcp23017.digitalWrite(ISR_CE, HIGH);
+	mcp23017.digitalWrite(SB_RCLK, HIGH);
+
 	mcp23017.writeRegister(MCP23017Register::GPIO_A, 0x00);
 	mcp23017.writeRegister(MCP23017Register::GPIO_B, 0x00);
 }
@@ -101,6 +106,9 @@ void loop()
 
 	Serial.println("--> Status Block Test");
 	test_status_block();
+
+//	Serial.println("--> Scanner Test");
+//	test_scanner();
 
 	Serial.println("Test iteration complete.\n");
 	delay(2000);
