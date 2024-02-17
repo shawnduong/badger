@@ -6,11 +6,10 @@
 
 #include <MCP23017.h>  // MCP23017 by Bertrand Lemasle
 
-/* MCP23017 */
-#define ISR_CP 0
-#define ISR_PL 1
-#define ISR_CE 2
-#define ISR_Q7 8
+#define ISR_CP  0  // MCP23017
+#define ISR_PL  1  // MCP23017
+#define ISR_CE  2  // MCP23017
+#define ISR_Q7  8  // MCP23017
 
 #define MCP23017_I2C_ADDRESS 0x20
 MCP23017 mcp23017 = MCP23017(MCP23017_I2C_ADDRESS);

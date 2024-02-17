@@ -5,11 +5,10 @@
 #include <MCP23017.h>  // MCP23017 by Bertrand Lemasle
 #include <SPI.h>
 
-/* MCP23017 */
-#define ISR_CP 0
-#define ISR_PL 1
-#define ISR_CE 2
-#define ISR_Q7 8
+#define ISR_CP  0  // MCP23017
+#define ISR_PL  1  // MCP23017
+#define ISR_CE  2  // MCP23017
+#define ISR_Q7  8  // MCP23017
 
 #define SB_RCLK 3  // MCP23017
 #define SB_TONE 2
