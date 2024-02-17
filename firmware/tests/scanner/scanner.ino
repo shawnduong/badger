@@ -3,7 +3,7 @@
  */
 
 /* Comment this out to use the normal library. */
-//#define USE_FORK
+#define USE_FORK
 
 #include <SPI.h>
 
