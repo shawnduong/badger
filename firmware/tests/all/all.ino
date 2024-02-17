@@ -5,10 +5,13 @@
 #include <MCP23017.h>  // MCP23017 by Bertrand Lemasle
 #include <SPI.h>
 
-#define ISR_CE 0  // MCP23017
-#define ISR_PL 1  // MCP23017
+/* MCP23017 */
+#define ISR_CP 0
+#define ISR_PL 1
+#define ISR_CE 2
+#define ISR_Q7 8
 
-#define SB_RCLK 2  // MCP23017
+#define SB_RCLK 3  // MCP23017
 #define SB_TONE 2
 
 #define MCP23017_I2C_ADDRESS 0x20
@@ -35,19 +38,16 @@ void setup()
 	Serial.println("Initial State Register Test");
 
 	SPI.begin();
-
 	Wire.begin();
+
 	mcp23017.init();
 
-	mcp23017.pinMode(ISR_CE, OUTPUT);
+	mcp23017.pinMode(ISR_CP, OUTPUT);
 	mcp23017.pinMode(ISR_PL, OUTPUT);
+	mcp23017.pinMode(ISR_CE, OUTPUT);
+	mcp23017.pinMode(ISR_Q7, INPUT );
 
 	mcp23017.pinMode(SB_RCLK, OUTPUT);
-
-	pinMode(SB_TONE, OUTPUT);
-
-	mcp23017.digitalWrite(ISR_CE, HIGH);
-	mcp23017.digitalWrite(SB_RCLK, HIGH);
 
 	mcp23017.writeRegister(MCP23017Register::GPIO_A, 0x00);
 	mcp23017.writeRegister(MCP23017Register::GPIO_B, 0x00);
@@ -59,13 +59,23 @@ void test_isr()
 	uint8_t data = 0;
 
 	mcp23017.digitalWrite(ISR_CE, LOW);
-	delay(1000);
+	delayMicroseconds(100);
 
 	mcp23017.digitalWrite(ISR_PL, LOW);
+	delayMicroseconds(100);
 	mcp23017.digitalWrite(ISR_PL, HIGH);
 
-	data = SPI.transfer(0);
+	mcp23017.digitalWrite(ISR_CP, LOW);
+	delayMicroseconds(100);
 
+	for (uint8_t i = 0; i < 8; i++)
+	{
+		data |= mcp23017.digitalRead(ISR_Q7) << i;
+		mcp23017.digitalWrite(ISR_CP, HIGH);
+		delayMicroseconds(100);
+		mcp23017.digitalWrite(ISR_CP, LOW);
+		delayMicroseconds(100);
+	}
 	mcp23017.digitalWrite(ISR_CE, HIGH);
 
 	Serial.print("Value: ");
