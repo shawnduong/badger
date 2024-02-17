@@ -35,6 +35,19 @@ MFRC522::MFRC522(	byte chipSelectPin,		///< Arduino pin connected to MFRC522's S
 	_resetPowerDownPin = resetPowerDownPin;
 } // End constructor
 
+/**
+ * Constructor.
+ * Prepares the output pins.
+ */
+MFRC522::MFRC522(	MCP23017 *mcp23017,
+					byte chipSelectPin,		///< Arduino pin connected to MFRC522's SPI slave select input (Pin 24, NSS, active low)
+					byte resetPowerDownPin	///< Arduino pin connected to MFRC522's reset and power down input (Pin 6, NRSTPD, active low). If there is no connection from the CPU to NRSTPD, set this to UINT8_MAX. In this case, only soft reset will be used in PCD_Init().
+				) {
+	_mcp23017 = mcp23017;
+	_chipSelectPin = chipSelectPin;
+	_resetPowerDownPin = resetPowerDownPin;
+} // End constructor
+
 /////////////////////////////////////////////////////////////////////////////////////
 // Basic interface functions for communicating with the MFRC522
 /////////////////////////////////////////////////////////////////////////////////////
@@ -47,10 +60,10 @@ void MFRC522::PCD_WriteRegister(	PCD_Register reg,	///< The register to write to
 									byte value			///< The value to write.
 								) {
 	SPI.beginTransaction(SPISettings(MFRC522_SPICLOCK, MSBFIRST, SPI_MODE0));	// Set the settings to work with SPI bus
-	digitalWrite(_chipSelectPin, LOW);		// Select slave
+	_mcp23017->digitalWrite(_chipSelectPin, LOW);		// Select slave
 	SPI.transfer(reg);						// MSB == 0 is for writing. LSB is not used in address. Datasheet section 8.1.2.3.
 	SPI.transfer(value);
-	digitalWrite(_chipSelectPin, HIGH);		// Release slave again
+	_mcp23017->digitalWrite(_chipSelectPin, HIGH);		// Release slave again
 	SPI.endTransaction(); // Stop using the SPI bus
 } // End PCD_WriteRegister()
 
@@ -63,12 +76,12 @@ void MFRC522::PCD_WriteRegister(	PCD_Register reg,	///< The register to write to
 									byte *values		///< The values to write. Byte array.
 								) {
 	SPI.beginTransaction(SPISettings(MFRC522_SPICLOCK, MSBFIRST, SPI_MODE0));	// Set the settings to work with SPI bus
-	digitalWrite(_chipSelectPin, LOW);		// Select slave
+	_mcp23017->digitalWrite(_chipSelectPin, LOW);		// Select slave
 	SPI.transfer(reg);						// MSB == 0 is for writing. LSB is not used in address. Datasheet section 8.1.2.3.
 	for (byte index = 0; index < count; index++) {
 		SPI.transfer(values[index]);
 	}
-	digitalWrite(_chipSelectPin, HIGH);		// Release slave again
+	_mcp23017->digitalWrite(_chipSelectPin, HIGH);		// Release slave again
 	SPI.endTransaction(); // Stop using the SPI bus
 } // End PCD_WriteRegister()
 
@@ -80,10 +93,10 @@ byte MFRC522::PCD_ReadRegister(	PCD_Register reg	///< The register to read from.
 								) {
 	byte value;
 	SPI.beginTransaction(SPISettings(MFRC522_SPICLOCK, MSBFIRST, SPI_MODE0));	// Set the settings to work with SPI bus
-	digitalWrite(_chipSelectPin, LOW);			// Select slave
+	_mcp23017->digitalWrite(_chipSelectPin, LOW);			// Select slave
 	SPI.transfer(0x80 | reg);					// MSB == 1 is for reading. LSB is not used in address. Datasheet section 8.1.2.3.
 	value = SPI.transfer(0);					// Read the value back. Send 0 to stop reading.
-	digitalWrite(_chipSelectPin, HIGH);			// Release slave again
+	_mcp23017->digitalWrite(_chipSelectPin, HIGH);			// Release slave again
 	SPI.endTransaction(); // Stop using the SPI bus
 	return value;
 } // End PCD_ReadRegister()
@@ -104,7 +117,7 @@ void MFRC522::PCD_ReadRegister(	PCD_Register reg,	///< The register to read from
 	byte address = 0x80 | reg;				// MSB == 1 is for reading. LSB is not used in address. Datasheet section 8.1.2.3.
 	byte index = 0;							// Index in values array.
 	SPI.beginTransaction(SPISettings(MFRC522_SPICLOCK, MSBFIRST, SPI_MODE0));	// Set the settings to work with SPI bus
-	digitalWrite(_chipSelectPin, LOW);		// Select slave
+	_mcp23017->digitalWrite(_chipSelectPin, LOW);		// Select slave
 	count--;								// One read is performed outside of the loop
 	SPI.transfer(address);					// Tell MFRC522 which address we want to read
 	if (rxAlign) {		// Only update bit positions rxAlign..7 in values[0]
@@ -121,7 +134,7 @@ void MFRC522::PCD_ReadRegister(	PCD_Register reg,	///< The register to read from
 		index++;
 	}
 	values[index] = SPI.transfer(0);			// Read the final byte. Send 0 to stop reading.
-	digitalWrite(_chipSelectPin, HIGH);			// Release slave again
+	_mcp23017->digitalWrite(_chipSelectPin, HIGH);			// Release slave again
 	SPI.endTransaction(); // Stop using the SPI bus
 } // End PCD_ReadRegister()
 
@@ -199,19 +212,19 @@ void MFRC522::PCD_Init() {
 	bool hardReset = false;
 
 	// Set the chipSelectPin as digital output, do not select the slave yet
-	pinMode(_chipSelectPin, OUTPUT);
-	digitalWrite(_chipSelectPin, HIGH);
+	_mcp23017->pinMode(_chipSelectPin, OUTPUT);
+	_mcp23017->digitalWrite(_chipSelectPin, HIGH);
 	
 	// If a valid pin number has been set, pull device out of power down / reset state.
 	if (_resetPowerDownPin != UNUSED_PIN) {
 		// First set the resetPowerDownPin as digital input, to check the MFRC522 power down mode.
-		pinMode(_resetPowerDownPin, INPUT);
+		_mcp23017->pinMode(_resetPowerDownPin, INPUT);
 	
-		if (digitalRead(_resetPowerDownPin) == LOW) {	// The MFRC522 chip is in power down mode.
-			pinMode(_resetPowerDownPin, OUTPUT);		// Now set the resetPowerDownPin as digital output.
-			digitalWrite(_resetPowerDownPin, LOW);		// Make sure we have a clean LOW state.
+		if (_mcp23017->digitalRead(_resetPowerDownPin) == LOW) {	// The MFRC522 chip is in power down mode.
+			_mcp23017->pinMode(_resetPowerDownPin, OUTPUT);		// Now set the resetPowerDownPin as digital output.
+			_mcp23017->digitalWrite(_resetPowerDownPin, LOW);		// Make sure we have a clean LOW state.
 			delayMicroseconds(2);				// 8.8.1 Reset timing requirements says about 100ns. Let us be generous: 2μsl
-			digitalWrite(_resetPowerDownPin, HIGH);		// Exit power down mode. This triggers a hard reset.
+			_mcp23017->digitalWrite(_resetPowerDownPin, HIGH);		// Exit power down mode. This triggers a hard reset.
 			// Section 8.8.2 in the datasheet says the oscillator start-up time is the start up time of the crystal + 37,74μs. Let us be generous: 50ms.
 			delay(50);
 			hardReset = true;
@@ -1933,6 +1946,7 @@ bool MFRC522::PICC_IsNewCardPresent() {
 	PCD_WriteRegister(ModWidthReg, 0x26);
 
 	MFRC522::StatusCode result = PICC_RequestA(bufferATQA, &bufferSize);
+	Serial.println(result == STATUS_OK || result == STATUS_COLLISION);
 	return (result == STATUS_OK || result == STATUS_COLLISION);
 } // End PICC_IsNewCardPresent()
 
