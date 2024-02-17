@@ -2,39 +2,43 @@
  * See b1/Scanner schematic for more details.
  */
 
-//#include "mfrc522_mcp23017/include.h"
-#include <MFRC522.h>
-#include <MCP23017.h>  // MCP23017 by Bertrand Lemasle
+/* Comment this out to use the normal library. */
+//#define USE_FORK
+
 #include <SPI.h>
 
-#define SS  3  // MCP23017
-#define RST 4  // MCP23017
+#ifdef USE_FORK
+	#include "mfrc522_mcp23017/include.h"
+	#include <MCP23017.h>  // MCP23017 by Bertrand Lemasle
 
-#define MCP23017_I2C_ADDRESS 0x20
-MCP23017 mcp23017 = MCP23017(MCP23017_I2C_ADDRESS);
+	#define MCP23017_I2C_ADDRESS 0x20
+	MCP23017 mcp23017 = MCP23017(MCP23017_I2C_ADDRESS);
 
-//MFRC522 mfrc522(&mcp23017, SS, RST);
-MFRC522 mfrc522(15,2);
+	#define SS   4  // MCP23017
+	#define RST  5  // MCP23017
+	MFRC522 mfrc522(&mcp23017, SS, RST);
+#else
+	#include <MFRC522.h>
+
+	#define SS  15
+	#define RST  2
+	MFRC522 mfrc522(15,2);
+#endif
 
 void setup()
 {
 	Serial.begin(9600);
 
-	Wire.begin();
 	SPI.begin();
 
-	/* Using pin 0 for the ISR's CE and 2 for SB's CE. Set high so they don't
-	   disturb this test. */
-	mcp23017.pinMode(0, OUTPUT);
-	mcp23017.pinMode(2, OUTPUT);
-	mcp23017.digitalWrite(0, HIGH);
-	mcp23017.digitalWrite(2, HIGH);
+	#ifdef USE_FORK
+		Wire.begin();
+		mcp23017.init();
+		mcp23017.writeRegister(MCP23017Register::GPIO_A, 0x00);
+		mcp23017.writeRegister(MCP23017Register::GPIO_B, 0x00);
+	#endif
 
-	mcp23017.init();
 	mfrc522.PCD_Init();
-
-	mcp23017.writeRegister(MCP23017Register::GPIO_A, 0x00);
-	mcp23017.writeRegister(MCP23017Register::GPIO_B, 0x00);
 }
 
 /* Scanner test. */
