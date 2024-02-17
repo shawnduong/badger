@@ -219,6 +219,7 @@ void MFRC522::PCD_Init() {
 	if (_resetPowerDownPin != UNUSED_PIN) {
 		// First set the resetPowerDownPin as digital input, to check the MFRC522 power down mode.
 		_mcp23017->pinMode(_resetPowerDownPin, INPUT);
+		delayMicroseconds(100);
 	
 		if (_mcp23017->digitalRead(_resetPowerDownPin) == LOW) {	// The MFRC522 chip is in power down mode.
 			_mcp23017->pinMode(_resetPowerDownPin, OUTPUT);		// Now set the resetPowerDownPin as digital output.
@@ -1946,7 +1947,6 @@ bool MFRC522::PICC_IsNewCardPresent() {
 	PCD_WriteRegister(ModWidthReg, 0x26);
 
 	MFRC522::StatusCode result = PICC_RequestA(bufferATQA, &bufferSize);
-	Serial.println(result == STATUS_OK || result == STATUS_COLLISION);
 	return (result == STATUS_OK || result == STATUS_COLLISION);
 } // End PICC_IsNewCardPresent()
 
