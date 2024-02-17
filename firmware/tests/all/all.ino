@@ -2,6 +2,7 @@
  * See the b1 schematic for more details.
  */
 
+#include "mfrc522_mcp23017/include.h"
 #include <MCP23017.h>  // MCP23017 by Bertrand Lemasle
 #include <SPI.h>
 
@@ -13,8 +14,13 @@
 #define SB_RCLK 3  // MCP23017
 #define SB_TONE 2
 
+#define ID_SS   4  // MCP23017
+#define ID_RST  5  // MCP23017
+
 #define MCP23017_I2C_ADDRESS 0x20
 MCP23017 mcp23017 = MCP23017(MCP23017_I2C_ADDRESS);
+
+MFRC522 mfrc522(&mcp23017, ID_SS, ID_RST);
 
 /* Status block tests. */
 byte tests[] = {
@@ -40,6 +46,7 @@ void setup()
 	Wire.begin();
 
 	mcp23017.init();
+	mfrc522.PCD_Init();
 
 	mcp23017.pinMode(ISR_CP, OUTPUT);
 	mcp23017.pinMode(ISR_PL, OUTPUT);
@@ -50,6 +57,11 @@ void setup()
 
 	mcp23017.writeRegister(MCP23017Register::GPIO_A, 0x00);
 	mcp23017.writeRegister(MCP23017Register::GPIO_B, 0x00);
+
+	/* Default CE line values. */
+	mcp23017.digitalWrite(ISR_CE , HIGH);
+	mcp23017.digitalWrite(SB_RCLK, HIGH);
+	mcp23017.digitalWrite(ID_SS  , HIGH);
 }
 
 /* ISR test. */
@@ -104,6 +116,18 @@ void test_status_block()
 
 	noTone(SB_TONE);
 	delay(1500);
+
+	Serial.println("Done.");
+}
+
+/* Scanner test. */
+void test_scanner()
+{
+	Serial.println("Please scan a card.");
+	while (!(mfrc522.PICC_IsNewCardPresent() && mfrc522.PICC_ReadCardSerial()))
+		delay(100);
+
+	mfrc522.PICC_DumpToSerial(&(mfrc522.uid));
 }
 
 void loop()
@@ -116,8 +140,8 @@ void loop()
 	Serial.println("--> Status Block Test");
 	test_status_block();
 
-//	Serial.println("--> Scanner Test");
-//	test_scanner();
+	Serial.println("--> Scanner Test");
+	test_scanner();
 
 	Serial.println("Test iteration complete.\n");
 	delay(2000);
