@@ -14,15 +14,15 @@
 	#define MCP23017_I2C_ADDRESS 0x20
 	MCP23017 mcp23017 = MCP23017(MCP23017_I2C_ADDRESS);
 
-	#define SS   4  // MCP23017
-	#define RST  5  // MCP23017
-	MFRC522 mfrc522(&mcp23017, SS, RST);
+	#define ID_SS   4  // MCP23017
+	#define ID_RST  5  // MCP23017
+	MFRC522 mfrc522(&mcp23017, ID_SS, ID_RST);
 #else
 	#include <MFRC522.h>
 
-	#define SS  15
-	#define RST  2
-	MFRC522 mfrc522(15,2);
+	#define ID_SS   15
+	#define ID_RST   2
+	MFRC522 mfrc522(SS, RST);
 #endif
 
 void setup()
