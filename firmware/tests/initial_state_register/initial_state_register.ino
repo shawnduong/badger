@@ -1,13 +1,17 @@
 /* Initial State Register
  * See b1/Initial State Register schematic for more details.
- * Uses the MCP23017's GPA0 as ~CE and GPA1 as ~PL.
+ * Uses the MCP23017's GPA0 as ~CE and GPA1 as ~PL. GPB0 is used to read in the
+ * bits from the ISR.
  */
 
 #include <MCP23017.h>  // MCP23017 by Bertrand Lemasle
 #include <SPI.h>
 
+#define SCLK 14
+
 #define ISR_CE 0  // MCP23017
 #define ISR_PL 1  // MCP23017
+#define ISR_Q7 8  // MCP23017
 
 #define MCP23017_I2C_ADDRESS 0x20
 MCP23017 mcp23017 = MCP23017(MCP23017_I2C_ADDRESS);
@@ -22,8 +26,11 @@ void setup()
 	Wire.begin();
 	mcp23017.init();
 
+	pinMode(SCLK, OUTPUT);
+
 	mcp23017.pinMode(ISR_CE, OUTPUT);
 	mcp23017.pinMode(ISR_PL, OUTPUT);
+	mcp23017.pinMode(ISR_Q7, INPUT );
 
 	mcp23017.writeRegister(MCP23017Register::GPIO_A, 0x00);
 	mcp23017.writeRegister(MCP23017Register::GPIO_B, 0x00);
@@ -35,13 +42,23 @@ void test_isr()
 	uint8_t data = 0;
 
 	mcp23017.digitalWrite(ISR_CE, LOW);
-	delay(1000);
+	delayMicroseconds(100);
 
 	mcp23017.digitalWrite(ISR_PL, LOW);
+	delayMicroseconds(100);
 	mcp23017.digitalWrite(ISR_PL, HIGH);
 
-	data = SPI.transfer(0);
+	digitalWrite(SCLK, LOW);
+	delayMicroseconds(100);
 
+	for (uint8_t i = 0; i < 8; i++)
+	{
+		data |= mcp23017.digitalRead(ISR_Q7) << i;
+		digitalWrite(SCLK, HIGH);
+		delayMicroseconds(100);
+		digitalWrite(SCLK, LOW);
+		delayMicroseconds(100);
+	}
 	mcp23017.digitalWrite(ISR_CE, HIGH);
 
 	Serial.print("Value: ");
