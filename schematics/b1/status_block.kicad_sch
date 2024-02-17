@@ -621,6 +621,7 @@
     (uuid e3ffb0a2-0690-4f64-ac01-7ee2a9989b5e)
   )
 
+  (no_connect (at 82.55 92.71) (uuid 159b280c-a4e4-4fcd-bdaf-a5c6fdb9f431))
   (no_connect (at 88.9 64.77) (uuid 3ff359d7-aac2-4dbe-8f6b-018531b041bc))
 
   (wire (pts (xy 78.74 25.4) (xy 59.69 25.4))
@@ -726,10 +727,6 @@
   (wire (pts (xy 78.74 24.13) (xy 78.74 25.4))
     (stroke (width 0) (type default))
     (uuid 83b93606-09d0-432e-ab3b-92a8619821d2)
-  )
-  (wire (pts (xy 82.55 92.71) (xy 83.82 92.71))
-    (stroke (width 0) (type default))
-    (uuid 859d4700-3df4-4cde-98cb-8b25bca229cd)
   )
   (wire (pts (xy 102.87 36.83) (xy 102.87 46.99))
     (stroke (width 0) (type default))
@@ -863,10 +860,6 @@
     (stroke (width 0) (type default))
     (uuid f1c381bb-812a-4a44-ad0d-1317263ccd13)
   )
-  (wire (pts (xy 83.82 92.71) (xy 83.82 93.98))
-    (stroke (width 0) (type default))
-    (uuid f3f07156-25dc-47a3-a2ff-0a57c58ecad1)
-  )
   (wire (pts (xy 97.79 21.59) (xy 115.57 21.59))
     (stroke (width 0) (type default))
     (uuid f6dccb4a-af61-4f59-b7f0-ed09c8387583)
@@ -961,31 +954,6 @@
       (project "b1"
         (path "/d6142fa5-2354-4512-9919-37616259c364/fdcf7d10-3243-4165-8310-96b25d91ab12"
           (reference "R16") (unit 1)
-        )
-      )
-    )
-  )
-
-  (symbol (lib_id "power:GND") (at 83.82 93.98 0) (unit 1)
-    (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
-    (uuid 05dabd69-26ec-4881-af11-dffc0209b81a)
-    (property "Reference" "#PWR012" (at 83.82 100.33 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Value" "GND" (at 83.82 99.06 0)
-      (effects (font (size 1.27 1.27)))
-    )
-    (property "Footprint" "" (at 83.82 93.98 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "" (at 83.82 93.98 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (pin "1" (uuid 461fa753-b552-43f4-82c2-3fabb23eeb16))
-    (instances
-      (project "b1"
-        (path "/d6142fa5-2354-4512-9919-37616259c364/fdcf7d10-3243-4165-8310-96b25d91ab12"
-          (reference "#PWR012") (unit 1)
         )
       )
     )
