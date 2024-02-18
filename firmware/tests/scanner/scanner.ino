@@ -14,15 +14,15 @@
 	#define MCP23017_I2C_ADDRESS 0x20
 	MCP23017 mcp23017 = MCP23017(MCP23017_I2C_ADDRESS);
 
-	#define ID_SS   4  // MCP23017
-	#define ID_RST  5  // MCP23017
-	MFRC522 mfrc522(&mcp23017, ID_SS, ID_RST);
+	#define RFID_SS   4  // MCP23017
+	#define RFID_RST  5  // MCP23017
+	MFRC522 mfrc522(&mcp23017, RFID_SS, RFID_RST);
 #else
 	#include <MFRC522.h>
 
-	#define ID_SS   15
-	#define ID_RST   2
-	MFRC522 mfrc522(SS, RST);
+	#define RFID_SS   15
+	#define RFID_RST   2
+	MFRC522 mfrc522(RFID_SS, RFID_RST);
 #endif
 
 void setup()

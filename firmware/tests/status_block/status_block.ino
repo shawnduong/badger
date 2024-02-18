@@ -6,8 +6,8 @@
 #include <MCP23017.h>  // MCP23017 by Bertrand Lemasle
 #include <SPI.h>
 
-#define SB_RCLK 3  // MCP23017
-#define SB_TONE 2
+#define SB_RCLK  3  // MCP23017
+#define SB_TONE  2
 
 #define MCP23017_I2C_ADDRESS 0x20
 MCP23017 mcp23017 = MCP23017(MCP23017_I2C_ADDRESS);

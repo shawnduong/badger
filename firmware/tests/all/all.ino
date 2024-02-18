@@ -11,16 +11,16 @@
 #define BID_CE  2  // MCP23017
 #define BID_Q7  8  // MCP23017
 
-#define SB_RCLK 3  // MCP23017
-#define SB_TONE 2
+#define SB_RCLK  3  // MCP23017
+#define SB_TONE  2
 
-#define ID_SS   4  // MCP23017
-#define ID_RST  5  // MCP23017
+#define RFID_SS   4  // MCP23017
+#define RFID_RST  5  // MCP23017
 
 #define MCP23017_I2C_ADDRESS 0x20
 MCP23017 mcp23017 = MCP23017(MCP23017_I2C_ADDRESS);
 
-MFRC522 mfrc522(&mcp23017, ID_SS, ID_RST);
+MFRC522 mfrc522(&mcp23017, RFID_SS, RFID_RST);
 
 /* Status block tests. */
 byte tests[] = {
@@ -61,7 +61,7 @@ void setup()
 	/* Default CE line values. */
 	mcp23017.digitalWrite(BID_CE , HIGH);
 	mcp23017.digitalWrite(SB_RCLK, HIGH);
-	mcp23017.digitalWrite(ID_SS  , HIGH);
+	mcp23017.digitalWrite(RFID_SS, HIGH);
 }
 
 /* BID Register test. */
