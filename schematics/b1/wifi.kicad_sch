@@ -1548,7 +1548,7 @@
     (property "Reference" "C1" (at 85.09 60.071 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Value" "1 mF" (at 85.09 62.611 0)
+    (property "Value" "1m" (at 85.09 62.611 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Footprint" "" (at 82.2452 66.04 0)
