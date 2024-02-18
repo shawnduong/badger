@@ -9,7 +9,8 @@
     (date "2024-02-15")
     (rev "1")
     (company "shawnd.xyz")
-    (comment 3 "Wi-Fi networking as well as handling the e-paper display.")
+    (comment 2 "and support more peripherals without conflict.")
+    (comment 3 "Wi-Fi networking. It's connected to an MCP23017 in order to expand the GPIO of the MCU")
     (comment 4 "The ESP-12F has an ESP8266 microprocessor and onboard antenna, and handles all")
   )
 
