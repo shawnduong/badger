@@ -958,13 +958,13 @@
       (effects (font (size 1.27 1.27)) (justify right))
       (uuid 21b6a975-27bd-416c-ba93-207670d2915e)
     )
-    (pin "VCC" input (at 195.58 35.56 180)
-      (effects (font (size 1.27 1.27)) (justify left))
-      (uuid 6470cbdd-1e5a-4ed1-a3c0-2068217b8cba)
-    )
     (pin "~{PL}" input (at 195.58 40.64 180)
       (effects (font (size 1.27 1.27)) (justify left))
       (uuid 2a8f7e58-ae72-40ec-91a9-e62a70e11ad2)
+    )
+    (pin "3V3" input (at 195.58 35.56 180)
+      (effects (font (size 1.27 1.27)) (justify left))
+      (uuid 8d600b72-2091-4bba-be62-9c5a0fb1a536)
     )
     (instances
       (project "b1"
