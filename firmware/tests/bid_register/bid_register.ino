@@ -1,5 +1,5 @@
 /* BID Register
- * See b1/Initial State Register schematic for more details.
+ * See b1/BID Register schematic for more details.
  * Uses the MCP23017's GPA0 as ~CE and GPA1 as ~PL. GPB0 is used to read in the
  * bits from the ISR.
  */
