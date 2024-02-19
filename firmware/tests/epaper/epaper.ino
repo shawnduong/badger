@@ -15,7 +15,7 @@
 MCP23017 mcp23017 = MCP23017(MCP23017_I2C_ADDRESS);
 
 //GxIO_Class io(mcp23017, SPI, EPA_CS, EPA_DC, EPA_RST);
-GxIO_Class io(SPI, EPA_CS, EPA_DC, EPA_RST);
+GxIO_Class io(&mcp23017, SPI, EPA_CS, EPA_DC, EPA_RST);
 GxEPD_Class display(io, EPA_RST, EPA_BUS);
 
 uint8_t epaperDisplayRow = 0;

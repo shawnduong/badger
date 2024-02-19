@@ -10,10 +10,11 @@
 #define transfer16 transfer
 #endif
 
-GxIO_SPI::GxIO_SPI(SPIClass& spi, int8_t cs, int8_t dc, int8_t rst, int8_t bl) :
+GxIO_SPI::GxIO_SPI(MCP23017 *mcp23017, SPIClass& spi, int8_t cs, int8_t dc, int8_t rst, int8_t bl) :
   _spi(spi), _spi_settings(4000000, MSBFIRST, SPI_MODE0),
   _cs(cs), _dc(dc), _rst(rst), _bl(bl)
 {
+  _mcp23017 = mcp23017;
 }
 
 void GxIO_SPI::reset()

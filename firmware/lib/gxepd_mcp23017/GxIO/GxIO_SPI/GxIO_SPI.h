@@ -11,7 +11,7 @@
 class GxIO_SPI : public GxIO
 {
   public:
-    GxIO_SPI(SPIClass& spi, int8_t cs, int8_t dc, int8_t rst = -1, int8_t bl = -1);
+    GxIO_SPI(MCP23017 *mcp23017, SPIClass& spi, int8_t cs, int8_t dc, int8_t rst = -1, int8_t bl = -1);
     const char* name = "GxIO_SPI";
     void reset();
     void init();
@@ -35,6 +35,7 @@ class GxIO_SPI : public GxIO
     void selectRegister(bool rs_low); // for generalized readData & writeData (RA8875)
     void setBackLight(bool lit);
   protected:
+    MCP23017 *_mcp23017;
     SPIClass& _spi;
     SPISettings _spi_settings;
     int8_t _cs, _dc, _rst, _bl; // Control lines
