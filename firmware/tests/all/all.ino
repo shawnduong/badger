@@ -2,6 +2,7 @@
  * See the b1 schematic for more details.
  */
 
+#include "lora_mcp23017/include.h"
 #include "mfrc522_mcp23017/include.h"
 #include <MCP23017.h>  // MCP23017 by Bertrand Lemasle
 #include <SPI.h>
@@ -16,6 +17,10 @@
 
 #define RFID_SS   4  // MCP23017
 #define RFID_RST  5  // MCP23017
+
+#define LORA_NSS   6  // MCP23017
+#define LORA_RST   7  // MCP23017
+#define LORA_DIO0  9  // MCP23017
 
 #define MCP23017_I2C_ADDRESS 0x20
 MCP23017 mcp23017 = MCP23017(MCP23017_I2C_ADDRESS);
@@ -59,9 +64,13 @@ void setup()
 	mcp23017.writeRegister(MCP23017Register::GPIO_B, 0x00);
 
 	/* Default CE line values. */
-	mcp23017.digitalWrite(BID_CE , HIGH);
-	mcp23017.digitalWrite(SB_RCLK, HIGH);
-	mcp23017.digitalWrite(RFID_SS, HIGH);
+	mcp23017.digitalWrite(BID_CE  , HIGH);
+	mcp23017.digitalWrite(SB_RCLK , HIGH);
+	mcp23017.digitalWrite(RFID_SS , HIGH);
+	mcp23017.digitalWrite(LORA_NSS, HIGH);
+
+	LoRa.setPins(&mcp23017, LORA_NSS, LORA_RST, LORA_DIO0);
+	LoRa.begin(433e6);
 }
 
 /* BID Register test. */
@@ -129,6 +138,29 @@ void test_scanner()
 	mfrc522.PICC_DumpToSerial(&(mfrc522.uid));
 }
 
+/* LoRa Tx test. */
+void test_lora_tx()
+{
+	Serial.print("Sending packet... ");
+	LoRa.beginPacket();
+	LoRa.print(F("Hello world!"));
+	LoRa.endPacket();
+	Serial.println("done.");
+}
+
+/* LoRa Rx test. */
+void test_lora_rx()
+{
+	Serial.print("Waiting to receive packet... ");
+	while (!LoRa.parsePacket())  delay(1);
+	Serial.println("done.");
+
+	Serial.print("Received packet '");
+	while (LoRa.available())  Serial.print((char)LoRa.read());
+	Serial.print("' with RSSI ");
+	Serial.println(LoRa.packetRssi());
+}
+
 void loop()
 {
 	Serial.println("\nStarting a test iteration.\n");
@@ -141,6 +173,12 @@ void loop()
 
 	Serial.println("--> Scanner Test");
 	test_scanner();
+
+	Serial.println("--> LoRa Tx Test");
+	test_lora_tx();
+
+	Serial.println("--> LoRa Rx Test");
+	test_lora_rx();
 
 	Serial.println("Test iteration complete.\n");
 	delay(2000);
