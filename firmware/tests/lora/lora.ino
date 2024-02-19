@@ -6,8 +6,8 @@
 #include "lora_mcp23017/include.h"
 #include <MCP23017.h>  // MCP23017 by Bertrand Lemasle
 
-#define TEST_TX
-//#define TEST_RX
+//#define TEST_TX
+#define TEST_RX
 
 #define LORA_NSS   6  // MCP23017
 #define LORA_RST   7  // MCP23017
@@ -62,5 +62,8 @@ void loop()
 		test_lora_rx();
 	#endif
 	Serial.println("Test iteration complete.\n");
-	delay(10000);
+
+	#ifdef TEST_TX
+		delay(10000);
+	#endif
 }
