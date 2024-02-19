@@ -44,7 +44,9 @@ void test_lora_tx()
 /* LoRa Rx test. */
 void test_lora_rx()
 {
-	while (!LoRa.parsePacket())  delay(100);
+	Serial.print("Waiting to receive packet... ");
+	while (!LoRa.parsePacket())  delay(1);
+	Serial.println("done.");
 
 	Serial.print("Received packet '");
 	while (LoRa.available())  Serial.print((char)LoRa.read());
@@ -62,8 +64,4 @@ void loop()
 		test_lora_rx();
 	#endif
 	Serial.println("Test iteration complete.\n");
-
-	#ifdef TEST_TX
-		delay(10000);
-	#endif
 }
