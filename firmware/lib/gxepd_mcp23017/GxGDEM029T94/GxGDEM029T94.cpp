@@ -82,10 +82,10 @@ void GxGDEM029T94::init(uint32_t serial_diag_bitrate)
   IO.setFrequency(4000000); // 4MHz
   if (_rst >= 0)
   {
-    digitalWrite(_rst, HIGH);
-    pinMode(_rst, OUTPUT);
+    _mcp23017->digitalWrite(_rst, HIGH);
+    _mcp23017->pinMode(_rst, OUTPUT);
   }
-  if (_busy >= 0) pinMode(_busy, INPUT);
+  if (_busy >= 0) _mcp23017->pinMode(_busy, INPUT);
   fillScreen(GxEPD_WHITE);
   _current_page = -1;
   _using_partial_mode = false;
@@ -384,7 +384,7 @@ void GxGDEM029T94::powerDown()
 
 void GxGDEM029T94::_writeCommand(uint8_t command)
 {
-  if ((_busy >= 0) && digitalRead(_busy))
+  if ((_busy >= 0) && _mcp23017->digitalRead(_busy))
   {
     String str = String("command 0x") + String(command, HEX);
     _waitWhileBusy(str.c_str(), 100); // needed?
@@ -399,7 +399,7 @@ void GxGDEM029T94::_writeData(uint8_t data)
 
 void GxGDEM029T94::_writeCommandData(const uint8_t* pCommandData, uint8_t datalen)
 {
-  if ((_busy >= 0) && digitalRead(_busy))
+  if ((_busy >= 0) && _mcp23017->digitalRead(_busy))
   {
     String str = String("command 0x") + String(pCommandData[0], HEX);
     _waitWhileBusy(str.c_str(), 100); // needed?
@@ -421,7 +421,7 @@ void GxGDEM029T94::_waitWhileBusy(const char* comment, uint16_t busy_time)
     unsigned long start = micros();
     while (1)
     {
-      if (!digitalRead(_busy)) break;
+      if (!_mcp23017->digitalRead(_busy)) break;
       delay(1);
       if (micros() - start > 10000000)
       {
