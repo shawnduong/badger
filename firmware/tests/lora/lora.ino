@@ -3,8 +3,11 @@
  * Uses the MCP23017's GPA6 as NSS, GPA7 as RESET, and GPB1 as DIO0.
  */
 
-#include <LoRa.h>
+#include "lora_mcp23017/include.h"
 #include <MCP23017.h>  // MCP23017 by Bertrand Lemasle
+
+#define TEST_TX
+//#define TEST_RX
 
 #define LORA_NSS   6  // MCP23017
 #define LORA_RST   7  // MCP23017
@@ -24,8 +27,7 @@ void setup()
 	mcp23017.writeRegister(MCP23017Register::GPIO_A, 0x00);
 	mcp23017.writeRegister(MCP23017Register::GPIO_B, 0x00);
 
-//	LoRa.setPins(&mcp23017, LORA_NSS, LORA_RST, LORA_DIO0);
-	LoRa.setPins(LORA_NSS, LORA_RST, LORA_DIO0);
+	LoRa.setPins(&mcp23017, LORA_NSS, LORA_RST, LORA_DIO0);
 	LoRa.begin(433e6);
 }
 
@@ -55,6 +57,7 @@ void loop()
 	Serial.println("\nStarting a test iteration.\n");
 	#ifdef TEST_TX
 		test_lora_tx();
+		delay(8000);
 	#endif
 	#ifdef TEST_RX
 		test_lora_rx();

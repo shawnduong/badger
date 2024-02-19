@@ -92,7 +92,7 @@ public:
 
   byte random();
 
-  void setPins(int ss = LORA_DEFAULT_SS_PIN, int reset = LORA_DEFAULT_RESET_PIN, int dio0 = LORA_DEFAULT_DIO0_PIN);
+  void setPins(MCP23017 *mcp23017, int ss = LORA_DEFAULT_SS_PIN, int reset = LORA_DEFAULT_RESET_PIN, int dio0 = LORA_DEFAULT_DIO0_PIN);
   void setSPI(SPIClass& spi);
   void setSPIFrequency(uint32_t frequency);
 
@@ -118,6 +118,7 @@ private:
   static void onDio0Rise();
 
 private:
+  MCP23017 *_mcp23017;
   SPISettings _spiSettings;
   SPIClass* _spi;
   int _ss;

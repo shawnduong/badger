@@ -1,7 +1,7 @@
 // Copyright (c) Sandeep Mistry. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-#include <LoRa.h>
+#include "LoRa.h"
 
 // registers
 #define REG_FIFO                 0x00
@@ -89,34 +89,34 @@ LoRaClass::LoRaClass() :
 int LoRaClass::begin(long frequency)
 {
 #if defined(ARDUINO_SAMD_MKRWAN1300) || defined(ARDUINO_SAMD_MKRWAN1310)
-  pinMode(LORA_IRQ_DUMB, OUTPUT);
-  digitalWrite(LORA_IRQ_DUMB, LOW);
+  _mcp23017->pinMode(LORA_IRQ_DUMB, OUTPUT);
+  _mcp23017->digitalWrite(LORA_IRQ_DUMB, LOW);
 
   // Hardware reset
-  pinMode(LORA_BOOT0, OUTPUT);
-  digitalWrite(LORA_BOOT0, LOW);
+  _mcp23017->pinMode(LORA_BOOT0, OUTPUT);
+  _mcp23017->digitalWrite(LORA_BOOT0, LOW);
 
-  pinMode(LORA_RESET, OUTPUT);
-  digitalWrite(LORA_RESET, HIGH);
+  _mcp23017->pinMode(LORA_RESET, OUTPUT);
+  _mcp23017->digitalWrite(LORA_RESET, HIGH);
   delay(200);
-  digitalWrite(LORA_RESET, LOW);
+  _mcp23017->digitalWrite(LORA_RESET, LOW);
   delay(200);
-  digitalWrite(LORA_RESET, HIGH);
+  _mcp23017->digitalWrite(LORA_RESET, HIGH);
   delay(50);
 #endif
 
   // setup pins
-  pinMode(_ss, OUTPUT);
+  _mcp23017->pinMode(_ss, OUTPUT);
   // set SS high
-  digitalWrite(_ss, HIGH);
+  _mcp23017->digitalWrite(_ss, HIGH);
 
   if (_reset != -1) {
-    pinMode(_reset, OUTPUT);
+    _mcp23017->pinMode(_reset, OUTPUT);
 
     // perform reset
-    digitalWrite(_reset, LOW);
+    _mcp23017->digitalWrite(_reset, LOW);
     delay(10);
-    digitalWrite(_reset, HIGH);
+    _mcp23017->digitalWrite(_reset, HIGH);
     delay(10);
   }
 
@@ -187,7 +187,6 @@ int LoRaClass::beginPacket(int implicitHeader)
 
 int LoRaClass::endPacket(bool async)
 {
-  
   if ((async) && (_onTxDone))
       writeRegister(REG_DIO_MAPPING_1, 0x40); // DIO0 => TXDONE
 
@@ -368,7 +367,7 @@ void LoRaClass::onReceive(void(*callback)(int))
   _onReceive = callback;
 
   if (callback) {
-    pinMode(_dio0, INPUT);
+    _mcp23017->pinMode(_dio0, INPUT);
 #ifdef SPI_HAS_NOTUSINGINTERRUPT
     SPI.usingInterrupt(digitalPinToInterrupt(_dio0));
 #endif
@@ -386,7 +385,7 @@ void LoRaClass::onCadDone(void(*callback)(boolean))
   _onCadDone = callback;
 
   if (callback) {
-    pinMode(_dio0, INPUT);
+    _mcp23017->pinMode(_dio0, INPUT);
 #ifdef SPI_HAS_NOTUSINGINTERRUPT
     SPI.usingInterrupt(digitalPinToInterrupt(_dio0));
 #endif
@@ -404,7 +403,7 @@ void LoRaClass::onTxDone(void(*callback)())
   _onTxDone = callback;
 
   if (callback) {
-    pinMode(_dio0, INPUT);
+    _mcp23017->pinMode(_dio0, INPUT);
 #ifdef SPI_HAS_NOTUSINGINTERRUPT
     SPI.usingInterrupt(digitalPinToInterrupt(_dio0));
 #endif
@@ -693,8 +692,9 @@ byte LoRaClass::random()
   return readRegister(REG_RSSI_WIDEBAND);
 }
 
-void LoRaClass::setPins(int ss, int reset, int dio0)
+void LoRaClass::setPins(MCP23017 *mcp23017, int ss, int reset, int dio0)
 {
+  _mcp23017 = mcp23017;
   _ss = ss;
   _reset = reset;
   _dio0 = dio0;
@@ -783,10 +783,11 @@ uint8_t LoRaClass::singleTransfer(uint8_t address, uint8_t value)
   uint8_t response;
 
   _spi->beginTransaction(_spiSettings);
-  digitalWrite(_ss, LOW);
+  _mcp23017->digitalWrite(_ss, LOW);
+  delayMicroseconds(100);
   _spi->transfer(address);
   response = _spi->transfer(value);
-  digitalWrite(_ss, HIGH);
+  _mcp23017->digitalWrite(_ss, HIGH);
   _spi->endTransaction();
 
   return response;
