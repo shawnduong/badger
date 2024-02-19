@@ -34,11 +34,11 @@ void setup()
 /* LoRa Tx test. */
 void test_lora_tx()
 {
-	Serial.println("Sending packet... ");
+	Serial.print("Sending packet... ");
 	LoRa.beginPacket();
-	LoRa.println(F("Hello world!"));
+	LoRa.print(F("Hello world!"));
 	LoRa.endPacket();
-	Serial.print("done.");
+	Serial.println("done.");
 }
 
 /* LoRa Rx test. */
@@ -57,11 +57,10 @@ void loop()
 	Serial.println("\nStarting a test iteration.\n");
 	#ifdef TEST_TX
 		test_lora_tx();
-		delay(8000);
 	#endif
 	#ifdef TEST_RX
 		test_lora_rx();
 	#endif
 	Serial.println("Test iteration complete.\n");
-	delay(2000);
+	delay(10000);
 }
