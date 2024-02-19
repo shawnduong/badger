@@ -37,7 +37,7 @@ class GxGDEM029T94 : public GxEPD
 {
   public:
 #if defined(ESP8266)
-    GxGDEM029T94(GxIO& io, int8_t rst = 2, int8_t busy = 4);
+    GxGDEM029T94(MCP23017 *mcp23017, GxIO& io, int8_t rst = 2, int8_t busy = 4);
 #else
     GxGDEM029T94(GxIO& io, int8_t rst = 9, int8_t busy = 7);
 #endif
@@ -99,6 +99,7 @@ class GxGDEM029T94 : public GxEPD
     uint8_t _buffer[GxGDEM029T94_BUFFER_SIZE];
 #endif
   private:
+    MCP23017 *_mcp23017;
     GxIO& IO;
     int16_t _current_page;
     bool _using_partial_mode;

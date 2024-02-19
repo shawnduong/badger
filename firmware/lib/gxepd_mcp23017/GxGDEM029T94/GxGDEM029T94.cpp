@@ -25,11 +25,12 @@
 // Partial Update Delay, may have an influence on degradation
 #define GxGDEM029T94_PU_DELAY 300
 
-GxGDEM029T94::GxGDEM029T94(GxIO& io, int8_t rst, int8_t busy) :
+GxGDEM029T94::GxGDEM029T94(MCP23017 *mcp23017, GxIO& io, int8_t rst, int8_t busy) :
   GxEPD(GxGDEM029T94_WIDTH, GxGDEM029T94_HEIGHT), IO(io),
   _current_page(-1), _using_partial_mode(false), _diag_enabled(false), _power_is_on(false),
   _rst(rst), _busy(busy)
 {
+  _mcp23017 = mcp23017;
 }
 
 void GxGDEM029T94::drawPixel(int16_t x, int16_t y, uint16_t color)
