@@ -64,4 +64,5 @@ void loop()
 		test_lora_rx();
 	#endif
 	Serial.println("Test iteration complete.\n");
+	delay(2000);
 }
