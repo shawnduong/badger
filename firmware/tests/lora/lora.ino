@@ -6,7 +6,7 @@
 #include "lora_mcp23017/include.h"
 #include <MCP23017.h>  // MCP23017 by Bertrand Lemasle
 
-//#define TEST_TX
+#define TEST_TX
 #define TEST_RX
 
 #define LORA_NSS   6  // MCP23017
