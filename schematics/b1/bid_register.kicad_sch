@@ -6,7 +6,7 @@
 
   (title_block
     (title "BID Register")
-    (date "2024-02-15")
+    (date "2024-02-19")
     (rev "1")
     (company "shawnd.xyz")
     (comment 3 "used as a memory switch, which can discard EEPROM if set to 1.")

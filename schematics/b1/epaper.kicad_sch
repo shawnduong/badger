@@ -5,8 +5,8 @@
   (paper "A5")
 
   (title_block
-    (title "B1")
-    (date "2024-02-15")
+    (title "E-Paper")
+    (date "2024-02-19")
     (rev "1")
     (company "shawnd.xyz")
     (comment 3 "for text, images, or shapes.")
