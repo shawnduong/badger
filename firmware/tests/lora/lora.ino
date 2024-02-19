@@ -38,7 +38,7 @@ void test_lora_tx()
 	LoRa.beginPacket();
 	LoRa.println(F("Hello world!"));
 	LoRa.endPacket();
-	Serial.println("done. ");
+	Serial.print("done.");
 }
 
 /* LoRa Rx test. */
