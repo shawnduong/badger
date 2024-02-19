@@ -60,7 +60,6 @@ void test_status_block()
 	delay(300);
 
 	noTone(SB_TONE);
-	delay(1500);
 
 	Serial.println("Done.");
 }
