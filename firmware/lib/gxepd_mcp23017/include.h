@@ -8,5 +8,7 @@
 
 #include <MCP23017.h>  // MCP23017 by Bertrand Lemasle
 #include "GxEPD.cpp"
+#include "GxFont_GFX.cpp"
+#include "GxIO/GxIO.cpp"
 #include "GxIO/GxIO_SPI/GxIO_SPI.cpp"
 #include "GxGDEM029T94/GxGDEM029T94.cpp"
