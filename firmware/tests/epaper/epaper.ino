@@ -3,11 +3,7 @@
  * Uses the MCP23017's GPB2 as BUSY, GPB3 as ~CS, GPB4 as DC, and GPB5 as ~RST.
  */
 
-//#include <GxEPD.h>
-//#include <GxGDEM029T94/GxGDEM029T94.h>
-//#include <GxIO/GxIO_SPI/GxIO_SPI.h>
-//#include <GxIO/GxIO.h>
-
+#include "gxepd_mcp23017/include.h"
 #include <MCP23017.h>  // MCP23017 by Bertrand Lemasle
 
 #define EPA_BUS  10
