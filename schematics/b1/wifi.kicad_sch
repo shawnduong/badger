@@ -6,7 +6,7 @@
 
   (title_block
     (title "B1")
-    (date "2024-02-19")
+    (date "2024-02-20")
     (rev "1")
     (company "shawnd.xyz")
     (comment 2 "and support more peripherals without conflict.")
@@ -1921,7 +1921,7 @@
     (property "Reference" "SW4" (at 147.32 93.98 90)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Value" "BOOT" (at 147.32 96.52 90)
+    (property "Value" "FLASH" (at 147.32 96.52 90)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Footprint" "" (at 148.59 95.25 0)

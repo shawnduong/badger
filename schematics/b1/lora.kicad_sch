@@ -6,7 +6,7 @@
 
   (title_block
     (title "LoRa")
-    (date "2024-02-19")
+    (date "2024-02-20")
     (rev "1")
     (company "shawnd.xyz")
     (comment 3 "wireless communications in case the Wi-Fi connection fails.")
