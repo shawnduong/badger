@@ -81,7 +81,7 @@ void wifi_setup()
 void setup()
 {
 	Serial.begin(9600);
-	Serial.println("Initial State Register Test");
+	Serial.println("B1 Test");
 
 	SPI.begin();
 	Wire.begin();
