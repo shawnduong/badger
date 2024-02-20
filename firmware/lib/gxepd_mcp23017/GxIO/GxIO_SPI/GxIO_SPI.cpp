@@ -33,30 +33,30 @@ void GxIO_SPI::init()
 {
   if (_cs >= 0)
   {
-    digitalWrite(_cs, HIGH);
-    pinMode(_cs, OUTPUT);
+    _mcp23017->pinMode(_cs, OUTPUT);
+    _mcp23017->digitalWrite(_cs, HIGH);
   }
   if (_dc >= 0)
   {
-    digitalWrite(_dc, HIGH);
-    pinMode(_dc, OUTPUT);
+    _mcp23017->pinMode(_dc, OUTPUT);
+    _mcp23017->digitalWrite(_dc, HIGH);
   }
   if (_rst >= 0)
   {
-    digitalWrite(_rst, HIGH);
-    pinMode(_rst, OUTPUT);
+    _mcp23017->pinMode(_rst, OUTPUT);
+    _mcp23017->digitalWrite(_rst, HIGH);
   }
   if (_bl >= 0)
   {
-    digitalWrite(_bl, HIGH);
-    pinMode(_bl, OUTPUT);
+    _mcp23017->pinMode(_bl, OUTPUT);
+    _mcp23017->digitalWrite(_bl, HIGH);
   }
   reset();
   _spi.begin();
-  if (_dc == MISO) // may be overridden, TTGO T5 V2.66
-  {
-    pinMode(_dc, OUTPUT);
-  }
+//  if (_dc == MISO) // may be overridden, TTGO T5 V2.66
+//  {
+//    pinMode(_dc, OUTPUT);
+//  }
 }
 
 void GxIO_SPI::setFrequency(uint32_t freq)
