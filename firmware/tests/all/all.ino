@@ -2,11 +2,12 @@
  * See the b1 schematic for more details.
  */
 
+#include "gxepd_mcp23017/include.h"
 #include "lora_mcp23017/include.h"
+#include "mcp23017_modded/MCP23017.cpp"
 #include "mfrc522_mcp23017/include.h"
 #include <ESP8266HTTPClient.h>
 #include <ESP8266WiFi.h>
-#include <MCP23017.h>  // MCP23017 by Bertrand Lemasle
 #include <SPI.h>
 #include <WiFiClient.h>
 
@@ -25,6 +26,11 @@
 #define RFID_SS   4  // MCP23017
 #define RFID_RST  5  // MCP23017
 
+#define EPA_BUS  10  // MCP23017
+#define EPA_CS   11  // MCP23017
+#define EPA_DC   12  // MCP23017
+#define EPA_RST  13  // MCP23017
+
 #define LORA_NSS   6  // MCP23017
 #define LORA_RST   7  // MCP23017
 #define LORA_DIO0  9  // MCP23017
@@ -33,6 +39,9 @@
 MCP23017 mcp23017 = MCP23017(MCP23017_I2C_ADDRESS);
 
 MFRC522 mfrc522(&mcp23017, RFID_SS, RFID_RST);
+
+GxIO_Class io(&mcp23017, SPI, EPA_CS, EPA_DC, EPA_RST);
+GxEPD_Class display(&mcp23017, io, EPA_RST, EPA_BUS);
 
 /* Status block tests. */
 byte tests[] = {
@@ -48,6 +57,8 @@ byte tests[] = {
 	0b01111000,  // Multi
 	0b10000000,  // Buzzer
 };
+
+uint8_t epaperDisplayRow = 0;
 
 void wifi_setup()
 {
@@ -93,6 +104,11 @@ void setup()
 	mcp23017.digitalWrite(SB_RCLK , HIGH);
 	mcp23017.digitalWrite(RFID_SS , HIGH);
 	mcp23017.digitalWrite(LORA_NSS, HIGH);
+
+	display.init();
+	display.fillScreen(GxEPD_WHITE);
+	display.setRotation(0);
+	display.setTextColor(GxEPD_BLACK);
 
 	LoRa.setPins(&mcp23017, LORA_NSS, LORA_RST, LORA_DIO0);
 	LoRa.begin(433e6);
@@ -150,7 +166,7 @@ void test_bid_register()
 	Serial.print("Value: ");
 	Serial.println(data >> 1, BIN);
 
-	if (data & 0x80 > 0)
+	if ((data & 0x80) > 0)
 		Serial.println("Reset is high.");
 	else
 		Serial.println("Reset is low.");
@@ -185,6 +201,18 @@ void test_scanner()
 		delay(100);
 
 	mfrc522.PICC_DumpToSerial(&(mfrc522.uid));
+}
+
+/* E-paper test. */
+void _test_epaper()
+{
+	display.setCursor(0, epaperDisplayRow);
+	display.print("foobar!");
+	epaperDisplayRow++;
+}
+void test_epaper()
+{
+	display.drawPaged(_test_epaper);
 }
 
 /* LoRa Tx test. */
@@ -225,6 +253,9 @@ void loop()
 
 	Serial.println("--> Scanner Test");
 	test_scanner();
+
+	Serial.println("--> E-Paper Test");
+	test_epaper();
 
 	Serial.println("--> LoRa Tx Test");
 	test_lora_tx();

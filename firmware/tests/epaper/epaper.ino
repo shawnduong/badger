@@ -6,15 +6,14 @@
 #include "gxepd_mcp23017/include.h"
 #include "mcp23017_modded/MCP23017.cpp"
 
-#define EPA_BUS  10
-#define EPA_CS   11
-#define EPA_DC   12
-#define EPA_RST  13
+#define EPA_BUS  10  // MCP23017
+#define EPA_CS   11  // MCP23017
+#define EPA_DC   12  // MCP23017
+#define EPA_RST  13  // MCP23017
 
 #define MCP23017_I2C_ADDRESS 0x20
 MCP23017 mcp23017 = MCP23017(MCP23017_I2C_ADDRESS);
 
-//GxIO_Class io(mcp23017, SPI, EPA_CS, EPA_DC, EPA_RST);
 GxIO_Class io(&mcp23017, SPI, EPA_CS, EPA_DC, EPA_RST);
 GxEPD_Class display(&mcp23017, io, EPA_RST, EPA_BUS);
 

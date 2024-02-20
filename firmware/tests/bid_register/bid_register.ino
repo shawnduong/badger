@@ -59,7 +59,7 @@ void test_bid_register()
 	Serial.print("Value: ");
 	Serial.println(data >> 1, BIN);
 
-	if (data & 0x80 > 0)
+	if ((data & 0x80) > 0)
 		Serial.println("Reset is high.");
 	else
 		Serial.println("Reset is low.");

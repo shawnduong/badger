@@ -6,5 +6,5 @@
  * See: https://github.com/blemasle/arduino-mcp23017
  */
 
-#include <MCP23017.h>  // MCP23017 by Bertrand Lemasle
+#include "../mcp23017_modded/MCP23017.cpp"
 #include "MFRC522.cpp"
