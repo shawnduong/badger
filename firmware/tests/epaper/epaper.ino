@@ -4,7 +4,7 @@
  */
 
 #include "gxepd_mcp23017/include.h"
-#include <MCP23017.h>  // MCP23017 by Bertrand Lemasle
+#include "mcp23017_modded/MCP23017.cpp"
 
 #define EPA_BUS  10
 #define EPA_CS   11
