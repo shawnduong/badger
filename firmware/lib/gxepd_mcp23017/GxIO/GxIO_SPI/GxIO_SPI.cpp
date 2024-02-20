@@ -22,9 +22,9 @@ void GxIO_SPI::reset()
   if (_rst >= 0)
   {
     delay(20);
-    digitalWrite(_rst, LOW);
+    _mcp23017->digitalWrite(_rst, LOW);
     delay(20);
-    digitalWrite(_rst, HIGH);
+    _mcp23017->digitalWrite(_rst, HIGH);
     delay(200);
   }
 }
@@ -67,9 +67,9 @@ void GxIO_SPI::setFrequency(uint32_t freq)
 uint8_t GxIO_SPI::transferTransaction(uint8_t d)
 {
   _spi.beginTransaction(_spi_settings);
-  if (_cs >= 0) digitalWrite(_cs, LOW);
+  if (_cs >= 0) _mcp23017->digitalWrite(_cs, LOW);
   uint8_t rv = _spi.transfer(d);
-  if (_cs >= 0) digitalWrite(_cs, HIGH);
+  if (_cs >= 0) _mcp23017->digitalWrite(_cs, HIGH);
   _spi.endTransaction();
   return rv;
 }
@@ -77,9 +77,9 @@ uint8_t GxIO_SPI::transferTransaction(uint8_t d)
 uint16_t GxIO_SPI::transfer16Transaction(uint16_t d)
 {
   _spi.beginTransaction(_spi_settings);
-  if (_cs >= 0) digitalWrite(_cs, LOW);
+  if (_cs >= 0) _mcp23017->digitalWrite(_cs, LOW);
   uint16_t rv = _spi.transfer16(d);
-  if (_cs >= 0) digitalWrite(_cs, HIGH);
+  if (_cs >= 0) _mcp23017->digitalWrite(_cs, HIGH);
   _spi.endTransaction();
   return rv;
 }
@@ -87,9 +87,9 @@ uint16_t GxIO_SPI::transfer16Transaction(uint16_t d)
 uint8_t GxIO_SPI::readDataTransaction()
 {
   _spi.beginTransaction(_spi_settings);
-  if (_cs >= 0) digitalWrite(_cs, LOW);
+  if (_cs >= 0) _mcp23017->digitalWrite(_cs, LOW);
   uint8_t rv = _spi.transfer(0xFF);
-  if (_cs >= 0) digitalWrite(_cs, HIGH);
+  if (_cs >= 0) _mcp23017->digitalWrite(_cs, HIGH);
   _spi.endTransaction();
   return rv;
 }
@@ -97,9 +97,9 @@ uint8_t GxIO_SPI::readDataTransaction()
 uint16_t GxIO_SPI::readData16Transaction()
 {
   _spi.beginTransaction(_spi_settings);
-  if (_cs >= 0) digitalWrite(_cs, LOW);
+  if (_cs >= 0) _mcp23017->digitalWrite(_cs, LOW);
   uint16_t rv = _spi.transfer16(0xFFFF);
-  if (_cs >= 0) digitalWrite(_cs, HIGH);
+  if (_cs >= 0) _mcp23017->digitalWrite(_cs, HIGH);
   _spi.endTransaction();
   return rv;
 }
@@ -119,37 +119,37 @@ uint16_t GxIO_SPI::readData16()
 void GxIO_SPI::writeCommandTransaction(uint8_t c)
 {
   _spi.beginTransaction(_spi_settings);
-  if (_dc >= 0) digitalWrite(_dc, LOW);
-  if (_cs >= 0) digitalWrite(_cs, LOW);
+  if (_dc >= 0) _mcp23017->digitalWrite(_dc, LOW);
+  if (_cs >= 0) _mcp23017->digitalWrite(_cs, LOW);
   _spi.transfer(c);
-  if (_cs >= 0) digitalWrite(_cs, HIGH);
-  if (_dc >= 0) digitalWrite(_dc, HIGH);
+  if (_cs >= 0) _mcp23017->digitalWrite(_cs, HIGH);
+  if (_dc >= 0) _mcp23017->digitalWrite(_dc, HIGH);
   _spi.endTransaction();
 }
 
 void GxIO_SPI::writeDataTransaction(uint8_t d)
 {
   _spi.beginTransaction(_spi_settings);
-  if (_cs >= 0) digitalWrite(_cs, LOW);
+  if (_cs >= 0) _mcp23017->digitalWrite(_cs, LOW);
   _spi.transfer(d);
-  if (_cs >= 0) digitalWrite(_cs, HIGH);
+  if (_cs >= 0) _mcp23017->digitalWrite(_cs, HIGH);
   _spi.endTransaction();
 }
 
 void GxIO_SPI::writeData16Transaction(uint16_t d, uint32_t num)
 {
   _spi.beginTransaction(_spi_settings);
-  if (_cs >= 0) digitalWrite(_cs, LOW);
+  if (_cs >= 0) _mcp23017->digitalWrite(_cs, LOW);
   writeData16(d, num);
-  if (_cs >= 0) digitalWrite(_cs, HIGH);
+  if (_cs >= 0) _mcp23017->digitalWrite(_cs, HIGH);
   _spi.endTransaction();
 }
 
 void GxIO_SPI::writeCommand(uint8_t c)
 {
-  if (_dc >= 0) digitalWrite(_dc, LOW);
+  if (_dc >= 0) _mcp23017->digitalWrite(_dc, LOW);
   _spi.transfer(c);
-  if (_dc >= 0) digitalWrite(_dc, HIGH);
+  if (_dc >= 0) _mcp23017->digitalWrite(_dc, HIGH);
 }
 
 void GxIO_SPI::writeData(uint8_t d)
@@ -194,21 +194,21 @@ void GxIO_SPI::writeAddrMSBfirst(uint16_t d)
 void GxIO_SPI::startTransaction()
 {
   _spi.beginTransaction(_spi_settings);
-  if (_cs >= 0) digitalWrite(_cs, LOW);
+  if (_cs >= 0) _mcp23017->digitalWrite(_cs, LOW);
 }
 
 void GxIO_SPI::endTransaction()
 {
-  if (_cs >= 0) digitalWrite(_cs, HIGH);
+  if (_cs >= 0) _mcp23017->digitalWrite(_cs, HIGH);
   _spi.endTransaction();
 }
 
 void GxIO_SPI::selectRegister(bool rs_low)
 {
-  if (_dc >= 0) digitalWrite(_dc, (rs_low ? LOW : HIGH));
+  if (_dc >= 0) _mcp23017->digitalWrite(_dc, (rs_low ? LOW : HIGH));
 }
 
 void GxIO_SPI::setBackLight(bool lit)
 {
-  if (_bl >= 0) digitalWrite(_bl, (lit ? HIGH : LOW));
+  if (_bl >= 0) _mcp23017->digitalWrite(_bl, (lit ? HIGH : LOW));
 }
