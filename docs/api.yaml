@@ -320,6 +320,9 @@ components:
         email:
           type: string
           example: "jdoe@email.com"
+        points:
+          type: integer
+          example: 300
         custom:
           type: string
           description: Custom fields as Base64-encoded JSON.
