@@ -1,0 +1,388 @@
+openapi: 3.0.0
+info:
+  title: Badger API
+  description: Documentation for the Badger REST API. More info at gobadger.me.
+  version: 0.1
+
+servers:
+  - url: https://<event>.gobadger.me/api/v1
+
+paths:
+  /public/reset:
+    post:
+      summary: Request a password reset.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: "jdoe@email.com"
+      responses:
+        202:
+          description: Password reset request received.
+        500:
+          description: Internal server error.
+  /user/user:
+    get:
+      summary: Get your own user account details.
+      responses:
+        200:
+          description: OK.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+    post:
+      summary: Create a user account to link your card to.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserForm"
+      responses:
+        201:
+          description: Account created.
+        409:
+          description: Account already exists.
+        400:
+          description: Bad client form.
+        500:
+          description: Internal server error.
+    patch:
+      summary: Update the information in a user account.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserForm"
+      responses:
+        201:
+          description: Account updated.
+        400:
+          description: Bad client form.
+        500:
+          description: Internal server error.
+  /user/announcement:
+    get:
+      summary: Get all announcements.
+      responses:
+        200:
+          description: OK.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Announcement"
+        500:
+          description: Internal server error.
+  /user/code:
+    post:
+      summary: Redeem a code for points.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                code:
+                  type: string
+                  example: "AAAA-BB-CCCC"
+      responses:
+        201:
+          description: Code redemption successful.
+        404:
+          description: Code not found.
+        500:
+          description: Internal server error.
+  /user/event:
+    get:
+      summary: Get all events.
+      responses:
+        200:
+          description: OK.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Event"
+        500:
+          description: Internal server error.
+  /user/rsvp:
+    get:
+      summary: Get all your RSVPs.
+      responses:
+        200:
+          description: OK.
+          content:
+            application/json:
+              schema:
+                type: array
+                example: [10, 15, 17]
+                description: Event IDs of all the events you've RSVP'ed to.
+        500:
+          description: Internal server error.
+  /user/rsvp/{id}:
+    post:
+      summary: Submit an RSVP for an event.
+      responses:
+        201:
+          description: RSVP successful.
+        404:
+          description: Event not found.
+        500:
+          description: Internal server error.
+    delete:
+      summary: Delete an RSVP for an event.
+      responses:
+        200:
+          description: RSVP deletion successful.
+        404:
+          description: RSVP not found.
+        500:
+          description: Internal server error.
+  /user/attendance:
+    get:
+      summary: Get all your attendances.
+      responses:
+        200:
+          description: OK.
+          content:
+            application/json:
+              schema:
+                type: array
+                example: [10, 15, 17]
+                description: Event IDs of all the events you've attended. 
+        500:
+          description: Internal server error.
+    post:
+      summary: Submit an attendance code.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                code:
+                  type: string
+                  example: "AAAA-BB-CCCC"
+      responses:
+        201:
+          description: Attendance code successfully submitted.
+        404:
+          description: Attendance code not found.
+        500:
+          description: Internal server error.
+  /user/entitlement:
+    get:
+      summary: Get a list of all the entitlements available.
+      responses:
+        200:
+          description: OK.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 1
+                    title:
+                      type: string
+                      example: "Lunch"
+                    quantity:
+                      type: integer
+                      example: 3
+                      description: How many redemptions you are entitled to.
+        500:
+          description: Internal server error.
+  /user/redemption:
+    get:
+      summary: Get the status of all your entitlement redemptions.
+      responses:
+        200:
+          description: OK.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    entitlementId:
+                      type: integer
+                      example: 1
+                      description: The ID of an entitlement.
+                    redeemed:
+                      type: integer
+                      example: 1
+                      description: How many entitlements of this type you've redeemed.
+        500:
+          description: Internal server error.
+  /user/reward:
+    get:
+      summary: Get a list of all the rewards available.
+      responses:
+        200:
+          description: OK.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 3
+                    item:
+                      type: string
+                      example: "Sticker Pack"
+                    points:
+                      type: integer
+                      example: 30
+                      description: How many points it costs to claim this reward.
+                    stockTotal:
+                      type: integer
+                      example: 50
+                      description: How many of this item there are in total.
+                    stockRemaining:
+                      type: integer
+                      example: 29
+                      description: How many of this item there are left.
+        500:
+          description: Internal server error.
+  /user/claim:
+    get:
+      summary: Get a list of all your reward claims.
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    rewardId:
+                      type: integer
+                      example: 3
+                      description: ID of a reward you have claimed.
+                    retrieved:
+                      type: boolean
+                      example: false
+                      description: Status of whether or not you have physically retrieved your claimed reward yet.
+        500:
+          description: Internal server error.
+  /user/claim/{id}:
+    post:
+      summary: Claim a reward.
+      responses:
+        201:
+          description: Reward claimed.
+        400:
+          description: Reward claim failed.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Insufficient points balance."
+                    description: An explanation of why the request failed.
+        500:
+          description: Internal server error.
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 10
+        uid:
+          type: integer
+          example: 3735928559
+        email:
+          type: string
+          example: "jdoe@email.com"
+        custom:
+          type: string
+          description: Custom fields as Base64-encoded JSON.
+          example: "e2N1c3RvbUZpZWxkOjEwfQo="
+    UserForm:
+      type: object
+      properties:
+        email:
+          type: string
+          example: "jdoe@email.com"
+        password:
+          type: string
+          example: "hunter2"
+        custom:
+          type: string
+          description: Custom fields as Base64-encoded JSON.
+          example: "e2N1c3RvbUZpZWxkOjEwfQo="
+    Announcement:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 10
+        timestamp:
+          type: integer
+          example: 1708743600
+          description: Announcement timestamp in epoch seconds.
+        body:
+          type: string
+          example: "We have leftover pizza in Room B4 if anyone would like to grab some!"
+        author:
+          type: string
+          example: "Jane Doe"
+    Event:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 10
+        title:
+          type: string
+          example: "Opening Ceremony"
+        location:
+          type: string
+          example: "Room A1"
+        map:
+          type: blob
+          example: "<binary blob>"
+        startTime:
+          type: integer
+          example: 1708743600
+          description: Start time in epoch seconds.
+        duration:
+          type: integer
+          example: 3600
+          description: Duration of the event in seconds.
+        points:
+          type: integer
+          example: 50
+          description: Points reward for attendance.
+        host:
+          type: string
+          example: "Jane Doe"
+        description:
+          type: string
+          example: "Lorem ipsum dolor sit amet."
