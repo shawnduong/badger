@@ -20,6 +20,8 @@ paths:
       responses:
         202:
           description: Password reset request received.
+        400:
+          description: Bad client form.
         500:
           description: Internal server error.
   /user/user:

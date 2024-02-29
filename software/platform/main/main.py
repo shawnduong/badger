@@ -10,8 +10,8 @@ def main():
 
 	p = ArgumentParser(
 		prog=sys.argv[0],
-		description="<CHANGE ME IN main.py>",
-		epilog="<CHANGE ME IN main.py>",
+		description="Badger main web platform.",
+		epilog="For more info, contact badger@shawnd.xyz.",
 	)
 	p.add_argument(
 		"ip",
