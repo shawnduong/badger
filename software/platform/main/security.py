@@ -4,10 +4,21 @@ from app import *
 
 from flask_login import LoginManager, login_required, login_user, logout_user
 
-# If there is no admin account, make a default one.
-if User.query.filter_by(username="admin").first() == None:
-	db.session.add(User("admin", "password", 0))
-	db.session.commit()
+## If there is no admin account, make a default one.
+#if User.query.filter_by(privilege=1).first() == None:
+#	u = User(1, False)
+#	db.session.add(u)
+#	db.session.commit()
+
+# This is for testing. Delete later.
+u1 = User(0, False, 0xdeadbeef)
+u2 = User(0, False, 0xcafebabe)
+u3 = User(0, False, 0xbeefcafe)
+u1.claim("foo1@bar.com", "password1", "")
+db.session.add(u1)
+db.session.add(u2)
+db.session.add(u3)
+db.session.commit()
 
 loginManager = LoginManager()
 loginManager.init_app(app)
@@ -20,8 +31,8 @@ def load_user(id: int):
 @app.route("/login", methods=["POST"])
 def login():
 
-	assert "username" in request.form.keys() and "password" in request.form.keys()
-	user = User.login(request.form["username"], request.form["password"])
+	assert "uid" in request.form.keys() and "password" in request.form.keys()
+	user = User.login(request.form["uid"], request.form["password"])
 
 	if user == None:
 		time.sleep(1)  # Prevent brute.
@@ -35,5 +46,5 @@ def login():
 def logout():
 
 	logout_user()
-	return render_template("index.html")
+	return redirect(url_for("index"))
 

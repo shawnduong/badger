@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html>
 
-{% set pageTitle = "CHANGE ME IN index.html" %}{% include "includes/header.html" %}
+{% set pageTitle = "(DEV) Login" %}{% include "includes/header.html" %}
 
 <body>
 
-	<h1>Default Index Page</h1>
+	<h1>Login</h1>
 
-	<form action="/login" method="POST">
-		<input type="text" id="username" name="username" placeholder="username" />
-		<input type="password" id="username" name="password" placeholder="********" />
+	<form action="/unlock" method="POST">
+		<input type="number" id="uid" name="uid" placeholder="Badge ID" />
 		<input type="submit" value="Log In" />
 	</form>
 

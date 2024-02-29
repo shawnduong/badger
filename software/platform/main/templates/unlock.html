@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+
+{% set pageTitle = "(DEV) Unlock" %}{% include "includes/header.html" %}
+
+<body>
+
+	<h1>Unlock</h1>
+
+	<form action="/login" method="POST">
+		<input type="number" id="uid" name="uid" hidden value={{ uid }} />
+		<input type="text" id="password" name="password" placeholder="Password" />
+		<input type="submit" value="Unlock" />
+	</form>
+
+</body>
+
+</html>

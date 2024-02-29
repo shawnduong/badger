@@ -878,6 +878,9 @@ components:
     UserForm:
       type: object
       properties:
+        uid:
+          type: integer
+          example: 3735928559
         email:
           type: string
           example: "jdoe@email.com"

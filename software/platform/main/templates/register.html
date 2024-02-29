@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+
+{% set pageTitle = "(DEV) Claim" %}{% include "includes/header.html" %}
+
+<body>
+
+	<h1>Claim</h1>
+
+	<form action="/api/v1/user/user" method="POST">
+		<input type="number" id="uid" name="uid" hidden value={{ uid }} />
+		<input type="email" id="email" name="email" placeholder="email@example.com" />
+		<input type="password" id="password" name="password" placeholder="foobar123" />
+		<input type="text" id="custom" name="custom" hidden value="" />
+		<input type="submit" value="Register" />
+	</form>
+
+</body>
+
+</html>
