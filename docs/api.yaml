@@ -16,11 +16,7 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                email:
-                  type: string
-                  example: "jdoe@email.com"
+              $ref: "#/components/schemas/SelfServiceResetForm"
       responses:
         202:
           description: Password reset request received.
@@ -82,19 +78,9 @@ paths:
                   $ref: "#/components/schemas/Announcement"
         500:
           description: Internal server error.
-  /user/code:
+  /user/code/{code}:
     post:
       summary: Redeem a code for points.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                code:
-                  type: string
-                  example: "AAAA-BB-CCCC"
       responses:
         201:
           description: Code redemption successful.
@@ -130,7 +116,7 @@ paths:
                 description: Event IDs of all the events you've RSVP'ed to.
         500:
           description: Internal server error.
-  /user/rsvp/{id}:
+  /user/rsvp/{eventId}:
     post:
       summary: Submit an RSVP for an event.
       responses:
@@ -144,9 +130,9 @@ paths:
       summary: Delete an RSVP for an event.
       responses:
         200:
-          description: RSVP deletion successful.
+          description: Deletion successful.
         404:
-          description: RSVP not found.
+          description: Not found.
         500:
           description: Internal server error.
   /user/attendance:
@@ -163,18 +149,9 @@ paths:
                 description: Event IDs of all the events you've attended. 
         500:
           description: Internal server error.
+  /user/attendance/{code}:
     post:
       summary: Submit an attendance code.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                code:
-                  type: string
-                  example: "AAAA-BB-CCCC"
       responses:
         201:
           description: Attendance code successfully submitted.
@@ -193,23 +170,12 @@ paths:
               schema:
                 type: array
                 items:
-                  type: object
-                  properties:
-                    id:
-                      type: integer
-                      example: 1
-                    title:
-                      type: string
-                      example: "Lunch"
-                    quantity:
-                      type: integer
-                      example: 3
-                      description: How many redemptions you are entitled to.
+                  $ref: "#/components/schemas/Entitlement"
         500:
           description: Internal server error.
   /user/redemption:
     get:
-      summary: Get the status of all your entitlement redemptions.
+      summary: Get a list of all your entitlement redemptions.
       responses:
         200:
           description: OK.
@@ -218,16 +184,7 @@ paths:
               schema:
                 type: array
                 items:
-                  type: object
-                  properties:
-                    entitlementId:
-                      type: integer
-                      example: 1
-                      description: The ID of an entitlement.
-                    redeemed:
-                      type: integer
-                      example: 1
-                      description: How many entitlements of this type you've redeemed.
+                  $ref: "#/components/schemas/RedemptionForm"
         500:
           description: Internal server error.
   /user/reward:
@@ -241,26 +198,7 @@ paths:
               schema:
                 type: array
                 items:
-                  type: object
-                  properties:
-                    id:
-                      type: integer
-                      example: 3
-                    item:
-                      type: string
-                      example: "Sticker Pack"
-                    points:
-                      type: integer
-                      example: 30
-                      description: How many points it costs to claim this reward.
-                    stockTotal:
-                      type: integer
-                      example: 50
-                      description: How many of this item there are in total.
-                    stockRemaining:
-                      type: integer
-                      example: 29
-                      description: How many of this item there are left.
+                  $ref: "#/components/schemas/Reward"
         500:
           description: Internal server error.
   /user/claim:
@@ -268,25 +206,16 @@ paths:
       summary: Get a list of all your reward claims.
       responses:
         200:
-          description: OK
+          description: OK.
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  type: object
-                  properties:
-                    rewardId:
-                      type: integer
-                      example: 3
-                      description: ID of a reward you have claimed.
-                    retrieved:
-                      type: boolean
-                      example: false
-                      description: Status of whether or not you have physically retrieved your claimed reward yet.
+                  $ref: "#/components/schemas/ClaimForm"
         500:
           description: Internal server error.
-  /user/claim/{id}:
+  /user/claim/{rewardId}:
     post:
       summary: Claim a reward.
       responses:
@@ -305,9 +234,658 @@ paths:
                     description: An explanation of why the request failed.
         500:
           description: Internal server error.
+  /manage/code:
+    get:
+      summary: Get a list of all codes and their values.
+      responses:
+        200:
+          description: OK.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Code"
+        500:
+          description: Internal server error.
+    post:
+      summary: Create a code.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CodeForm"
+      responses:
+        201:
+          description: Code created.
+        409:
+          description: Code already exists.
+        500:
+          description: Internal server error.
+  /manage/code/{codeId}:
+    patch:
+      summary: Update a code.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CodeForm"
+      responses:
+        201:
+          description: Code updated.
+        400:
+          description: Bad client form.
+        500:
+          description: Internal server error.
+    delete:
+      summary: Delete a code.
+      responses:
+        200:
+          description: Deletion successful.
+        404:
+          description: Not found.
+        500:
+          description: Internal server error.
+  /manage/announcement:
+    post:
+      summary: Create an announcement.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AnnouncementForm"
+  /manage/announcement/{announcementId}:
+    patch:
+      summary: Update an announcement.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AnnouncementForm"
+      responses:
+        201:
+          description: Announcement updated.
+        400:
+          description: Bad client form.
+        500:
+          description: Internal server error.
+    delete:
+      summary: Delete an announcement.
+      responses:
+        200:
+          description: Deletion successful.
+        404:
+          description: Not found.
+        500:
+          description: Internal server error.
+  /manage/event:
+    post:
+      summary: Create an event.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EventForm"
+  /manage/event/{eventId}:
+    patch:
+      summary: Update an event.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EventForm"
+      responses:
+        201:
+          description: Event updated.
+        400:
+          description: Bad client form.
+        500:
+          description: Internal server error.
+    delete:
+      summary: Delete an event.
+      responses:
+        200:
+          description: Deletion successful.
+        404:
+          description: Not found.
+        500:
+          description: Internal server error.
+  /manage/rsvp:
+    get:
+      summary: Get a list of all RSVPs.
+      responses:
+        200:
+          description: OK.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Rsvp"
+        500:
+          description: Internal server error.
+    post:
+      summary: Create an RSVP on a user's behalf.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RsvpForm"
+      responses:
+        201:
+          description: RSVP created.
+        404:
+          description: User or event not found.
+        409:
+          description: RSVP already exists.
+        500:
+          description: Internal server error.
+  /manage/rsvp/{rsvpId}:
+    patch:
+      summary: Update an RSVP.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RsvpForm"
+      responses:
+        201:
+          description: RSVP updated.
+        400:
+          description: Bad client form.
+        500:
+          description: Internal server error.
+    delete:
+      summary: Delete an RSVP.
+      responses:
+        200:
+          description: Deletion successful.
+        404:
+          description: Not found.
+        500:
+          description: Internal server error.
+  /manage/attendance:
+    get:
+      summary: Get a list of all attendances.
+      responses:
+        200:
+          description: OK.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Attendance"
+        500:
+          description: Internal server error.
+    post:
+      summary: Create an attendance on a user's behalf.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AttendanceForm"
+      responses:
+        201:
+          description: Attendance created.
+        404:
+          description: User or event not found.
+        409:
+          description: Attendance already exists.
+        500:
+          description: Internal server error.
+  /manage/attendance/{attendanceId}:
+    patch:
+      summary: Update an attendance.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AttendanceForm"
+      responses:
+        201:
+          description: Attendance updated.
+        400:
+          description: Bad client form.
+        500:
+          description: Internal server error.
+    delete:
+      summary: Delete an attendance.
+      responses:
+        200:
+          description: Deletion successful.
+        404:
+          description: Not found.
+        500:
+          description: Internal server error.
+  /manage/entitlement:
+    post:
+      summary: Create an entitlement.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EntitlementForm"
+      responses:
+        201:
+          description: Entitlement created.
+        409:
+          description: Entitlement already exists.
+        500:
+          description: Internal server error.
+  /manage/entitlement/{entitlementId}:
+    patch:
+      summary: Update an entitlement.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EntitlementForm"
+      responses:
+        201:
+          description: Entitlement updated.
+        400:
+          description: Bad client form.
+        500:
+          description: Internal server error.
+    delete:
+      summary: Delete an entitlement.
+      responses:
+        200:
+          description: Deletion successful.
+        404:
+          description: Not found.
+        500:
+          description: Internal server error.
+  /manage/redemption:
+    get:
+      summary: Get a list of all redemptions.
+      responses:
+        200:
+          description: OK.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Redemption"
+        500:
+          description: Internal server error.
+    post:
+      summary: Create a redemption on behalf of a user.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RedemptionForm"
+      responses:
+        201:
+          description: Redemption created.
+        409:
+          description: Maximum number of redemptions reached.
+        500:
+          description: Internal server error.
+  /manage/redemption/{redemptionId}:
+    patch:
+      summary: Update a redemption.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RedemptionForm"
+      responses:
+        201:
+          description: Redemption updated.
+        400:
+          description: Bad client form.
+        500:
+          description: Internal server error.
+    delete:
+      summary: Delete a redemption.
+      responses:
+        200:
+          description: Deletion successful.
+        404:
+          description: Not found.
+        500:
+          description: Internal server error.
+  /manage/reward:
+    post:
+      summary: Create a reward.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#components/schemas/RewardForm"
+      responses:
+        201:
+          description: Reward created.
+        500:
+          description: Internal server error.
+  /manage/reward/{rewardId}:
+    patch:
+      summary: Update a reward.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#components/schemas/RewardForm"
+      responses:
+        201:
+          description: Reward updated.
+        400:
+          description: Bad client form.
+        500:
+          description: Internal server error.
+    delete:
+      summary: Delete a reward.
+      responses:
+        200:
+          description: Deletion successful.
+        404:
+          description: Not found.
+        500:
+          description: Internal server error.
+  /manage/claim:
+    get:
+      summary: Get a list of all reward claims.
+      responses:
+        200:
+          description: OK.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Claim"
+        500:
+          description: Internal server error.
+    post:
+      summary: Create a reward claim on a user's behalf.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#components/schemas/ClaimForm"
+      responses:
+  /manage/claim/{claimId}:
+    patch:
+      summary: Update a reward claim.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ClaimForm"
+      responses:
+        201:
+          description: Claim updated.
+        400:
+          description: Bad client form.
+        500:
+          description: Internal server error.
+    delete:
+      summary: Delete a reward claim.
+      responses:
+        200:
+          description: Deletion successful.
+        404:
+          description: Not found.
+        500:
+          description: Internal server error.
+  /admin/user:
+    get:
+      summary: Get all users and their account info.
+      responses:
+        200:
+          description: OK.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/UserPrivilegedView"
+        500:
+          description: Internal server error.
+    post:
+      summary: Create a user account.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserPrivilegedForm"
+      responses:
+        201:
+          description: Account created.
+        409:
+          description: Account already exists.
+        400:
+          description: Bad client form.
+        500:
+          description: Internal server error.
+  /admin/user/{userId}:
+    patch:
+      summary: Update the information in a user account.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserPrivilegedForm"
+      responses:
+        201:
+          description: Account updated.
+        400:
+          description: Bad client form.
+        500:
+          description: Internal server error.
+    delete:
+      summary: Delete an account.
+      responses:
+        200:
+          description: Deletion successful.
+        404:
+          description: Not found.
+        500:
+          description: Internal server error.
+  /admin/policy:
+    get:
+      summary: Get the policy settings.
+      responses:
+        200:
+          description: OK.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Policy"
+        500:
+          description: Internal server error.
+    patch:
+      summary: Change the policy settings.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Policy"
+      responses:
+        201:
+          description: Policy updated.
+        400:
+          description: Bad client form.
+        500:
+          description: Internal server error.
+  /admin/reset:
+    get:
+      summary: Get a list of all requested account resets.
+      responses:
+        200:
+          description: OK.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Reset"
+        500:
+          description: Internal server error.
+  /admin/reset/{resetId}:
+    patch:
+      summary: Update an account reset.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ResetForm"
+      responses:
+        201:
+          description: Policy updated.
+        400:
+          description: Bad client form.
+        500:
+          description: Internal server error.
+    delete:
+      summary: Delete a reset request.
+      responses:
+        200:
+          description: Deletion successful.
+        404:
+          description: Not found.
+        500:
+          description: Internal server error.
+  /admin/configure:
+    get:
+      summary: Get the scanner configurations.
+      responses:
+        200:
+          description: OK.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Configuration"
+        500:
+          description: Internal server error.
+    post:
+      summary: Create a scanner configuration.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ConfigurationForm"
+      responses:
+        201:
+          description: Configuration created.
+        409:
+          description: Configuration already exists.
+        400:
+          description: Bad client form.
+        500:
+          description: Internal server error.
+  /admin/configure/{configurationId}:
+    patch:
+      summary: Update a configuration.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ConfigurationForm"
+      responses:
+        201:
+          description: Policy updated.
+        400:
+          description: Bad client form.
+        500:
+          description: Internal server error.
+    delete:
+      summary: Delete a configuration.
+      responses:
+        200:
+          description: Deletion successful.
+        404:
+          description: Not found.
+        500:
+          description: Internal server error.
+  /admin/scanner:
+    get:
+      summary: Get a list of scanner statuses.
+      responses:
+        200:
+          description: OK.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Scanner"
+        500:
+          description: Internal server error.
+  /scanner/scan:
+    post:
+      summary: Report a batch of scans.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Scan"
+      responses:
+        202:
+          description: Update received.
+        500:
+          description: Internal server error.
+  /scanner/ping:
+    post:
+      summary: Report that this scanner is still alive.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Ping"
+      responses:
+        202:
+          description: Update received.
+        500:
+          description: Internal server error.
 
 components:
   schemas:
+    UserForm:
+      type: object
+      properties:
+        email:
+          type: string
+          example: "jdoe@email.com"
+        password:
+          type: string
+          example: "hunter2"
+        custom:
+          type: string
+          example: "e2N1c3RvbUZpZWxkOjEwfQo="
+          description: Custom fields as Base64-encoded JSON.
     User:
       type: object
       properties:
@@ -323,29 +901,64 @@ components:
         points:
           type: integer
           example: 300
+        claimed:
+          type: boolean
+          example: true
         custom:
           type: string
-          description: Custom fields as Base64-encoded JSON.
           example: "e2N1c3RvbUZpZWxkOjEwfQo="
-    UserForm:
+          description: Custom fields as Base64-encoded JSON.
+    UserPrivilegedForm:
       type: object
       properties:
+        uid:
+          type: integer
+          example: 3735928559
         email:
           type: string
           example: "jdoe@email.com"
-        password:
-          type: string
-          example: "hunter2"
+        points:
+          type: integer
+          example: 300
+        claimed:
+          type: boolean
+          example: true
         custom:
           type: string
-          description: Custom fields as Base64-encoded JSON.
           example: "e2N1c3RvbUZpZWxkOjEwfQo="
-    Announcement:
+          description: Custom fields as Base64-encoded JSON.
+        privilege:
+          type: integer
+          example: 0
+          description: 0 if user, 1 if admin. Left as an integer to allow for more privilege levels to be defined.
+    UserPrivilegedView:
+      allOf:
+        - $ref: "#/components/schemas/UserPrivilegedForm"
+        - type: object
+          properties:
+            id:
+              type: integer
+              example: 10
+    CodeForm:
       type: object
       properties:
-        id:
+        code:
+          type: string
+          example: "AAAA-BB-CCCC"
+        points:
           type: integer
-          example: 10
+          example: 20
+    Code:
+      allOf:
+        - $ref: "#/components/schemas/CodeForm"
+        - type: object
+          properties:
+            id:
+              type: integer
+              example: 10
+    AnnouncementForm:
+      type: object
+      properties:
         timestamp:
           type: integer
           example: 1708743600
@@ -356,12 +969,17 @@ components:
         author:
           type: string
           example: "Jane Doe"
-    Event:
+    Announcement:
+      allOf:
+        - $ref: "#/components/schemas/AnnouncementForm"
+        - type: object
+          properties:
+            id:
+              type: integer
+              example: 10
+    EventForm:
       type: object
       properties:
-        id:
-          type: integer
-          example: 10
         title:
           type: string
           example: "Opening Ceremony"
@@ -389,3 +1007,258 @@ components:
         description:
           type: string
           example: "Lorem ipsum dolor sit amet."
+    Event:
+      allOf:
+        - $ref: "#/components/schemas/EventForm"
+        - type: object
+          properties:
+            id:
+              type: integer
+              example: 10
+    RsvpForm:
+      type: object
+      properties:
+        userId:
+          type: integer
+          example: 44
+          description: The ID of the user for whom this RSVP is for.
+        eventId:
+          type: integer
+          example: 3
+          description: The ID of the event for which this RSVP is for.
+    Rsvp:
+      allOf:
+        - $ref: "#/components/schemas/RsvpForm"
+        - type: object
+          properties:
+            id:
+              type: integer
+              example: 10
+    AttendanceForm:
+      type: object
+      properties:
+        userId:
+          type: integer
+          example: 44
+          description: The ID of the user for whom this attendance is for.
+        eventId:
+          type: integer
+          example: 3
+          description: The ID of the event for which this attendance is for.
+    Attendance:
+      allOf:
+        - $ref: "#/components/schemas/AttendanceForm"
+        - type: object
+          properties:
+            id:
+              type: integer
+              example: 10
+    EntitlementForm:
+      type: object
+      properties:
+        title:
+          type: string
+          example: "Lunch"
+        quantity:
+          type: integer
+          example: 3
+          description: How many redemptions you are entitled to.
+    Entitlement:
+      allOf:
+        - $ref: "#/components/schemas/EntitlementForm"
+        - type: object
+          properties:
+            id:
+              type: integer
+              example: 1
+    RedemptionForm:
+      type: object
+      properties:
+        entitlementId:
+          type: integer
+          example: 1
+          description: The ID of an entitlement.
+        userId:
+          type: integer
+          example: 44
+          description: The ID of the user for whom this redemption is for.
+    Redemption:
+      allOf:
+        - $ref: "#/components/schemas/RedemptionForm"
+        - type: object
+          properties:
+            id:
+              type: integer
+              example: 1
+    RewardForm:
+      type: object
+      properties:
+        item:
+          type: string
+          example: "Sticker Pack"
+        points:
+          type: integer
+          example: 30
+          description: How many points it costs to claim this reward.
+        stockTotal:
+          type: integer
+          example: 50
+          description: How many of this item there are in total.
+        stockRemaining:
+          type: integer
+          example: 29
+          description: How many of this item there are left.
+    Reward:
+      allOf:
+        - $ref: "#/components/schemas/RewardForm"
+        - type: object
+          properties:
+            id:
+              type: integer
+              example: 3
+    ClaimForm:
+      type: object
+      properties:
+        rewardId:
+          type: integer
+          example: 3
+          description: ID of a reward you have claimed.
+        userId:
+          type: integer
+          example: 44
+          description: The ID of the user for whom this redemption is for.
+        retrieved:
+          type: boolean
+          example: false
+          description: Status of whether or not you have physically retrieved your claimed reward yet.
+    Claim:
+      allOf:
+        - $ref: "#/components/schemas/ClaimForm"
+        - type: object
+          properties:
+            id:
+              type: integer
+              example: 3
+    Policy:
+      type: object
+      properties:
+        requireRegistration:
+          type: boolean
+          example: true
+          description: Require users to fill out their name, email, and password.
+        selfServiceAccountReset:
+          type: boolean
+          example: true
+          description: Allow users to self-service reset their own accounts.
+        selfServiceAccountResetExpiry:
+          type: integer
+          example: 3600
+          description: How long a self-service reset token is valid for.
+    SelfServiceResetForm:
+      type: object
+      properties:
+        email:
+          type: string
+          example: "jdoe@email.com"
+    ResetForm:
+      allOf:
+        - $ref: "#/components/schemas/SelfServiceResetForm"
+        - type: object
+          properties:
+            timestamp:
+              type: integer
+              example: 1708743600
+            token:
+              type: string
+              example: "8286d7b2-253a-447e-bcad-d17408a80d87"
+              description: Secret token used for account resets.
+            valid:
+              type: boolean
+              example: true
+              description: The reset token is valid.
+            fulfilled:
+              type: boolean
+              example: false
+              description: The reset has been completed.
+    Reset:
+      allOf:
+        - $ref: "#/components/schemas/ResetForm"
+        - type: object
+          properties:
+            id:
+              type: integer
+              example: 3
+    ConfigurationForm:
+      type: object
+      properties:
+        scannerId:
+          type: integer
+          example: 8
+          description: The scanner ID number, as with the scanner's DIP switches.
+        schedule:
+          type: array
+          items:
+            type: object
+            properties:
+              timestamp:
+                type: integer
+                example: 1704067200
+                description: The time at which this configuration will take effect.
+              display:
+                type: string
+                example: "Check-In Station"
+                description: The text that will be shown on the scanner's display.
+              mode:
+                type: string
+                example: "check-in"
+                description: The mode that this scanner will be in at that time.
+    Configuration:
+      allOf:
+        - $ref: "#/components/schemas/ConfigurationForm"
+        - type: object
+          properties:
+            id:
+              type: integer
+              example: 3
+    Scanner:
+      type: object
+      properties:
+        scannerId:
+          type: integer
+          example: 8
+          description: The scanner ID number, set with the scanner's DIP switches.
+        lastAlive:
+          type: integer
+          example: 1704067200
+          description: The time at which activity from the scanner was last detected.
+        scans:
+          type: array
+          items:
+            type: object
+            properties:
+              uid:
+                type: integer
+                example: 3735928559
+                description: The UID that was scanned.
+              timestamp: 
+                type: integer
+                example: 1704067200
+                description: The time at which it was scanned.
+    Scan:
+      type: object
+      properties:
+        scannerId:
+          type: integer
+          example: 8
+          description: The scanner ID number, set with the scanner's DIP switches.
+        scans:
+          type: array
+          example: [3735928559, 3405691582]
+          description: The UIDs of cards scanned in this batch.
+    Ping:
+      type: object
+      properties:
+        scannerId:
+          type: integer
+          example: 8
+          description: The scanner ID number, set with the scanner's DIP switches.
