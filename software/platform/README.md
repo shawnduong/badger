@@ -6,8 +6,8 @@
   - [x] Test
 - [x] POST /user/user: Create a user account to link your card to.
   - [x] Test
-- [ ] PATCH /user/user: Update the information in a user account.
-  - [ ] Test
+- [x] PATCH /user/user: Update the information in a user account.
+  - [x] Test
 - [ ] GET /user/announcement: Get all announcements.
   - [ ] Test
 - [ ] POST /user/code/{code}: Redeem a code for points.

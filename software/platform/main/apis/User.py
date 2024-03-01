@@ -67,3 +67,20 @@ def user_user_post():
 	except:
 		return {}, 400
 
+@app.route(userPrefix+"/user", methods=["PATCH"])
+@login_required
+@failsafe_500
+def user_user_patch():
+
+	try:
+		# These are required fields for this method.
+		for k in ("uid", "email", "password", "custom"):
+			assert k in request.json.keys()
+	except:
+		return {}, 400
+
+	user = User.query.filter_by(id=current_user.id).first()
+	user.claim(request.json["email"], request.json["password"], request.json["custom"])
+	db.session.commit()
+	return {}, 201
+

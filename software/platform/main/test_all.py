@@ -105,6 +105,21 @@ def test_user_user_get_0():
 	assert data["points"] == None
 	assert data["claimed"] == True
 
+# --[ UPDATE INFO ABOUT YOUR OWN ACCOUNT ]--
+
+def test_user_user_patch_0():
+	r = r2.patch(api+"/user/user", json={
+		"uid": 0xf00df00d,
+		"email": "test@example.com",
+		"password": "********",
+		"custom": "",
+	})
+	assert r.status_code == 201
+
+	r = r2.get(api+"/user/user")
+	data = json.loads(r.content)
+	assert data["email"] == "test@example.com"
+
 # --[ GET INFO ABOUT ALL ACCOUNTS ]--
 
 def test_admin_get_user_0():
