@@ -4,18 +4,17 @@ from app import *
 
 from flask_login import LoginManager, current_user, login_required, login_user, logout_user
 
-## If there is no admin account, make a default one.
-#if User.query.filter_by(privilege=1).first() == None:
-#	u = User(1, False)
-#	db.session.add(u)
-#	db.session.commit()
-
 # This is for testing. Delete later.
 if User.query.filter_by(uid=0xfeedf00d).first() == None:
 	u = User(privilege=User.PRIV_ADMIN, claimed=False, uid=0xfeedf00d)
-	u.claim("foo2@bar.com", "admin", "")
+	u.claim("admin@test.com", "admin", "")
 	db.session.add(u)
-db.session.commit()
+	db.session.commit()
+if User.query.filter_by(uid=0xf00df00d).first() == None:
+	u = User(privilege=User.PRIV_USER, claimed=False, uid=0xf00df00d)
+	u.claim("user@test.com", "user", "")
+	db.session.add(u)
+	db.session.commit()
 
 loginManager = LoginManager()
 loginManager.init_app(app)
