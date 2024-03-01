@@ -13,7 +13,7 @@ class User(UserMixin, db.Model):
 	PRIV_USER  = 0
 	PRIV_ADMIN = 1
 
-	__tablename__ = "users"
+	__tablename__ = "User"
 
 	id  = db.Column(db.Integer, primary_key=True)
 
