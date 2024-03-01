@@ -14,52 +14,52 @@ r2.post(endpoint+"/login", data={"uid": 0xf00df00d, "password": "user"})
 
 def test_admin_user_post_0():
 	r = r1.post(api+"/admin/user", json={
-		  "uid": 3735928559, # 0xdeadbeef
-		  "points": None,
-		  "claimed": False,
-		  "custom": None,
-		  "privilege": 0
-		})
+		"uid": 0xdeadbeef,
+		"points": None,
+		"claimed": False,
+		"custom": None,
+		"privilege": 0
+	})
 	assert r.status_code == 400
 
 def test_admin_user_post_1():
 	r = r1.post(api+"/admin/user", json={
-		  "uid": 3735928559, # 0xdeadbeef
-		  "email": None,
-		  "points": None,
-		  "claimed": False,
-		  "custom": None,
-		  "privilege": 0
-		})
+		"uid": 0xdeadbeef,
+		"email": None,
+		"points": None,
+		"claimed": False,
+		"custom": None,
+		"privilege": 0
+	})
 	assert r.status_code == 201
 
 def test_admin_user_post_2():
 	r = r1.post(api+"/admin/user", json={
-		  "uid": 3735928559, # 0xdeadbeef
-		  "email": None,
-		  "points": None,
-		  "claimed": False,
-		  "custom": None,
-		  "privilege": 0
-		})
+		"uid": 0xdeadbeef,
+		"email": None,
+		"points": None,
+		"claimed": False,
+		"custom": None,
+		"privilege": 0
+	})
 	assert r.status_code == 409
 
 def test_admin_user_post_3():
 	r = r2.post(api+"/admin/user", json={
-		  "uid": 3735928560,
-		  "email": None,
-		  "points": None,
-		  "claimed": False,
-		  "custom": None,
-		  "privilege": 0
-		})
+		"uid": 0xdeadbeef+1,
+		"email": None,
+		"points": None,
+		"claimed": False,
+		"custom": None,
+		"privilege": 0
+	})
 	assert r.status_code == 401
 
 # --[ CLAIM AN ACCOUNT ]--
 
 def test_user_user_post_0():
 	r = requests.post(api+"/user/user", data={
-		"uid": 3735928559,
+		"uid": 0xdeadbeef,
 		"password": "hunter2",
 		"custom": "",
 	})
@@ -67,7 +67,7 @@ def test_user_user_post_0():
 
 def test_user_user_post_1():
 	r = requests.post(api+"/user/user", data={
-		"uid": 3735928559,
+		"uid": 0xdeadbeef,
 		"email": "jdoe@email.com",
 		"password": "hunter2",
 		"custom": "",
@@ -76,7 +76,7 @@ def test_user_user_post_1():
 
 def test_user_user_post_2():
 	r = requests.post(api+"/user/user", data={
-		"uid": 3735928559,
+		"uid": 0xdeadbeef,
 		"email": "jdoe@email.com",
 		"password": "hunter2",
 		"custom": "",
@@ -129,6 +129,54 @@ def test_admin_get_user_0():
 
 def test_admin_get_user_1():
 	r = r2.get(api+"/admin/user")
+	assert r.status_code == 401
+
+# --[ EDIT INFO ABOUT AN ACCOUNT ]--
+
+def test_admin_patch_user_0():
+	r = r1.patch(api+"/admin/user/3", json={
+		"uid": 0xdeadbeef,
+		"points": 100,
+		"claimed": True,
+		"custom": "",
+		"privilege": 0
+	})
+	assert r.status_code == 400
+
+	s = requests.Session()
+	r = s.post(endpoint+"/login", data={"uid": 0xdeadbeef, "password": "hunter2"})
+	assert r.status_code == 200
+	r = s.get(api+"/user/user")
+	data = json.loads(r.content)
+	assert data["points"] == None
+
+def test_admin_patch_user_1():
+	r = r1.patch(api+"/admin/user/3", json={
+		"uid": 0xdeadbeef,
+		"email": "jdoe@email.com",
+		"points": 100,
+		"claimed": True,
+		"custom": "",
+		"privilege": 0
+	})
+	assert r.status_code == 201
+
+	s = requests.Session()
+	r = s.post(endpoint+"/login", data={"uid": 0xdeadbeef, "password": "hunter2"})
+	assert r.status_code == 200
+	r = s.get(api+"/user/user")
+	data = json.loads(r.content)
+	assert data["points"] == 100
+
+def test_admin_patch_user_2():
+	r = r2.patch(api+"/admin/user/3", json={
+		"uid": 0xdeadbeef,
+		"email": "jdoe@email.com",
+		"points": 999,
+		"claimed": True,
+		"custom": "",
+		"privilege": 0
+	})
 	assert r.status_code == 401
 
 # --[ DELETE AN ACCOUNT ]--

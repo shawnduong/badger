@@ -60,6 +60,32 @@ def admin_user_post():
 	db.session.commit()
 	return {}, 201
 
+@app.route(adminPrefix+"/user/<userId>", methods=["PATCH"])
+@admin_required
+@failsafe_500
+def admin_user_patch(userId: int):
+
+	try:
+		# These are required fields for this method.
+		for k in ("uid", "email", "points", "claimed", "custom", "privilege"):
+			assert k in request.json.keys()
+	except:
+		return {}, 400
+
+	try:
+		assert (u:=User.query.filter_by(uid=request.json["uid"]).first()) != None
+	except:
+		return {}, 404
+
+	u.uid=request.json["uid"]
+	u.privilege=request.json["privilege"]
+	u.email=request.json["email"]
+	u.points=request.json["points"]
+	u.claimed=request.json["claimed"]
+	u.custom=request.json["custom"]
+	db.session.commit()
+	return {}, 201
+
 @app.route(adminPrefix+"/user/<userId>", methods=["DELETE"])
 @admin_required
 @failsafe_500
