@@ -105,3 +105,7 @@ def test_admin_user_delete_1():
 	r = r1.delete(api+"/admin/user/3")
 	assert r.status_code == 404
 
+def test_admin_user_delete_2():
+	r = r2.delete(api+"/admin/user/3")
+	assert r.status_code == 401
+
