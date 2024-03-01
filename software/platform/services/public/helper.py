@@ -1,5 +1,3 @@
-from app import *
-
 def return_500_on_fail(f):
 	"""
 	Decorator that tries to execute f and if it fails, return a generic 500
