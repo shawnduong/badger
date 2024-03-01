@@ -15,16 +15,16 @@ MCP23017 mcp23017 = MCP23017(MCP23017_I2C_ADDRESS);
 /* Status block tests. */
 byte tests[] = {
 	0b00000000,  // Reset
-	0b00000001,  // Green
-	0b00000010,  // Yellow
-	0b00000100,  // Red
-	0b00001000,  // White
-	0b00010000,  // Blue
-	0b00100000,  // Red
-	0b01000000,  // Yellow
-	0b00000111,  // Multi
-	0b01111000,  // Multi
-	0b10000000,  // Buzzer
+	0b00000010,  // Green
+	0b00000100,  // Yellow
+	0b00001000,  // Red
+	0b00010000,  // White
+	0b00100000,  // Blue
+	0b01000000,  // Red
+	0b10000000,  // Yellow
+	0b00001110,  // Multi
+	0b11110000,  // Multi
+	0b00000001,  // Buzzer
 };
 
 void setup()
