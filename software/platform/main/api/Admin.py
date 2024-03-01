@@ -76,12 +76,13 @@ def admin_user_patch(userId: int):
 	except:
 		return {}, 404
 
-	u.uid=request.json["uid"]
-	u.privilege=request.json["privilege"]
-	u.email=request.json["email"]
-	u.points=request.json["points"]
-	u.claimed=request.json["claimed"]
-	u.custom=request.json["custom"]
+	u.uid        = request.json["uid"]
+	u.privilege  = request.json["privilege"]
+	u.email      = request.json["email"]
+	u.points     = request.json["points"]
+	u.claimed    = request.json["claimed"]
+	u.custom     = request.json["custom"]
+
 	db.session.commit()
 	return {}, 201
 
