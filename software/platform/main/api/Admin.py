@@ -84,7 +84,7 @@ def admin_user_patch(userId: int):
 	u.custom     = request.json["custom"]
 
 	db.session.commit()
-	return {}, 201
+	return {}, 200
 
 @app.route(adminPrefix+"/user/<userId>", methods=["DELETE"])
 @admin_required

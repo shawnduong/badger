@@ -60,7 +60,7 @@ paths:
             schema:
               $ref: "#/components/schemas/UserForm"
       responses:
-        201:
+        200:
           description: Account updated.
         400:
           description: Bad client form.
@@ -275,7 +275,7 @@ paths:
             schema:
               $ref: "#/components/schemas/CodeForm"
       responses:
-        201:
+        200:
           description: Code updated.
         400:
           description: Bad client form.
@@ -309,7 +309,7 @@ paths:
             schema:
               $ref: "#/components/schemas/AnnouncementForm"
       responses:
-        201:
+        200:
           description: Announcement updated.
         400:
           description: Bad client form.
@@ -343,7 +343,7 @@ paths:
             schema:
               $ref: "#/components/schemas/EventForm"
       responses:
-        201:
+        200:
           description: Event updated.
         400:
           description: Bad client form.
@@ -399,7 +399,7 @@ paths:
             schema:
               $ref: "#/components/schemas/RsvpForm"
       responses:
-        201:
+        200:
           description: RSVP updated.
         400:
           description: Bad client form.
@@ -455,7 +455,7 @@ paths:
             schema:
               $ref: "#/components/schemas/AttendanceForm"
       responses:
-        201:
+        200:
           description: Attendance updated.
         400:
           description: Bad client form.
@@ -496,7 +496,7 @@ paths:
             schema:
               $ref: "#/components/schemas/EntitlementForm"
       responses:
-        201:
+        200:
           description: Entitlement updated.
         400:
           description: Bad client form.
@@ -550,7 +550,7 @@ paths:
             schema:
               $ref: "#/components/schemas/RedemptionForm"
       responses:
-        201:
+        200:
           description: Redemption updated.
         400:
           description: Bad client form.
@@ -589,7 +589,7 @@ paths:
             schema:
               $ref: "#components/schemas/RewardForm"
       responses:
-        201:
+        200:
           description: Reward updated.
         400:
           description: Bad client form.
@@ -637,7 +637,7 @@ paths:
             schema:
               $ref: "#/components/schemas/ClaimForm"
       responses:
-        201:
+        200:
           description: Claim updated.
         400:
           description: Bad client form.
@@ -693,7 +693,7 @@ paths:
             schema:
               $ref: "#/components/schemas/UserPrivilegedForm"
       responses:
-        201:
+        200:
           description: Account updated.
         400:
           description: Bad client form.
@@ -731,7 +731,7 @@ paths:
             schema:
               $ref: "#/components/schemas/Policy"
       responses:
-        201:
+        200:
           description: Policy updated.
         400:
           description: Bad client form.
@@ -761,7 +761,7 @@ paths:
             schema:
               $ref: "#/components/schemas/ResetForm"
       responses:
-        201:
+        200:
           description: Policy updated.
         400:
           description: Bad client form.
@@ -817,7 +817,7 @@ paths:
             schema:
               $ref: "#/components/schemas/ConfigurationForm"
       responses:
-        201:
+        200:
           description: Policy updated.
         400:
           description: Bad client form.

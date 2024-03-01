@@ -81,5 +81,5 @@ def user_user_patch():
 	user = User.query.filter_by(id=current_user.id).first()
 	user.claim(request.json["email"], request.json["password"], request.json["custom"])
 	db.session.commit()
-	return {}, 201
+	return {}, 200
 

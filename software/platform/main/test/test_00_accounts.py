@@ -114,7 +114,7 @@ def test_user_user_patch_0():
 		"password": "********",
 		"custom": "",
 	})
-	assert r.status_code == 201
+	assert r.status_code == 200
 
 	r = r2.get(API+"/user/user")
 	data = json.loads(r.content)
@@ -159,7 +159,7 @@ def test_admin_patch_user_1():
 		"custom": "",
 		"privilege": 0
 	})
-	assert r.status_code == 201
+	assert r.status_code == 200
 
 	s = requests.Session()
 	r = s.post(ENDPOINT+"/login", data={"uid": 0xdeadbeef, "password": "hunter2"})
