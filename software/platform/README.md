@@ -2,8 +2,8 @@
 
 - [ ] POST /public/reset: Request a password reset.
   - [ ] Test
-- [ ] GET /user/user: Get your own user account details.
-  - [ ] Test
+- [x] GET /user/user: Get your own user account details.
+  - [x] Test
 - [x] POST /user/user: Create a user account to link your card to.
   - [x] Test
 - [ ] PATCH /user/user: Update the information in a user account.

@@ -6,6 +6,19 @@ from flask_login import current_user, login_required
 
 userPrefix = "/api/v1/user"
 
+@app.route(userPrefix+"/user", methods=["GET"])
+@login_required
+@failsafe_500
+def user_user_get():
+
+	return {
+		"id": current_user.id,
+		"uid": current_user.uid,
+		"email": current_user.email,
+		"points": current_user.points,
+		"claimed": current_user.claimed,
+	}, 200
+
 @app.route(userPrefix+"/user", methods=["POST"])
 @failsafe_500
 def user_user_post():
