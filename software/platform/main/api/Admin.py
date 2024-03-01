@@ -1,8 +1,7 @@
-import requests
-
 from app import *
-
 from flask_login import current_user, login_required
+
+import requests
 
 adminPrefix = "/api/v1/admin"
 

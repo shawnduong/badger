@@ -1,5 +1,4 @@
 from app import *
-
 from flask_login import current_user, login_required
 
 class FrontEndRouter:

@@ -1,12 +1,11 @@
 from __future__ import annotations
 
+from app import db
+from flask_login import UserMixin
+
 import bcrypt
 import re
 from typing import Union
-
-from app import db
-
-from flask_login import UserMixin
 
 class User(UserMixin, db.Model):
 

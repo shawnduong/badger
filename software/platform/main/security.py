@@ -1,8 +1,7 @@
-import time
-
 from app import *
-
 from flask_login import LoginManager, current_user, login_required, login_user, logout_user
+
+import time
 
 # This is for testing. Delete later.
 if User.query.filter_by(uid=0xfeedf00d).first() == None:

@@ -1,7 +1,7 @@
-import os
-
 from flask import *
 from flask_sqlalchemy import *
+
+import os
 
 from lib.helper import *
 

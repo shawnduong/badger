@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 
+from app import *
+
 import os
 import sys
 from argparse import ArgumentParser
-
-from app import *
 
 def main():
 
