@@ -3,6 +3,8 @@ import os
 from flask import *
 from flask_sqlalchemy import *
 
+from lib.helper import *
+
 # Instantiate the application and define settings.
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///users.sqlite"

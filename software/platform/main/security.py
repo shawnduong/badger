@@ -50,9 +50,10 @@ def admin_required(f):
 	"""
 
 	@login_required
-	def execute(*args, **kwargs):
+	def x(*args, **kwargs):
 		if current_user.privilege != User.PRIV_ADMIN:
 			return {}, 401
 		return f(*args, **kwargs)
 
-	return execute
+	return x
+

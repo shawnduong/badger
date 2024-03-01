@@ -6,13 +6,8 @@ from flask_login import current_user, login_required
 
 userPrefix = "/api/v1/user"
 
-#@app.route(prefix+"/user", methods=["GET"])
-#@login_required
-#def user_get():
-#	r = requests.get(IMPLEMENTATION["user"]+"/user", json=request.json)
-#	return r.content, r.status_code
-
 @app.route(userPrefix+"/user", methods=["POST"])
+@failsafe_500
 def user_user_post():
 	"""
 	Set up a user account with required information. This is different than
@@ -58,6 +53,4 @@ def user_user_post():
 		return {}, 201
 	except:
 		return {}, 400
-
-	return {}, 500
 
