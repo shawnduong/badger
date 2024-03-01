@@ -5,7 +5,7 @@
 - [ ] GET /user/user: Get your own user account details.
   - [ ] Test
 - [x] POST /user/user: Create a user account to link your card to.
-  - [ ] Test
+  - [x] Test
 - [ ] PATCH /user/user: Update the information in a user account.
   - [ ] Test
 - [ ] GET /user/announcement: Get all announcements.

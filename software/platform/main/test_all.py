@@ -12,9 +12,9 @@ r2.post(endpoint+"/login", data={"uid": 0xf00df00d, "password": "user"})
 def test_admin_user_post_0():
 	r = r1.post(api+"/admin/user", json={
 		  "uid": 3735928559, # 0xdeadbeef
-		  "points": 300,
-		  "claimed": True,
-		  "custom": "e2N1c3RvbUZpZWxkOjEwfQo=",
+		  "points": None,
+		  "claimed": False,
+		  "custom": None,
 		  "privilege": 0
 		})
 	assert r.status_code == 400
@@ -22,10 +22,10 @@ def test_admin_user_post_0():
 def test_admin_user_post_1():
 	r = r1.post(api+"/admin/user", json={
 		  "uid": 3735928559, # 0xdeadbeef
-		  "email": "jdoe@email.com",
-		  "points": 300,
-		  "claimed": True,
-		  "custom": "e2N1c3RvbUZpZWxkOjEwfQo=",
+		  "email": None,
+		  "points": None,
+		  "claimed": False,
+		  "custom": None,
 		  "privilege": 0
 		})
 	assert r.status_code == 201
@@ -33,10 +33,10 @@ def test_admin_user_post_1():
 def test_admin_user_post_2():
 	r = r1.post(api+"/admin/user", json={
 		  "uid": 3735928559, # 0xdeadbeef
-		  "email": "jdoe@email.com",
-		  "points": 300,
-		  "claimed": True,
-		  "custom": "e2N1c3RvbUZpZWxkOjEwfQo=",
+		  "email": None,
+		  "points": None,
+		  "claimed": False,
+		  "custom": None,
 		  "privilege": 0
 		})
 	assert r.status_code == 409
@@ -44,11 +44,37 @@ def test_admin_user_post_2():
 def test_admin_user_post_3():
 	r = r2.post(api+"/admin/user", json={
 		  "uid": 3735928560,
-		  "email": "jdoe123@email.com",
-		  "points": 300,
-		  "claimed": True,
-		  "custom": "e2N1c3RvbUZpZWxkOjEwfQo=",
+		  "email": None,
+		  "points": None,
+		  "claimed": False,
+		  "custom": None,
 		  "privilege": 0
 		})
 	assert r.status_code == 401
+
+def test_user_user_post_0():
+	r = requests.post(api+"/user/user", data={
+		"uid": 3735928559,
+		"password": "hunter2",
+		"custom": "",
+	})
+	assert r.status_code == 400
+
+def test_user_user_post_1():
+	r = requests.post(api+"/user/user", data={
+		"uid": 3735928559,
+		"email": "jdoe@email.com",
+		"password": "hunter2",
+		"custom": "",
+	})
+	assert r.status_code == 201
+
+def test_user_user_post_2():
+	r = requests.post(api+"/user/user", data={
+		"uid": 3735928559,
+		"email": "jdoe@email.com",
+		"password": "hunter2",
+		"custom": "",
+	})
+	assert r.status_code == 409
 
