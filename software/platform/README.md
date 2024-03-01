@@ -135,10 +135,10 @@
 - [x] DELETE /admin/user/{userId}: Delete an account.
   - [x] Test
 
-- [ ] GET /admin/policy: Get the policy settings.
-  - [ ] Test
-- [ ] PATCH /admin/policy: Change the policy settings.
-  - [ ] Test
+- [x] GET /admin/policy: Get the policy settings.
+  - [x] Test
+- [x] PATCH /admin/policy: Change the policy settings.
+  - [x] Test
 
 - [ ] GET /admin/reset: Get a list of all requested account resets.
   - [ ] Test
