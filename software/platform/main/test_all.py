@@ -78,3 +78,12 @@ def test_user_user_post_2():
 	})
 	assert r.status_code == 409
 
+def test_user_user_post_3():
+	r = requests.post(api+"/user/user", data={
+		"uid": 9999,
+		"email": "jdoe@email.com",
+		"password": "hunter2",
+		"custom": "",
+	})
+	assert r.status_code == 400
+
