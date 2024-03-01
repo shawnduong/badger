@@ -1,3 +1,4 @@
+*.sqlite
 *.swp
 env/
 instance/

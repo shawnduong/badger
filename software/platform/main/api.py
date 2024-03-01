@@ -43,7 +43,9 @@ class UserApi:
 
 		try:
 			uid = int(request.form["uid"])
+			print(uid)
 			user = User.query.filter_by(uid=uid).all()
+			print(user)
 			if len(user) == 0:
 				return {}, 400
 			if len(user) > 1:

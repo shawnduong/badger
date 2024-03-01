@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 
-{% set pageTitle = "(DEV) Claim" %}{% include "includes/header.html" %}
+{% set pageTitle = "(DEV) Register" %}{% include "includes/header.html" %}
 
 <body>
 
-	<h1>Claim</h1>
+	<h1>Register</h1>
 
 	<form action="/api/v1/user/user" method="POST">
 		<input type="number" id="uid" name="uid" hidden value={{ uid }} />

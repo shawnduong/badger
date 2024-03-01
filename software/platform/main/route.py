@@ -23,7 +23,7 @@ class FrontEndRouter:
 
 		# TODO: graceful redirect to index with fail.
 		try:
-			uid = int(request.form["uid"])
+			uid = int(request.form["uid"], 16)
 		except:
 			return {}, 400
 
