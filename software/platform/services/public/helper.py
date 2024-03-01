@@ -1,4 +1,4 @@
-def return_500_on_fail(f):
+def failsafe_500(f):
 	"""
 	Decorator that tries to execute f and if it fails, return a generic 500
 	error with no additional data.

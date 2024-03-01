@@ -13,7 +13,7 @@ def _valid_email(email: str):
 	return re.match(pattern, email)
 
 @app.route("/api/v1/public/reset", methods=["POST"])
-@return_500_on_fail
+@failsafe_500
 def v1_post():
 	data = json.loads(request.json)
 	if "email" not in data.keys():
