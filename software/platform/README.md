@@ -100,7 +100,7 @@
   - [ ] Test
 - [ ] GET /admin/user: Get all users and their account info.
   - [ ] Test
-- [ ] POST /admin/user: Create a user account.
+- [x] POST /admin/user: Create a user account.
   - [ ] Test
 - [ ] PATCH /admin/user/{userId}: Update the information in a user account.
   - [ ] Test

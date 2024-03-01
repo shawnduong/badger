@@ -25,16 +25,21 @@ class User(UserMixin, db.Model):
 	claimed    = db.Column(db.Boolean    , unique=False, nullable=False)
 	custom     = db.Column(db.Text       , unique=False, nullable=True )
 
-	def __init__(self, privilege=PRIV_USER, claimed=False, uid=None):
+	def __init__(self, uid=None, privilege=PRIV_USER, email=None, password=None,
+		points=None, claimed=False, custom=None):
 		"""
-		When a user is created, they do not need to be a claimed account yet.
-		They can set their email and password later depending on the policy. A
-		UID should also be set, but isn't necessary (e.g. admin accounts).
+		Create a user account. Not all information needs to be defined, just the
+		privilege level and claimed status. Normal users can fill out the rest
+		of the info when they claim their account.
 		"""
 
 		self.uid       = uid
 		self.privilege = privilege
+		self.email     = email
+		self.password  = password
+		self.points    = points
 		self.claimed   = claimed
+		self.custom    = custom
 
 	def claim(self, email: str, password: str, custom: str) -> bool:
 		"""

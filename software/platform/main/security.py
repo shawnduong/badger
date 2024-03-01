@@ -11,16 +11,10 @@ from flask_login import LoginManager, current_user, login_required, login_user, 
 #	db.session.commit()
 
 # This is for testing. Delete later.
-if User.query.filter_by(uid=0xdeadbeef).first() == None:
-	u1 = User(0, False, 0xdeadbeef)
-	u1.claim("foo1@bar.com", "password1", "")
-	db.session.add(u1)
-if User.query.filter_by(uid=0xcafebabe).first() == None:
-	u2 = User(0, False, 0xcafebabe)
-	db.session.add(u2)
-if User.query.filter_by(uid=0xbeefcafe).first() == None:
-	u3 = User(0, False, 0xbeefcafe)
-	db.session.add(u3)
+if User.query.filter_by(uid=0xfeedf00d).first() == None:
+	u = User(privilege=User.PRIV_ADMIN, claimed=False, uid=0xfeedf00d)
+	u.claim("foo2@bar.com", "admin", "")
+	db.session.add(u)
 db.session.commit()
 
 loginManager = LoginManager()
