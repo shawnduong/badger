@@ -16,7 +16,7 @@ def _valid_email(email: str):
 
 @app.route(API+"/reset", methods=["POST"])
 @failsafe_500
-def public_reset_post():
+def reset_post():
 	data = json.loads(request.json)
 	if "email" not in data.keys():
 		return {}, 400
