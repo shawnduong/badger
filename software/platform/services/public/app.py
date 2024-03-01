@@ -1,7 +1,9 @@
-import os
-
 from flask import *
 #from flask_sqlalchemy import *
+
+from helper import *
+
+import os
 
 # Instantiate the application and define settings.
 app = Flask(__name__)
@@ -15,5 +17,4 @@ app.secret_key = os.urandom(32)
 #with app.app_context():
 #	db.create_all()
 
-from helper import *
 from public import *
