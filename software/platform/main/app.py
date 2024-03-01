@@ -28,4 +28,4 @@ with app.app_context():
 	from security import *
 
 from route import *
-from api import *
+from api.all import *
