@@ -2,7 +2,7 @@ import time
 
 from app import *
 
-from flask_login import LoginManager, login_required, login_user, logout_user
+from flask_login import LoginManager, current_user, login_required, login_user, logout_user
 
 ## If there is no admin account, make a default one.
 #if User.query.filter_by(privilege=1).first() == None:
@@ -51,3 +51,15 @@ def logout():
 	logout_user()
 	return redirect(url_for("index"))
 
+def admin_required(f):
+	"""
+	Decorator that requires the current user be an admin, else return a 401.
+	"""
+
+	@login_required
+	def execute(*args, **kwargs):
+		if current_user.privilege != User.PRIV_ADMIN:
+			return {}, 401
+		return f(*args, **kwargs)
+
+	return execute
