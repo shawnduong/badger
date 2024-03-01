@@ -1,0 +1,67 @@
+# Status
+
+- [ ] POST /public/reset: Request a password reset.
+- [ ] GET /user/user: Get your own user account details.
+- [x] POST /user/user: Create a user account to link your card to.
+- [ ] PATCH /user/user: Update the information in a user account.
+- [ ] GET /user/announcement: Get all announcements.
+- [ ] POST /user/code/{code}: Redeem a code for points.
+- [ ] GET /user/event: Get all events.
+- [ ] GET /user/rsvp: Get all your RSVPs.
+- [ ] POST /user/rsvp/{eventId}: Submit an RSVP for an event.
+- [ ] DELETE /user/rsvp/{eventId}: Delete an RSVP for an event.
+- [ ] GET /user/attendance: Get all your attendances.
+- [ ] POST /user/attendance/{code}: Submit an attendance code.
+- [ ] GET /user/entitlement: Get a list of all the entitlements available.
+- [ ] GET /user/redemption: Get a list of all your entitlement redemptions.
+- [ ] GET /user/reward: Get a list of all the rewards available.
+- [ ] GET /user/claim: Get a list of all your reward claims.
+- [ ] POST /user/claim/{rewardId}: Claim a reward.
+- [ ] GET /manage/code: Get a list of all codes and their values.
+- [ ] POST /manage/code: Create a code.
+- [ ] PATCH /manage/code/{codeId}: Update a code.
+- [ ] DELETE /manage/code/{codeId}: Delete a code.
+- [ ] POST /manage/announcement: Create an announcement.
+- [ ] PATCH /manage/announcement/{announcementId}: Update an announcement.
+- [ ] DELETE /manage/announcement/{announcementId}: Delete an announcement.
+- [ ] POST /manage/event: Create an event.
+- [ ] PATCH /manage/event/{eventId}: Update an event.
+- [ ] DELETE /manage/event/{eventId}: Delete an event.
+- [ ] GET /manage/rsvp: Get a list of all RSVPs.
+- [ ] POST /manage/rsvp: Create an RSVP on a user's behalf.
+- [ ] PATCH /manage/rsvp/{rsvpId}: Update an RSVP.
+- [ ] DELETE /manage/rsvp/{rsvpId}: Delete an RSVP.
+- [ ] GET /manage/attendance: Get a list of all attendances.
+- [ ] POST /manage/attendance: Create an attendance on a user's behalf.
+- [ ] PATCH /manage/attendance/{attendanceId}: Update an attendance.
+- [ ] DELETE /manage/attendance/{attendanceId}: Delete an attendance.
+- [ ] POST /manage/entitlement: Create an entitlement.
+- [ ] PATCH /manage/entitlement/{entitlementId}: Update an entitlement.
+- [ ] DELETE /manage/entitlement/{entitlementId}: Delete an entitlement.
+- [ ] GET /manage/redemption: Get a list of all redemptions.
+- [ ] POST /manage/redemption: Create a redemption on behalf of a user.
+- [ ] PATCH /manage/redemption/{redemptionId}: Update a redemption.
+- [ ] DELETE /manage/redemption/{redemptionId}: Delete a redemption.
+- [ ] POST /manage/reward: Create a reward.
+- [ ] PATCH /manage/reward/{rewardId}: Update a reward.
+- [ ] DELETE /manage/reward/{rewardId}: Delete a reward.
+- [ ] GET /manage/claim: Get a list of all reward claims.
+- [ ] POST /manage/claim: Create a reward claim on a user's behalf.
+- [ ] PATCH /manage/claim/{claimId}: Update a reward claim.
+- [ ] DELETE /manage/claim/{claimId}: Delete a reward claim.
+- [ ] GET /admin/user: Get all users and their account info.
+- [ ] POST /admin/user: Create a user account.
+- [ ] PATCH /admin/user/{userId}: Update the information in a user account.
+- [ ] DELETE /admin/user/{userId}: Delete an account.
+- [ ] GET /admin/policy: Get the policy settings.
+- [ ] PATCH /admin/policy: Change the policy settings.
+- [ ] GET /admin/reset: Get a list of all requested account resets.
+- [ ] PATCH /admin/reset/{resetId}: Update an account reset.
+- [ ] DELETE /admin/reset/{resetId}: Delete a reset request.
+- [ ] GET /admin/configure: Get the scanner configurations.
+- [ ] POST /admin/configure: Create a scanner configuration.
+- [ ] PATCH /admin/configure/{configurationId}: Update a configuration.
+- [ ] DELETE /admin/configure/{configurationId}: Delete a configuration.
+- [ ] GET /admin/scanner: Get a list of scanner statuses.
+- [ ] POST /scanner/scan: Report a batch of scans.
+- [ ] POST /scanner/ping: Report that this scanner is still alive.
