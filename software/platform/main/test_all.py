@@ -2,7 +2,7 @@ import json
 import requests
 
 endpoint = "http://localhost:8080"
-api = endpoint+"/api/v1/"
+api = endpoint+"/api/v1"
 
 r1 = requests.Session()
 r1.post(endpoint+"/login", data={"uid": 0xfeedf00d, "password": "admin"})
@@ -92,4 +92,16 @@ def test_admin_get_user_0():
 	r = r1.get(api+"/admin/user")
 	data = json.loads(r.content)
 	assert r.status_code == 200 and len(data) > 0
+
+def test_admin_get_user_1():
+	r = r2.get(api+"/admin/user")
+	assert r.status_code == 401
+
+def test_admin_user_delete_0():
+	r = r1.delete(api+"/admin/user/3")
+	assert r.status_code == 200
+
+def test_admin_user_delete_1():
+	r = r1.delete(api+"/admin/user/3")
+	assert r.status_code == 404
 

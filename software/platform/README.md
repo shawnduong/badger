@@ -98,14 +98,14 @@
   - [ ] Test
 - [ ] DELETE /manage/claim/{claimId}: Delete a reward claim.
   - [ ] Test
-- [ ] GET /admin/user: Get all users and their account info.
-  - [ ] Test
+- [x] GET /admin/user: Get all users and their account info.
+  - [x] Test
 - [x] POST /admin/user: Create a user account.
   - [x] Test
 - [ ] PATCH /admin/user/{userId}: Update the information in a user account.
   - [ ] Test
-- [ ] DELETE /admin/user/{userId}: Delete an account.
-  - [ ] Test
+- [x] DELETE /admin/user/{userId}: Delete an account.
+  - [x] Test
 - [ ] GET /admin/policy: Get the policy settings.
   - [ ] Test
 - [ ] PATCH /admin/policy: Change the policy settings.

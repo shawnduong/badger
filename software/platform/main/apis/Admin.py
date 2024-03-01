@@ -25,7 +25,6 @@ def admin_user_get():
 		for u in users
 	]
 
-	print(output)
 	return output, 200
 
 @app.route(adminPrefix+"/user", methods=["POST"])
@@ -60,4 +59,19 @@ def admin_user_post():
 	db.session.add(user)
 	db.session.commit()
 	return {}, 201
+
+@app.route(adminPrefix+"/user/<userId>", methods=["DELETE"])
+@admin_required
+@failsafe_500
+def admin_user_delete(userId: int):
+
+	try:
+		user = User.query.filter_by(id=userId).first()
+		assert user != None
+	except:
+		return {}, 404
+
+	db.session.delete(user)
+	db.session.commit()
+	return {}, 200
 
