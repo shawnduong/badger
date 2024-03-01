@@ -50,10 +50,11 @@ def admin_required(f):
 	"""
 
 	@login_required
-	def x(*args, **kwargs):
+	def wrapper(*args, **kwargs):
 		if current_user.privilege != User.PRIV_ADMIN:
 			return {}, 401
 		return f(*args, **kwargs)
 
-	return x
+	wrapper.__name__ = f.__name__
+	return wrapper
 

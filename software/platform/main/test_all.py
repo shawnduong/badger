@@ -1,3 +1,4 @@
+import json
 import requests
 
 endpoint = "http://localhost:8080"
@@ -86,4 +87,9 @@ def test_user_user_post_3():
 		"custom": "",
 	})
 	assert r.status_code == 400
+
+def test_admin_get_user_0():
+	r = r1.get(api+"/admin/user")
+	data = json.loads(r.content)
+	assert r.status_code == 200 and len(data) > 0
 

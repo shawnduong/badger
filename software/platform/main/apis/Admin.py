@@ -6,6 +6,28 @@ from flask_login import current_user, login_required
 
 adminPrefix = "/api/v1/admin"
 
+@app.route(adminPrefix+"/user", methods=["GET"])
+@admin_required
+@failsafe_500
+def admin_user_get():
+
+	users = User.query.all()
+	output = [
+		{
+			"uid": u.uid,
+			"email": u.email,
+			"points": u.points,
+			"claimed": u.claimed,
+			"custom": u.custom,
+			"privilege": u.privilege,
+			"id": u.id,
+		}
+		for u in users
+	]
+
+	print(output)
+	return output, 200
+
 @app.route(adminPrefix+"/user", methods=["POST"])
 @admin_required
 @failsafe_500

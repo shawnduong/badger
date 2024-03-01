@@ -4,7 +4,7 @@ def failsafe_500(f):
 	error with no additional data.
 	"""
 
-	def execute(*args, **kwargs):
+	def wrapper(*args, **kwargs):
 		try:
 			return f(*args, **kwargs)
 		except Exception as e:
@@ -16,5 +16,6 @@ def failsafe_500(f):
 			print("--- END EXCEPTION ---")
 			return {}, 500
 
-	return execute
+	wrapper.__name__ = f.__name__
+	return wrapper
 
