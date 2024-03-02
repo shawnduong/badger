@@ -39,6 +39,8 @@ user-userId:
           application/json:
             schema:
               $ref: "../../schemas/User.yaml#/UserPrivilegedView"
+      400:
+        description: Bad client form.
       404:
         description: Account not found.
       500:

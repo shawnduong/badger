@@ -28,6 +28,21 @@ code:
       500:
         description: Internal server error.
 code-codeId:
+  get:
+    summary: Get information about one code in particular.
+    responses:
+      200:
+        description: OK.
+        content:
+          application/json:
+            schema:
+              $ref: "../../schemas/Code.yaml#/Code"
+      400:
+        description: Bad client form.
+      404:
+        description: Code not found.
+      500:
+        description: Internal server error.
   patch:
     summary: Update a code.
     requestBody:

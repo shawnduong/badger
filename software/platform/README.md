@@ -47,6 +47,7 @@
 
 - [x] GET /manage/code: Get a list of all codes and their values.
 - [x] POST /manage/code: Create a code.
+- [x] GET /manage/code/{codeId}: Get information about one code in particular.
 - [x] PATCH /manage/code/{codeId}: Update a code.
 - [x] DELETE /manage/code/{codeId}: Delete a code.
 - [x] Tests

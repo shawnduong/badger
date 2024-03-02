@@ -56,6 +56,34 @@ def test_manage_code_get_200():
 	assert data[0]["points"] == 100
 	assert data[0]["id"] == 1
 
+# --[ GET A SPECIFIC CODE ]--
+
+# Success.
+def test_manage_code_get_specific_200():
+
+	r = admin.get(API+"/manage/code/1")
+	assert r.status_code == 200
+
+	data = json.loads(r.content)
+	assert data["code"] == "AAAA-BB-CCCC"
+	assert data["points"] == 100
+	assert data["id"] == 1
+
+# Bad form.
+def test_manage_code_get_specific_400():
+	r = admin.get(API+"/manage/code/abc")
+	assert r.status_code == 400
+
+# Bad permissions.
+def test_manage_code_get_specific_401():
+	r = user.get(API+"/manage/code/1")
+	assert r.status_code == 401
+
+# Code doesn't exist.
+def test_manage_code_get_specific_404():
+	r = admin.get(API+"/manage/code/999")
+	assert r.status_code == 404
+
 # --[ CHANGE INFO ABOUT A CODE ]--
 
 # Bad form.

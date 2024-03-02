@@ -164,33 +164,39 @@ def test_user_user_patch_400():
 # --[ GET INFO ABOUT ALL ACCOUNTS ]--
 
 # Success.
-def test_admin_get_user_200():
+def test_admin_user_get_200():
 	r = admin.get(API+"/admin/user")
 	data = json.loads(r.content)
 	assert r.status_code == 200 and len(data) > 0
 
 # Bad permissions.
-def test_admin_get_user_401():
+def test_admin_user_get_401():
 	r = user.get(API+"/admin/user")
 	assert r.status_code == 401
 
 # --[ GET INFO ABOUT A SPECIFIC ACCOUNT ]--
 
 # Success.
-def test_admin_get_user_200():
+def test_admin_user_get_specific_200():
 	r = admin.get(API+"/admin/user/1")
 	data = json.loads(r.content)
 	assert r.status_code == 200
 	assert data["email"] == "admin@test.com"
 
+# Bad form.
+def test_admin_user_get_specific_400():
+	r = admin.get(API+"/admin/user/abc")
+	data = json.loads(r.content)
+	assert r.status_code == 400
+
 # Account doesn't exist.
-def test_admin_get_user_404():
+def test_admin_user_get_specific_404():
 	r = admin.get(API+"/admin/user/999")
 	data = json.loads(r.content)
 	assert r.status_code == 404
 
 # Bad permissions.
-def test_admin_get_user_401():
+def test_admin_user_get_specific_401():
 	r = user.get(API+"/admin/user/1")
 	data = json.loads(r.content)
 	assert r.status_code == 401
@@ -198,7 +204,7 @@ def test_admin_get_user_401():
 # --[ EDIT INFO ABOUT AN ACCOUNT ]--
 
 # Bad form.
-def test_admin_patch_user_400():
+def test_admin_user_patch_400():
 	r = admin.patch(API+"/admin/user/3", json={
 		"uid": 0xdeadbeef,
 		"points": 100,
@@ -209,7 +215,7 @@ def test_admin_patch_user_400():
 	assert r.status_code == 400
 
 # Success.
-def test_admin_patch_user_200():
+def test_admin_user_patch_200():
 	r = admin.patch(API+"/admin/user/3", json={
 		"uid": 0xdeadbeef,
 		"email": "jdoe@email.com",
@@ -228,7 +234,7 @@ def test_admin_patch_user_200():
 	assert data["points"] == 100
 
 # Bad permissions.
-def test_admin_patch_user_401():
+def test_admin_user_patch_401():
 	r = user.patch(API+"/admin/user/3", json={
 		"uid": 0xdeadbeef,
 		"email": "jdoe@email.com",

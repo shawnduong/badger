@@ -54,6 +54,11 @@ def admin_user_post():
 def admin_user_get_specific(userId: int):
 
 	try:
+		int(userId)
+	except:
+		return {}, 400
+
+	try:
 		assert (u:=User.query.get(userId))
 	except:
 		return {}, 404
