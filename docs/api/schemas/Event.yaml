@@ -30,7 +30,7 @@ EventForm:
       example: "Lorem ipsum dolor sit amet."
 Event:
   allOf:
-    - $ref: "#/components/schemas/EventForm"
+    - $ref: "#/EventForm"
     - type: object
       properties:
         id:

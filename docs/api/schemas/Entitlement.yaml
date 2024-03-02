@@ -10,7 +10,7 @@ EntitlementForm:
       description: How many redemptions you are entitled to.
 Entitlement:
   allOf:
-    - $ref: "#/components/schemas/EntitlementForm"
+    - $ref: "#/EntitlementForm"
     - type: object
       properties:
         id:

@@ -1,0 +1,33 @@
+claim:
+  get:
+    summary: Get a list of all your reward claims.
+    responses:
+      200:
+        description: OK.
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "../../schemas/Claim.yaml#/ClaimForm"
+      500:
+        description: Internal server error.
+claim-rewardId:
+  post:
+    summary: Claim a reward.
+    responses:
+      201:
+        description: Reward claimed.
+      400:
+        description: Reward claim failed.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: "Insufficient points balance."
+                  description: An explanation of why the request failed.
+      500:
+        description: Internal server error.

@@ -1,0 +1,56 @@
+code:
+  get:
+    summary: Get a list of all codes and their values.
+    responses:
+      200:
+        description: OK.
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "../../schemas/Code.yaml#/Code"
+      500:
+        description: Internal server error.
+  post:
+    summary: Create a code.
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "../../schemas/Code.yaml#/CodeForm"
+    responses:
+      201:
+        description: Code created.
+      409:
+        description: Code already exists.
+      500:
+        description: Internal server error.
+code-codeId:
+  patch:
+    summary: Update a code.
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "../../schemas/Code.yaml#/CodeForm"
+    responses:
+      200:
+        description: Code updated.
+      400:
+        description: Bad client form.
+      404:
+        description: Code not found.
+      500:
+        description: Internal server error.
+  delete:
+    summary: Delete a code.
+    responses:
+      200:
+        description: Deletion successful.
+      404:
+        description: Not found.
+      500:
+        description: Internal server error.

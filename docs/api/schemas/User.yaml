@@ -61,7 +61,7 @@ UserPrivilegedForm:
       description: 0 if user, 1 if admin. Left as an integer to allow for more privilege levels to be defined.
 UserPrivilegedView:
   allOf:
-    - $ref: "#/components/schemas/UserPrivilegedForm"
+    - $ref: "#/UserPrivilegedForm"
     - type: object
       properties:
         id:

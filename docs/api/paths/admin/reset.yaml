@@ -1,0 +1,39 @@
+reset:
+  get:
+    summary: Get a list of all requested account resets.
+    responses:
+      200:
+        description: OK.
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "../../schemas/Reset.yaml#/Reset"
+      500:
+        description: Internal server error.
+reset-resetId:
+  patch:
+    summary: Update an account reset.
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "../../schemas/Reset.yaml#/ResetForm"
+    responses:
+      200:
+        description: Policy updated.
+      400:
+        description: Bad client form.
+      500:
+        description: Internal server error.
+  delete:
+    summary: Delete a reset request.
+    responses:
+      200:
+        description: Deletion successful.
+      404:
+        description: Not found.
+      500:
+        description: Internal server error.

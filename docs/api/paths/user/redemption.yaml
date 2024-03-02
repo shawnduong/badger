@@ -1,0 +1,14 @@
+redemption:
+  get:
+    summary: Get a list of all your entitlement redemptions.
+    responses:
+      200:
+        description: OK.
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "../../schemas/Redemption.yaml#/RedemptionForm"
+      500:
+        description: Internal server error.

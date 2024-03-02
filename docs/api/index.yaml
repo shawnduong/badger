@@ -9,946 +9,93 @@ servers:
 
 paths:
   /public/reset:
-    post:
-      summary: Request a password reset.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/SelfServiceResetForm"
-      responses:
-        202:
-          description: Password reset request received.
-        400:
-          description: Bad client form.
-        500:
-          description: Internal server error.
+    $ref: "paths/public/reset.yaml#/reset"
   /user/user:
-    get:
-      summary: Get your own user account details.
-      responses:
-        200:
-          description: OK.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/User"
-    post:
-      summary: Create a user account to link your card to.
-      requestBody:
-        required: true
-        content:
-          application/x-www-form-urlencoded:
-            schema:
-              $ref: "#/components/schemas/UserForm"
-      responses:
-        201:
-          description: Account created.
-        409:
-          description: Account already exists.
-        400:
-          description: Bad client form.
-        500:
-          description: Internal server error.
-    patch:
-      summary: Update the information in a user account.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/UserForm"
-      responses:
-        200:
-          description: Account updated.
-        400:
-          description: Bad client form.
-        500:
-          description: Internal server error.
+    $ref: "paths/user/user.yaml#/user"
   /user/announcement:
-    get:
-      summary: Get all announcements.
-      responses:
-        200:
-          description: OK.
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/Announcement"
-        500:
-          description: Internal server error.
+    $ref: "paths/user/announcement.yaml#/announcement"
   /user/submission/{code}:
-    post:
-      summary: Redeem a code for points.
-      responses:
-        201:
-          description: Code redemption successful.
-        404:
-          description: Code not found.
-        500:
-          description: Internal server error.
+    $ref: "paths/user/submission.yaml#/submission-code"
   /user/event:
-    get:
-      summary: Get all events.
-      responses:
-        200:
-          description: OK.
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/Event"
-        500:
-          description: Internal server error.
+    $ref: "paths/user/event.yaml#/event"
   /user/rsvp:
-    get:
-      summary: Get all your RSVPs.
-      responses:
-        200:
-          description: OK.
-          content:
-            application/json:
-              schema:
-                type: array
-                example: [10, 15, 17]
-                description: Event IDs of all the events you've RSVP'ed to.
-        500:
-          description: Internal server error.
+    $ref: "paths/user/rsvp.yaml#/rsvp"
   /user/rsvp/{eventId}:
-    post:
-      summary: Submit an RSVP for an event.
-      responses:
-        201:
-          description: RSVP successful.
-        404:
-          description: Event not found.
-        500:
-          description: Internal server error.
-    delete:
-      summary: Delete an RSVP for an event.
-      responses:
-        200:
-          description: Deletion successful.
-        404:
-          description: Not found.
-        500:
-          description: Internal server error.
+    $ref: "paths/user/rsvp.yaml#/rsvp-eventId"
   /user/attendance:
-    get:
-      summary: Get all your attendances.
-      responses:
-        200:
-          description: OK.
-          content:
-            application/json:
-              schema:
-                type: array
-                example: [10, 15, 17]
-                description: Event IDs of all the events you've attended. 
-        500:
-          description: Internal server error.
+    $ref: "paths/user/attendance.yaml#/attendance"
   /user/attendance/{code}:
-    post:
-      summary: Submit an attendance code.
-      responses:
-        201:
-          description: Attendance code successfully submitted.
-        404:
-          description: Attendance code not found.
-        500:
-          description: Internal server error.
+    $ref: "paths/user/attendance.yaml#/attendance-code"
   /user/entitlement:
-    get:
-      summary: Get a list of all the entitlements available.
-      responses:
-        200:
-          description: OK.
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/Entitlement"
-        500:
-          description: Internal server error.
+    $ref: "paths/user/entitlement.yaml#/entitlement"
   /user/redemption:
-    get:
-      summary: Get a list of all your entitlement redemptions.
-      responses:
-        200:
-          description: OK.
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/RedemptionForm"
-        500:
-          description: Internal server error.
+    $ref: "paths/user/redemption.yaml#/redemption"
   /user/reward:
-    get:
-      summary: Get a list of all the rewards available.
-      responses:
-        200:
-          description: OK.
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/Reward"
-        500:
-          description: Internal server error.
+    $ref: "paths/user/reward.yaml#/reward"
   /user/claim:
-    get:
-      summary: Get a list of all your reward claims.
-      responses:
-        200:
-          description: OK.
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/ClaimForm"
-        500:
-          description: Internal server error.
+    $ref: "paths/user/claim.yaml#/claim"
   /user/claim/{rewardId}:
-    post:
-      summary: Claim a reward.
-      responses:
-        201:
-          description: Reward claimed.
-        400:
-          description: Reward claim failed.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: "Insufficient points balance."
-                    description: An explanation of why the request failed.
-        500:
-          description: Internal server error.
+    $ref: "paths/user/claim.yaml#/claim-rewardId"
   /manage/code:
-    get:
-      summary: Get a list of all codes and their values.
-      responses:
-        200:
-          description: OK.
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/Code"
-        500:
-          description: Internal server error.
-    post:
-      summary: Create a code.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/CodeForm"
-      responses:
-        201:
-          description: Code created.
-        409:
-          description: Code already exists.
-        500:
-          description: Internal server error.
+    $ref: "paths/manage/code.yaml#/code"
   /manage/code/{codeId}:
-    patch:
-      summary: Update a code.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/CodeForm"
-      responses:
-        200:
-          description: Code updated.
-        400:
-          description: Bad client form.
-        404:
-          description: Code not found.
-        500:
-          description: Internal server error.
-    delete:
-      summary: Delete a code.
-      responses:
-        200:
-          description: Deletion successful.
-        404:
-          description: Not found.
-        500:
-          description: Internal server error.
+    $ref: "paths/manage/code.yaml#/code-codeId"
   /manage/submission:
-    get:
-      summary: Get a list of all submissions and their values.
-      responses:
-        200:
-          description: OK.
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/Submission"
-        500:
-          description: Internal server error.
-    post:
-      summary: Create a submission on behalf of another user.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/SubmissionForm"
-      responses:
-        201:
-          description: Submission created.
-        400:
-          description: Bad client form.
-        404:
-          description: User or code not found.
-        409:
-          description: Submission already exists.
-        500:
-          description: Internal server error.
+    $ref: "paths/manage/submission.yaml#/submission"
   /manage/submission/{submissionId}:
-    patch:
-      summary: Update a submission.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/SubmissionForm"
-      responses:
-        200:
-          description: Submission updated.
-        400:
-          description: Bad client form.
-        404:
-          description: Submission not found.
-        500:
-          description: Internal server error.
-    delete:
-      summary: Delete a submission.
-      responses:
-        200:
-          description: Deletion successful.
-        404:
-          description: Not found.
-        500:
-          description: Internal server error.
+    $ref: "paths/manage/submission.yaml#/submission-submissionId"
   /manage/announcement:
-    post:
-      summary: Create an announcement.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/AnnouncementForm"
+    $ref: "paths/manage/announcement.yaml#/announcement"
   /manage/announcement/{announcementId}:
-    patch:
-      summary: Update an announcement.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/AnnouncementForm"
-      responses:
-        200:
-          description: Announcement updated.
-        400:
-          description: Bad client form.
-        500:
-          description: Internal server error.
-    delete:
-      summary: Delete an announcement.
-      responses:
-        200:
-          description: Deletion successful.
-        404:
-          description: Not found.
-        500:
-          description: Internal server error.
+    $ref: "paths/manage/announcement.yaml#/announcement-announcementId"
   /manage/event:
-    post:
-      summary: Create an event.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/EventForm"
+    $ref: "paths/manage/event.yaml#/event"
   /manage/event/{eventId}:
-    patch:
-      summary: Update an event.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/EventForm"
-      responses:
-        200:
-          description: Event updated.
-        400:
-          description: Bad client form.
-        500:
-          description: Internal server error.
-    delete:
-      summary: Delete an event.
-      responses:
-        200:
-          description: Deletion successful.
-        404:
-          description: Not found.
-        500:
-          description: Internal server error.
+    $ref: "paths/manage/event.yaml#/event-eventId"
   /manage/rsvp:
-    get:
-      summary: Get a list of all RSVPs.
-      responses:
-        200:
-          description: OK.
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/Rsvp"
-        500:
-          description: Internal server error.
-    post:
-      summary: Create an RSVP on a user's behalf.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/RsvpForm"
-      responses:
-        201:
-          description: RSVP created.
-        404:
-          description: User or event not found.
-        409:
-          description: RSVP already exists.
-        500:
-          description: Internal server error.
+    $ref: "paths/manage/rsvp.yaml#/rsvp"
   /manage/rsvp/{rsvpId}:
-    patch:
-      summary: Update an RSVP.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/RsvpForm"
-      responses:
-        200:
-          description: RSVP updated.
-        400:
-          description: Bad client form.
-        500:
-          description: Internal server error.
-    delete:
-      summary: Delete an RSVP.
-      responses:
-        200:
-          description: Deletion successful.
-        404:
-          description: Not found.
-        500:
-          description: Internal server error.
+    $ref: "paths/manage/rsvp.yaml#/rsvp-rsvpId"
   /manage/attendance:
-    get:
-      summary: Get a list of all attendances.
-      responses:
-        200:
-          description: OK.
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/Attendance"
-        500:
-          description: Internal server error.
-    post:
-      summary: Create an attendance on a user's behalf.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/AttendanceForm"
-      responses:
-        201:
-          description: Attendance created.
-        404:
-          description: User or event not found.
-        409:
-          description: Attendance already exists.
-        500:
-          description: Internal server error.
+    $ref: "paths/manage/attendance.yaml#/attendance"
   /manage/attendance/{attendanceId}:
-    patch:
-      summary: Update an attendance.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/AttendanceForm"
-      responses:
-        200:
-          description: Attendance updated.
-        400:
-          description: Bad client form.
-        500:
-          description: Internal server error.
-    delete:
-      summary: Delete an attendance.
-      responses:
-        200:
-          description: Deletion successful.
-        404:
-          description: Not found.
-        500:
-          description: Internal server error.
+    $ref: "paths/manage/attendance.yaml#/attendance-attendanceId"
   /manage/entitlement:
-    post:
-      summary: Create an entitlement.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/EntitlementForm"
-      responses:
-        201:
-          description: Entitlement created.
-        409:
-          description: Entitlement already exists.
-        500:
-          description: Internal server error.
+    $ref: "paths/manage/entitlement.yaml#/entitlement"
   /manage/entitlement/{entitlementId}:
-    patch:
-      summary: Update an entitlement.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/EntitlementForm"
-      responses:
-        200:
-          description: Entitlement updated.
-        400:
-          description: Bad client form.
-        500:
-          description: Internal server error.
-    delete:
-      summary: Delete an entitlement.
-      responses:
-        200:
-          description: Deletion successful.
-        404:
-          description: Not found.
-        500:
-          description: Internal server error.
+    $ref: "paths/manage/entitlement.yaml#/entitlement-entitlementId"
   /manage/redemption:
-    get:
-      summary: Get a list of all redemptions.
-      responses:
-        200:
-          description: OK.
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/Redemption"
-        500:
-          description: Internal server error.
-    post:
-      summary: Create a redemption on behalf of a user.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/RedemptionForm"
-      responses:
-        201:
-          description: Redemption created.
-        409:
-          description: Maximum number of redemptions reached.
-        500:
-          description: Internal server error.
+    $ref: "paths/manage/redemption.yaml#/redemption"
   /manage/redemption/{redemptionId}:
-    patch:
-      summary: Update a redemption.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/RedemptionForm"
-      responses:
-        200:
-          description: Redemption updated.
-        400:
-          description: Bad client form.
-        500:
-          description: Internal server error.
-    delete:
-      summary: Delete a redemption.
-      responses:
-        200:
-          description: Deletion successful.
-        404:
-          description: Not found.
-        500:
-          description: Internal server error.
+    $ref: "paths/manage/redemption.yaml#/redemption-redemptionId"
   /manage/reward:
-    post:
-      summary: Create a reward.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#components/schemas/RewardForm"
-      responses:
-        201:
-          description: Reward created.
-        500:
-          description: Internal server error.
+    $ref: "paths/manage/reward.yaml#/reward"
   /manage/reward/{rewardId}:
-    patch:
-      summary: Update a reward.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#components/schemas/RewardForm"
-      responses:
-        200:
-          description: Reward updated.
-        400:
-          description: Bad client form.
-        500:
-          description: Internal server error.
-    delete:
-      summary: Delete a reward.
-      responses:
-        200:
-          description: Deletion successful.
-        404:
-          description: Not found.
-        500:
-          description: Internal server error.
+    $ref: "paths/manage/reward.yaml#/reward-rewardId"
   /manage/claim:
-    get:
-      summary: Get a list of all reward claims.
-      responses:
-        200:
-          description: OK.
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/Claim"
-        500:
-          description: Internal server error.
-    post:
-      summary: Create a reward claim on a user's behalf.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#components/schemas/ClaimForm"
-      responses:
+    $ref: "paths/manage/claim.yaml#/claim"
   /manage/claim/{claimId}:
-    patch:
-      summary: Update a reward claim.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/ClaimForm"
-      responses:
-        200:
-          description: Claim updated.
-        400:
-          description: Bad client form.
-        500:
-          description: Internal server error.
-    delete:
-      summary: Delete a reward claim.
-      responses:
-        200:
-          description: Deletion successful.
-        404:
-          description: Not found.
-        500:
-          description: Internal server error.
+    $ref: "paths/manage/claim.yaml#/claim-claimId"
   /admin/user:
-    get:
-      summary: Get all users and their account info.
-      responses:
-        200:
-          description: OK.
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/UserPrivilegedView"
-        500:
-          description: Internal server error.
-    post:
-      summary: Create a user account.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/UserPrivilegedForm"
-      responses:
-        201:
-          description: Account created.
-        409:
-          description: Account already exists.
-        400:
-          description: Bad client form.
-        500:
-          description: Internal server error.
+    $ref: "paths/admin/user.yaml#/user"
   /admin/user/{userId}:
-    get:
-      summary: Get information about one account in particular.
-      responses:
-        200:
-          description: OK.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UserPrivilegedView"
-        404:
-          description: Account not found.
-        500:
-          description: Internal server error.
-    patch:
-      summary: Update the information in a user account.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/UserPrivilegedForm"
-      responses:
-        200:
-          description: Account updated.
-        400:
-          description: Bad client form.
-        404:
-          description: Account not found.
-        500:
-          description: Internal server error.
-    delete:
-      summary: Delete an account.
-      responses:
-        200:
-          description: Deletion successful.
-        404:
-          description: Not found.
-        500:
-          description: Internal server error.
+    $ref: "paths/admin/user.yaml#/user-userId"
   /admin/policy:
-    get:
-      summary: Get the policy settings.
-      responses:
-        200:
-          description: OK.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Policy"
-        500:
-          description: Internal server error.
-    patch:
-      summary: Change the policy settings.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/Policy"
-      responses:
-        200:
-          description: Policy updated.
-        400:
-          description: Bad client form.
-        500:
-          description: Internal server error.
+    $ref: "paths/admin/policy.yaml#/policy"
   /admin/reset:
-    get:
-      summary: Get a list of all requested account resets.
-      responses:
-        200:
-          description: OK.
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/Reset"
-        500:
-          description: Internal server error.
+    $ref: "paths/admin/reset.yaml#/reset"
   /admin/reset/{resetId}:
-    patch:
-      summary: Update an account reset.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/ResetForm"
-      responses:
-        200:
-          description: Policy updated.
-        400:
-          description: Bad client form.
-        500:
-          description: Internal server error.
-    delete:
-      summary: Delete a reset request.
-      responses:
-        200:
-          description: Deletion successful.
-        404:
-          description: Not found.
-        500:
-          description: Internal server error.
+    $ref: "paths/admin/reset.yaml#/reset-resetId"
   /admin/configure:
-    get:
-      summary: Get the scanner configurations.
-      responses:
-        200:
-          description: OK.
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/Configuration"
-        500:
-          description: Internal server error.
-    post:
-      summary: Create a scanner configuration.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/ConfigurationForm"
-      responses:
-        201:
-          description: Configuration created.
-        409:
-          description: Configuration already exists.
-        400:
-          description: Bad client form.
-        500:
-          description: Internal server error.
+    $ref: "paths/admin/configure.yaml#/configure"
   /admin/configure/{configurationId}:
-    patch:
-      summary: Update a configuration.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/ConfigurationForm"
-      responses:
-        200:
-          description: Policy updated.
-        400:
-          description: Bad client form.
-        500:
-          description: Internal server error.
-    delete:
-      summary: Delete a configuration.
-      responses:
-        200:
-          description: Deletion successful.
-        404:
-          description: Not found.
-        500:
-          description: Internal server error.
+    $ref: "paths/admin/configure.yaml#/configure-configurationId"
   /admin/scanner:
-    get:
-      summary: Get a list of scanner statuses.
-      responses:
-        200:
-          description: OK.
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/Scanner"
-        500:
-          description: Internal server error.
+    $ref: "paths/admin/scanner.yaml#/scanner"
   /scanner/scan:
-    post:
-      summary: Report a batch of scans.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/Scan"
-      responses:
-        202:
-          description: Update received.
-        500:
-          description: Internal server error.
+    $ref: "paths/scanner/scan.yaml#/scan"
   /scanner/ping:
-    post:
-      summary: Report that this scanner is still alive.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/Ping"
-      responses:
-        202:
-          description: Update received.
-        500:
-          description: Internal server error.
+    $ref: "paths/scanner/ping.yaml#/ping"
 
 components:
   schemas:
@@ -1003,7 +150,7 @@ components:
     Policy:
       $ref: "schemas/Policy.yaml#/Policy"
     SelfServiceResetForm:
-      $ref: "schemas/SelfServiceResetForm.yaml#/SelfServiceResetForm"
+      $ref: "schemas/Reset.yaml#/SelfServiceResetForm"
     ResetForm:
       $ref: "schemas/Reset.yaml#/ResetForm"
     Reset:

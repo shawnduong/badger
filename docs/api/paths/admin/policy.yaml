@@ -1,0 +1,27 @@
+policy:
+  get:
+    summary: Get the policy settings.
+    responses:
+      200:
+        description: OK.
+        content:
+          application/json:
+            schema:
+              $ref: "../../schemas/Policy.yaml#/Policy"
+      500:
+        description: Internal server error.
+  patch:
+    summary: Change the policy settings.
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "../../schemas/Policy.yaml#/Policy"
+    responses:
+      200:
+        description: Policy updated.
+      400:
+        description: Bad client form.
+      500:
+        description: Internal server error.

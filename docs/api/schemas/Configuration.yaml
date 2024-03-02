@@ -24,7 +24,7 @@ ConfigurationForm:
             description: The mode that this scanner will be in at that time.
 Configuration:
   allOf:
-    - $ref: "#/components/schemas/ConfigurationForm"
+    - $ref: "#/ConfigurationForm"
     - type: object
       properties:
         id:

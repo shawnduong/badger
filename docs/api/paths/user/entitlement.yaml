@@ -1,0 +1,14 @@
+entitlement:
+  get:
+    summary: Get a list of all the entitlements available.
+    responses:
+      200:
+        description: OK.
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "../../schemas/Entitlement.yaml#Entitlement"
+      500:
+        description: Internal server error.

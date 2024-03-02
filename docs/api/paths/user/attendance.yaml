@@ -1,0 +1,24 @@
+attendance:
+  get:
+    summary: Get all your attendances.
+    responses:
+      200:
+        description: OK.
+        content:
+          application/json:
+            schema:
+              type: array
+              example: [10, 15, 17]
+              description: Event IDs of all the events you've attended. 
+      500:
+        description: Internal server error.
+attendance-code:
+  post:
+    summary: Submit an attendance code.
+    responses:
+      201:
+        description: Attendance code successfully submitted.
+      404:
+        description: Attendance code not found.
+      500:
+        description: Internal server error.

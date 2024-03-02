@@ -1,0 +1,42 @@
+user:
+  get:
+    summary: Get your own user account details.
+    responses:
+      200:
+        description: OK.
+        content:
+          application/json:
+            schema:
+              $ref: "../../schemas/User.yaml#User"
+  post:
+    summary: Create a user account to link your card to.
+    requestBody:
+      required: true
+      content:
+        application/x-www-form-urlencoded:
+          schema:
+            $ref: "../../schemas/User.yaml#UserForm"
+    responses:
+      201:
+        description: Account created.
+      409:
+        description: Account already exists.
+      400:
+        description: Bad client form.
+      500:
+        description: Internal server error.
+  patch:
+    summary: Update the information in a user account.
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "../../schemas/User.yaml#UserForm"
+    responses:
+      200:
+        description: Account updated.
+      400:
+        description: Bad client form.
+      500:
+        description: Internal server error.

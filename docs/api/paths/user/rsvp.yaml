@@ -1,0 +1,33 @@
+rsvp:
+  get:
+    summary: Get all your RSVPs.
+    responses:
+      200:
+        description: OK.
+        content:
+          application/json:
+            schema:
+              type: array
+              example: [10, 15, 17]
+              description: Event IDs of all the events you've RSVP'ed to.
+      500:
+        description: Internal server error.
+rsvp-eventId:
+  post:
+    summary: Submit an RSVP for an event.
+    responses:
+      201:
+        description: RSVP successful.
+      404:
+        description: Event not found.
+      500:
+        description: Internal server error.
+  delete:
+    summary: Delete an RSVP for an event.
+    responses:
+      200:
+        description: Deletion successful.
+      404:
+        description: Not found.
+      500:
+        description: Internal server error.

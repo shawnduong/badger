@@ -1,0 +1,48 @@
+claim:
+  get:
+    summary: Get a list of all reward claims.
+    responses:
+      200:
+        description: OK.
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "../../schemas/Claim.yaml#/Claim"
+      500:
+        description: Internal server error.
+  post:
+    summary: Create a reward claim on a user's behalf.
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "../../schemas/Claim.yaml#/ClaimForm"
+    responses:
+claim-claimId:
+  patch:
+    summary: Update a reward claim.
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "../../schemas/Claim.yaml#/ClaimForm"
+    responses:
+      200:
+        description: Claim updated.
+      400:
+        description: Bad client form.
+      500:
+        description: Internal server error.
+  delete:
+    summary: Delete a reward claim.
+    responses:
+      200:
+        description: Deletion successful.
+      404:
+        description: Not found.
+      500:
+        description: Internal server error.

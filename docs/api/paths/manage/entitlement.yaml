@@ -1,0 +1,41 @@
+entitlement:
+  post:
+    summary: Create an entitlement.
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "../../schemas/Entitlement.yaml#/EntitlementForm"
+    responses:
+      201:
+        description: Entitlement created.
+      409:
+        description: Entitlement already exists.
+      500:
+        description: Internal server error.
+entitlement-entitlementId:
+  patch:
+    summary: Update an entitlement.
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "../../schemas/Entitlement.yaml#/EntitlementForm"
+    responses:
+      200:
+        description: Entitlement updated.
+      400:
+        description: Bad client form.
+      500:
+        description: Internal server error.
+  delete:
+    summary: Delete an entitlement.
+    responses:
+      200:
+        description: Deletion successful.
+      404:
+        description: Not found.
+      500:
+        description: Internal server error.

@@ -1,0 +1,34 @@
+announcement:
+  post:
+    summary: Create an announcement.
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "../../schemas/Announcement.yaml#/AnnouncementForm"
+announcement-announcementId:
+  patch:
+    summary: Update an announcement.
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "../../schemas/Announcement.yaml#/AnnouncementForm"
+    responses:
+      200:
+        description: Announcement updated.
+      400:
+        description: Bad client form.
+      500:
+        description: Internal server error.
+  delete:
+    summary: Delete an announcement.
+    responses:
+      200:
+        description: Deletion successful.
+      404:
+        description: Not found.
+      500:
+        description: Internal server error.

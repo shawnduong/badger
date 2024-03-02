@@ -13,7 +13,7 @@ AnnouncementForm:
       example: "Jane Doe"
 Announcement:
   allOf:
-    - $ref: "#/components/schemas/AnnouncementForm"
+    - $ref: "#/AnnouncementForm"
     - type: object
       properties:
         id:

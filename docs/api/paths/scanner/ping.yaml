@@ -1,0 +1,14 @@
+ping:
+  post:
+    summary: Report that this scanner is still alive.
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "../../schemas/Ping.yaml#/Ping"
+    responses:
+      202:
+        description: Update received.
+      500:
+        description: Internal server error.

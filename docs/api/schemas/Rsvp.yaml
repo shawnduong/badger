@@ -11,7 +11,7 @@ RsvpForm:
       description: The ID of the event for which this RSVP is for.
 Rsvp:
   allOf:
-    - $ref: "#/components/schemas/RsvpForm"
+    - $ref: "#/RsvpForm"
     - type: object
       properties:
         id:

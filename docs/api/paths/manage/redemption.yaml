@@ -1,0 +1,54 @@
+redemption:
+  get:
+    summary: Get a list of all redemptions.
+    responses:
+      200:
+        description: OK.
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "../../schemas/Redemption.yaml#/Redemption"
+      500:
+        description: Internal server error.
+  post:
+    summary: Create a redemption on behalf of a user.
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "../../schemas/Redemption.yaml#/RedemptionForm"
+    responses:
+      201:
+        description: Redemption created.
+      409:
+        description: Maximum number of redemptions reached.
+      500:
+        description: Internal server error.
+redemption-redemptionId:
+  patch:
+    summary: Update a redemption.
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "../../schemas/Redemption.yaml#/RedemptionForm"
+    responses:
+      200:
+        description: Redemption updated.
+      400:
+        description: Bad client form.
+      500:
+        description: Internal server error.
+  delete:
+    summary: Delete a redemption.
+    responses:
+      200:
+        description: Deletion successful.
+      404:
+        description: Not found.
+      500:
+        description: Internal server error.

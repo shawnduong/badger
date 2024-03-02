@@ -15,7 +15,7 @@ ClaimForm:
       description: Status of whether or not you have physically retrieved your claimed reward yet.
 Claim:
   allOf:
-    - $ref: "#/components/schemas/ClaimForm"
+    - $ref: "#/ClaimForm"
     - type: object
       properties:
         id:

@@ -1,0 +1,16 @@
+reset:
+  post:
+    summary: Request a password reset.
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "../../schemas/Reset.yaml#/SelfServiceResetForm"
+    responses:
+      202:
+        description: Password reset request received.
+      400:
+        description: Bad client form.
+      500:
+        description: Internal server error.

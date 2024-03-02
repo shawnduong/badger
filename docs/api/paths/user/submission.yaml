@@ -1,0 +1,10 @@
+submission-code:
+  post:
+    summary: Redeem a code for points.
+    responses:
+      201:
+        description: Code redemption successful.
+      404:
+        description: Code not found.
+      500:
+        description: Internal server error.

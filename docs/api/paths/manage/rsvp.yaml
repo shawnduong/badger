@@ -1,0 +1,56 @@
+rsvp:
+  get:
+    summary: Get a list of all RSVPs.
+    responses:
+      200:
+        description: OK.
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "../../schemas/Rsvp.yaml#/Rsvp"
+      500:
+        description: Internal server error.
+  post:
+    summary: Create an RSVP on a user's behalf.
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "../../schemas/Rsvp.yaml#/RsvpForm"
+    responses:
+      201:
+        description: RSVP created.
+      404:
+        description: User or event not found.
+      409:
+        description: RSVP already exists.
+      500:
+        description: Internal server error.
+rsvp-rsvpId:
+  patch:
+    summary: Update an RSVP.
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "../../schemas/Rsvp.yaml#/RsvpForm"
+    responses:
+      200:
+        description: RSVP updated.
+      400:
+        description: Bad client form.
+      500:
+        description: Internal server error.
+  delete:
+    summary: Delete an RSVP.
+    responses:
+      200:
+        description: Deletion successful.
+      404:
+        description: Not found.
+      500:
+        description: Internal server error.

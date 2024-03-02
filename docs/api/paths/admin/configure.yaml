@@ -1,0 +1,56 @@
+configure:
+    get:
+      summary: Get the scanner configurations.
+      responses:
+        200:
+          description: OK.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "../../schemas/Configuration.yaml#/Configuration"
+        500:
+          description: Internal server error.
+    post:
+      summary: Create a scanner configuration.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "../../schemas/Configuration.yaml#/ConfigurationForm"
+      responses:
+        201:
+          description: Configuration created.
+        409:
+          description: Configuration already exists.
+        400:
+          description: Bad client form.
+        500:
+          description: Internal server error.
+configure-configurationId:
+  patch:
+    summary: Update a configuration.
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "../../schemas/Configuration.yaml#/ConfigurationForm"
+    responses:
+      200:
+        description: Configuration updated.
+      400:
+        description: Bad client form.
+      500:
+        description: Internal server error.
+  delete:
+    summary: Delete a configuration.
+    responses:
+      200:
+        description: Deletion successful.
+      404:
+        description: Not found.
+      500:
+        description: Internal server error.

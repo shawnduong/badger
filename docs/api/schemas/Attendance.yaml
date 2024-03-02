@@ -11,7 +11,7 @@ AttendanceForm:
       description: The ID of the event for which this attendance is for.
 Attendance:
   allOf:
-    - $ref: "#/components/schemas/AttendanceForm"
+    - $ref: "#/AttendanceForm"
     - type: object
       properties:
         id:

@@ -1,0 +1,56 @@
+attendance:
+  get:
+    summary: Get a list of all attendances.
+    responses:
+      200:
+        description: OK.
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "../../schemas/Attendance.yaml#/Attendance"
+      500:
+        description: Internal server error.
+  post:
+    summary: Create an attendance on a user's behalf.
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "../../schemas/Attendance.yaml#/AttendanceForm"
+    responses:
+      201:
+        description: Attendance created.
+      404:
+        description: User or event not found.
+      409:
+        description: Attendance already exists.
+      500:
+        description: Internal server error.
+attendance-attendanceId:
+  patch:
+    summary: Update an attendance.
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "../../schemas/Attendance.yaml#/AttendanceForm"
+    responses:
+      200:
+        description: Attendance updated.
+      400:
+        description: Bad client form.
+      500:
+        description: Internal server error.
+  delete:
+    summary: Delete an attendance.
+    responses:
+      200:
+        description: Deletion successful.
+      404:
+        description: Not found.
+      500:
+        description: Internal server error.

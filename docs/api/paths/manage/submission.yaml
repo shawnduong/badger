@@ -1,0 +1,60 @@
+submission:
+  get:
+    summary: Get a list of all submissions and their values.
+    responses:
+      200:
+        description: OK.
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "../../schemas/Submission.yaml#/Submission"
+      500:
+        description: Internal server error.
+  post:
+    summary: Create a submission on behalf of another user.
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "../../schemas/Submission.yaml#/SubmissionForm"
+    responses:
+      201:
+        description: Submission created.
+      400:
+        description: Bad client form.
+      404:
+        description: User or code not found.
+      409:
+        description: Submission already exists.
+      500:
+        description: Internal server error.
+submission-submissionId:
+  patch:
+    summary: Update a submission.
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "../../schemas/Submission.yaml#/SubmissionForm"
+    responses:
+      200:
+        description: Submission updated.
+      400:
+        description: Bad client form.
+      404:
+        description: Submission not found.
+      500:
+        description: Internal server error.
+  delete:
+    summary: Delete a submission.
+    responses:
+      200:
+        description: Deletion successful.
+      404:
+        description: Not found.
+      500:
+        description: Internal server error.

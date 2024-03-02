@@ -1,0 +1,39 @@
+reward:
+  post:
+    summary: Create a reward.
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "../../schemas/Reward.yaml#/RewardForm"
+    responses:
+      201:
+        description: Reward created.
+      500:
+        description: Internal server error.
+reward-rewardId:
+  patch:
+    summary: Update a reward.
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "../../schemas/Reward.yaml#/RewardForm"
+    responses:
+      200:
+        description: Reward updated.
+      400:
+        description: Bad client form.
+      500:
+        description: Internal server error.
+  delete:
+    summary: Delete a reward.
+    responses:
+      200:
+        description: Deletion successful.
+      404:
+        description: Not found.
+      500:
+        description: Internal server error.

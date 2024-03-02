@@ -18,7 +18,7 @@ RewardForm:
       description: How many of this item there are left.
 Reward:
   allOf:
-    - $ref: "#/components/schemas/RewardForm"
+    - $ref: "#/RewardForm"
     - type: object
       properties:
         id:

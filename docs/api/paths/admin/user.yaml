@@ -1,0 +1,71 @@
+user:
+  get:
+    summary: Get all users and their account info.
+    responses:
+      200:
+        description: OK.
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "../../schemas/User.yaml#/UserPrivilegedView"
+      500:
+        description: Internal server error.
+  post:
+    summary: Create a user account.
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "../../schemas/User.yaml#/UserPrivilegedForm"
+    responses:
+      201:
+        description: Account created.
+      409:
+        description: Account already exists.
+      400:
+        description: Bad client form.
+      500:
+        description: Internal server error.
+user-userId:
+  get:
+    summary: Get information about one account in particular.
+    responses:
+      200:
+        description: OK.
+        content:
+          application/json:
+            schema:
+              $ref: "../../schemas/User.yaml#/UserPrivilegedView"
+      404:
+        description: Account not found.
+      500:
+        description: Internal server error.
+  patch:
+    summary: Update the information in a user account.
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "../../schemas/User.yaml#/UserPrivilegedForm"
+    responses:
+      200:
+        description: Account updated.
+      400:
+        description: Bad client form.
+      404:
+        description: Account not found.
+      500:
+        description: Internal server error.
+  delete:
+    summary: Delete an account.
+    responses:
+      200:
+        description: Deletion successful.
+      404:
+        description: Not found.
+      500:
+        description: Internal server error.

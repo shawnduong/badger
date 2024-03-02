@@ -11,7 +11,7 @@ SubmissionForm:
       description: ID of the user this submission is associated with.
 Submission:
   allOf:
-    - $ref: "#/components/schemas/SubmissionForm"
+    - $ref: "#/SubmissionForm"
     - type: object
       properties:
         id:

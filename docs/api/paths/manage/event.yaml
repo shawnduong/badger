@@ -1,0 +1,34 @@
+event:
+  post:
+    summary: Create an event.
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "../../schemas/Event.yaml#/EventForm"
+event-eventId:
+    patch:
+      summary: Update an event.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "../../schemas/Event.yaml#/EventForm"
+      responses:
+        200:
+          description: Event updated.
+        400:
+          description: Bad client form.
+        500:
+          description: Internal server error.
+    delete:
+      summary: Delete an event.
+      responses:
+        200:
+          description: Deletion successful.
+        404:
+          description: Not found.
+        500:
+          description: Internal server error.

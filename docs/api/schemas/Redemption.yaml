@@ -11,7 +11,7 @@ RedemptionForm:
       description: The ID of the user for whom this redemption is for.
 Redemption:
   allOf:
-    - $ref: "#/components/schemas/RedemptionForm"
+    - $ref: "#/RedemptionForm"
     - type: object
       properties:
         id:

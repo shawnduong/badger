@@ -1,0 +1,14 @@
+scan:
+  post:
+    summary: Report a batch of scans.
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "../../schemas/Scan.yaml#/Scan"
+    responses:
+      202:
+        description: Update received.
+      500:
+        description: Internal server error.

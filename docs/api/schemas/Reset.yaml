@@ -1,6 +1,12 @@
+SelfServiceResetForm:
+  type: object
+  properties:
+    email:
+      type: string
+      example: "jdoe@email.com"
 ResetForm:
   allOf:
-    - $ref: "#/components/schemas/SelfServiceResetForm"
+    - $ref: "#/SelfServiceResetForm"
     - type: object
       properties:
         timestamp:
@@ -20,7 +26,7 @@ ResetForm:
           description: The reset has been completed.
 Reset:
   allOf:
-    - $ref: "#/components/schemas/ResetForm"
+    - $ref: "#/ResetForm"
     - type: object
       properties:
         id:

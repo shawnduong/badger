@@ -1,0 +1,14 @@
+announcement:
+  get:
+    summary: Get all announcements.
+    responses:
+      200:
+        description: OK.
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "../../schemas/Announcement.yaml#/Announcement"
+      500:
+        description: Internal server error.
