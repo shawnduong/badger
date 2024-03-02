@@ -17,7 +17,7 @@
 - [ ] GET /user/announcement: Get all announcements.
   - [ ] Test
 
-- [ ] POST /user/code/{code}: Redeem a code for points.
+- [ ] POST /user/submission/{code}: Redeem a code for points.
   - [ ] Test
 
 - [ ] GET /user/event: Get all events.
@@ -59,6 +59,15 @@
   - [x] Test
 - [x] DELETE /manage/code/{codeId}: Delete a code.
   - [x] Test
+
+- [ ] GET /manage/submission: Get a list of all submissions.
+  - [ ] Test
+- [ ] POST /manage/submission: Create a submission.
+  - [ ] Test
+- [ ] PATCH /manage/submission/{submissionId}: Update a submission.
+  - [ ] Test
+- [ ] DELETE /manage/submission/{submissionId}: Delete a submission.
+  - [ ] Test
 
 - [ ] POST /manage/announcement: Create an announcement.
   - [ ] Test

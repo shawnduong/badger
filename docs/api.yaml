@@ -80,7 +80,7 @@ paths:
                   $ref: "#/components/schemas/Announcement"
         500:
           description: Internal server error.
-  /user/code/{code}:
+  /user/submission/{code}:
     post:
       summary: Redeem a code for points.
       responses:
@@ -285,6 +285,62 @@ paths:
           description: Internal server error.
     delete:
       summary: Delete a code.
+      responses:
+        200:
+          description: Deletion successful.
+        404:
+          description: Not found.
+        500:
+          description: Internal server error.
+  /user/submission:
+    get:
+      summary: Get a list of all submissions and their values.
+      responses:
+        200:
+          description: OK.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Submission"
+        500:
+          description: Internal server error.
+    post:
+      summary: Create a submission.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SubmissionForm"
+      responses:
+        201:
+          description: Submission created.
+        409:
+          description: Submission already exists.
+        500:
+          description: Internal server error.
+  /user/submission/{submissionId}:
+    patch:
+      summary: Update a submission.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SubmissionForm"
+      responses:
+        200:
+          description: Submission updated.
+        400:
+          description: Bad client form.
+        404:
+          description: Submission not found.
+        500:
+          description: Internal server error.
+    delete:
+      summary: Delete a submission.
       responses:
         200:
           description: Deletion successful.
@@ -960,6 +1016,25 @@ components:
     Code:
       allOf:
         - $ref: "#/components/schemas/CodeForm"
+        - type: object
+          properties:
+            id:
+              type: integer
+              example: 10
+    SubmissionForm:
+      type: object
+      properties:
+        codeId:
+          type: integer
+          example: 1
+          description: ID of the code this submission is associated with.
+        userId:
+          type: integer
+          example: 1
+          description: ID of the user this submission is associated with.
+    Submission:
+      allOf:
+        - $ref: "#/components/schemas/SubmissionForm"
         - type: object
           properties:
             id:
