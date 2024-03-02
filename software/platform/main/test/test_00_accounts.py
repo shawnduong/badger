@@ -4,8 +4,28 @@ import requests
 ENDPOINT = "http://localhost:8080"
 API = ENDPOINT+"/api/v1"
 
+# Default admin login.
 r1 = requests.Session()
 r1.post(ENDPOINT+"/login", data={"uid": 0xfeedf00d, "password": "admin"})
+
+# Make a default user account.
+r = r1.post(API+"/admin/user", json={
+	"uid": 0xf00df00d,
+	"email": None,
+	"points": None,
+	"claimed": False,
+	"custom": None,
+	"privilege": 0
+})
+assert r.status_code == 201
+
+r = requests.post(API+"/user/user", data={
+	"uid": 0xf00df00d,
+	"email": "user@test.com",
+	"password": "user",
+	"custom": "",
+})
+assert r.status_code == 201
 
 r2 = requests.Session()
 r2.post(ENDPOINT+"/login", data={"uid": 0xf00df00d, "password": "user"})

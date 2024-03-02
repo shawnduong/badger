@@ -3,15 +3,11 @@ from flask_login import LoginManager, current_user, login_required, login_user, 
 
 import time
 
-# This is for testing. Delete later.
-if User.query.filter_by(uid=0xfeedf00d).first() == None:
+# If there is no existing admin account, make a default one. The default login
+# is 0xfeedf00d with a recovery email of admin@test.com and a password of admin.
+if len(User.query.filter_by(privilege=User.PRIV_ADMIN).all()) == 0:
 	u = User(privilege=User.PRIV_ADMIN, claimed=False, uid=0xfeedf00d)
 	u.claim("admin@test.com", "admin", "")
-	db.session.add(u)
-	db.session.commit()
-if User.query.filter_by(uid=0xf00df00d).first() == None:
-	u = User(privilege=User.PRIV_USER, claimed=False, uid=0xf00df00d)
-	u.claim("user@test.com", "user", "")
 	db.session.add(u)
 	db.session.commit()
 
