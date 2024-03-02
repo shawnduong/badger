@@ -279,6 +279,8 @@ paths:
           description: Code updated.
         400:
           description: Bad client form.
+        404:
+          description: Code not found.
         500:
           description: Internal server error.
     delete:

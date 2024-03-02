@@ -4,6 +4,7 @@ import requests
 API = "http://localhost:64097/api/v1/admin"
 
 def test_policy_get_0():
+
 	r = requests.get(API+"/policy")
 	assert r.status_code == 200
 
@@ -20,6 +21,7 @@ def test_policy_patch_0():
 	assert r.status_code == 400
 
 def test_policy_patch_1():
+
 	r = requests.patch(API+"/policy", json={
 		"requireRegistration": False,
 		"selfServiceAccountReset": False,
