@@ -4,74 +4,85 @@ import requests
 ENDPOINT = "http://localhost:8080"
 API = ENDPOINT+"/api/v1"
 
-r1 = requests.Session()
-r1.post(ENDPOINT+"/login", data={"uid": 0xfeedf00d, "password": "admin"})
+admin = requests.Session()
+admin.post(ENDPOINT+"/login", data={"uid": 0xfeedf00d, "password": "admin"})
 
-r2 = requests.Session()
-r2.post(ENDPOINT+"/login", data={"uid": 0xf00df00d, "password": "user"})
+user = requests.Session()
+user.post(ENDPOINT+"/login", data={"uid": 0xf00df00d, "password": "user"})
 
-def test_manage_code_post_0():
-	r = r1.post(API+"/manage/code", json={
+# --[ MAKE A CODE ]--
+
+# Bad form.
+def test_manage_code_post_400():
+	r = admin.post(API+"/manage/code", json={
 		"code": "AAAA-BB-CCCC",
 	})
 	assert r.status_code == 400
 
-def test_manage_code_post_1():
-	r = r1.post(API+"/manage/code", json={
+# Success.
+def test_manage_code_post_201():
+	r = admin.post(API+"/manage/code", json={
 		"code": "AAAA-BB-CCCC",
 		"points": 100
 	})
 	assert r.status_code == 201
 
-def test_manage_code_post_2():
-	r = r1.post(API+"/manage/code", json={
+# Code already exists.
+def test_manage_code_post_409():
+	r = admin.post(API+"/manage/code", json={
 		"code": "AAAA-BB-CCCC",
 		"points": 100
 	})
 	assert r.status_code == 409
 
-def test_manage_code_post_3():
-	r = r1.post(API+"/manage/code", json={
+# Bad permissions.
+def test_manage_code_post_401():
+	r = user.post(API+"/manage/code", json={
 		"code": "2222-11-0000",
 		"points": 50
 	})
-	assert r.status_code == 201
+	assert r.status_code == 401
 
-def test_manage_code_get_0():
+# --[ GET CODES ]--
 
-	r = r1.get(API+"/manage/code")
+# Success.
+def test_manage_code_get_200():
+
+	r = admin.get(API+"/manage/code")
 	assert r.status_code == 200
 
 	data = [json.loads(obj) for obj in json.loads(r.content)]
 	assert data[0]["code"] == "AAAA-BB-CCCC"
 	assert data[0]["points"] == 100
 	assert data[0]["id"] == 1
-	assert data[1]["code"] == "2222-11-0000"
-	assert data[1]["points"] == 50
-	assert data[1]["id"] == 2
 
-def test_manage_code_patch_0():
-	r = r1.patch(API+"/manage/code/1", json={
+# --[ CHANGE INFO ABOUT A CODE ]--
+
+# Bad form.
+def test_manage_code_patch_400():
+	r = admin.patch(API+"/manage/code/1", json={
 		"code": "AAAA-BB-CCCC",
 	})
 	assert r.status_code == 400
 
-def test_manage_code_patch_1():
-	r = r1.patch(API+"/manage/code/9999", json={
+# Code doesn't exist.
+def test_manage_code_patch_404():
+	r = admin.patch(API+"/manage/code/9999", json={
 		"code": "AAAA-BB-CCCC",
 		"points": 250
 	})
 	assert r.status_code == 404
 
-def test_manage_code_patch_2():
+# Success.
+def test_manage_code_patch_200():
 
-	r = r1.patch(API+"/manage/code/1", json={
+	r = admin.patch(API+"/manage/code/1", json={
 		"code": "AAAA-BB-CCCC",
 		"points": 250
 	})
 	assert r.status_code == 200
 
-	r = r1.get(API+"/manage/code")
+	r = admin.get(API+"/manage/code")
 	assert r.status_code == 200
 
 	data = [json.loads(obj) for obj in json.loads(r.content)]
@@ -79,14 +90,31 @@ def test_manage_code_patch_2():
 	assert data[0]["points"] == 250
 	assert data[0]["id"] == 1
 
-def test_manage_code_delete_0():
-	r = r1.delete(API+"/manage/code/999")
+# Bad permissions.
+def test_manage_code_patch_401():
+
+	r = user.patch(API+"/manage/code/1", json={
+		"code": "AAAA-BB-CCCC",
+		"points": 999
+	})
+	assert r.status_code == 401
+
+# --[ DELETE A CODE ]--
+
+# Code doesn't exist.
+def test_manage_code_delete_404():
+	r = admin.delete(API+"/manage/code/999")
 	assert r.status_code == 404
 
-def test_manage_code_delete_1():
-	r = r1.delete(API+"/manage/code/1")
+# Success.
+def test_manage_code_delete_200():
+	r = admin.delete(API+"/manage/code/1")
 	assert r.status_code == 200
 
-	r = r1.delete(API+"/manage/code/1")
+	r = admin.delete(API+"/manage/code/1")
 	assert r.status_code == 404
 
+# Bad permissions.
+def test_manage_code_delete_401():
+	r = user.delete(API+"/manage/code/1")
+	assert r.status_code == 401

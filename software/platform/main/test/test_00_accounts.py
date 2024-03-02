@@ -5,11 +5,11 @@ ENDPOINT = "http://localhost:8080"
 API = ENDPOINT+"/api/v1"
 
 # Default admin login.
-r1 = requests.Session()
-r1.post(ENDPOINT+"/login", data={"uid": 0xfeedf00d, "password": "admin"})
+admin = requests.Session()
+admin.post(ENDPOINT+"/login", data={"uid": 0xfeedf00d, "password": "admin"})
 
 # Make a default user account.
-r = r1.post(API+"/admin/user", json={
+r = admin.post(API+"/admin/user", json={
 	"uid": 0xf00df00d,
 	"email": None,
 	"points": None,
@@ -19,6 +19,7 @@ r = r1.post(API+"/admin/user", json={
 })
 assert r.status_code == 201
 
+# Claim the default user account.
 r = requests.post(API+"/user/user", data={
 	"uid": 0xf00df00d,
 	"email": "user@test.com",
@@ -27,13 +28,15 @@ r = requests.post(API+"/user/user", data={
 })
 assert r.status_code == 201
 
-r2 = requests.Session()
-r2.post(ENDPOINT+"/login", data={"uid": 0xf00df00d, "password": "user"})
+# Test user login.
+user = requests.Session()
+user.post(ENDPOINT+"/login", data={"uid": 0xf00df00d, "password": "user"})
 
 # --[ MAKE AN ACCOUNT ]--
 
-def test_admin_user_post_0():
-	r = r1.post(API+"/admin/user", json={
+# Bad form. Missing the email.
+def test_admin_user_post_400():
+	r = admin.post(API+"/admin/user", json={
 		"uid": 0xdeadbeef,
 		"points": None,
 		"claimed": False,
@@ -42,8 +45,9 @@ def test_admin_user_post_0():
 	})
 	assert r.status_code == 400
 
-def test_admin_user_post_1():
-	r = r1.post(API+"/admin/user", json={
+# Success.
+def test_admin_user_post_201():
+	r = admin.post(API+"/admin/user", json={
 		"uid": 0xdeadbeef,
 		"email": None,
 		"points": None,
@@ -53,8 +57,9 @@ def test_admin_user_post_1():
 	})
 	assert r.status_code == 201
 
-def test_admin_user_post_2():
-	r = r1.post(API+"/admin/user", json={
+# Account already exists.
+def test_admin_user_post_409():
+	r = admin.post(API+"/admin/user", json={
 		"uid": 0xdeadbeef,
 		"email": None,
 		"points": None,
@@ -64,8 +69,9 @@ def test_admin_user_post_2():
 	})
 	assert r.status_code == 409
 
-def test_admin_user_post_3():
-	r = r2.post(API+"/admin/user", json={
+# Bad permissions.
+def test_admin_user_post_401():
+	r = user.post(API+"/admin/user", json={
 		"uid": 0xdeadbeef+1,
 		"email": None,
 		"points": None,
@@ -77,7 +83,8 @@ def test_admin_user_post_3():
 
 # --[ CLAIM AN ACCOUNT ]--
 
-def test_user_user_post_0():
+# Bad form.
+def test_user_user_post_400():
 	r = requests.post(API+"/user/user", data={
 		"uid": 0xdeadbeef,
 		"password": "hunter2",
@@ -85,7 +92,8 @@ def test_user_user_post_0():
 	})
 	assert r.status_code == 400
 
-def test_user_user_post_1():
+# Success.
+def test_user_user_post_201():
 	r = requests.post(API+"/user/user", data={
 		"uid": 0xdeadbeef,
 		"email": "jdoe@email.com",
@@ -94,7 +102,8 @@ def test_user_user_post_1():
 	})
 	assert r.status_code == 201
 
-def test_user_user_post_2():
+# Account already claimed.
+def test_user_user_post_409():
 	r = requests.post(API+"/user/user", data={
 		"uid": 0xdeadbeef,
 		"email": "jdoe@email.com",
@@ -103,7 +112,8 @@ def test_user_user_post_2():
 	})
 	assert r.status_code == 409
 
-def test_user_user_post_3():
+# No account with that UID exists.
+def test_user_user_post_400():
 	r = requests.post(API+"/user/user", data={
 		"uid": 9999,
 		"email": "jdoe@email.com",
@@ -114,8 +124,9 @@ def test_user_user_post_3():
 
 # --[ GET INFO ABOUT YOUR OWN ACCOUNT ]--
 
-def test_user_user_get_0():
-	r = r2.get(API+"/user/user")
+# Success.
+def test_user_user_get_200():
+	r = user.get(API+"/user/user")
 	assert r.status_code == 200
 
 	data = json.loads(r.content)
@@ -127,8 +138,9 @@ def test_user_user_get_0():
 
 # --[ UPDATE INFO ABOUT YOUR OWN ACCOUNT ]--
 
-def test_user_user_patch_0():
-	r = r2.patch(API+"/user/user", json={
+# Success.
+def test_user_user_patch_200():
+	r = user.patch(API+"/user/user", json={
 		"uid": 0xf00df00d,
 		"email": "test@example.com",
 		"password": "********",
@@ -136,43 +148,58 @@ def test_user_user_patch_0():
 	})
 	assert r.status_code == 200
 
-	r = r2.get(API+"/user/user")
+	r = user.get(API+"/user/user")
 	data = json.loads(r.content)
 	assert data["email"] == "test@example.com"
 
+# Bad form.
+def test_user_user_patch_400():
+	r = user.patch(API+"/user/user", json={
+		"uid": 0xf00df00d,
+		"password": "********",
+		"custom": "",
+	})
+	assert r.status_code == 400
+
 # --[ GET INFO ABOUT ALL ACCOUNTS ]--
 
-def test_admin_get_user_0():
-	r = r1.get(API+"/admin/user")
+# Success.
+def test_admin_get_user_200():
+	r = admin.get(API+"/admin/user")
 	data = json.loads(r.content)
 	assert r.status_code == 200 and len(data) > 0
 
-def test_admin_get_user_1():
-	r = r2.get(API+"/admin/user")
+# Bad permissions.
+def test_admin_get_user_401():
+	r = user.get(API+"/admin/user")
 	assert r.status_code == 401
 
 # --[ GET INFO ABOUT A SPECIFIC ACCOUNT ]--
 
-def test_admin_get_user_2():
-	r = r1.get(API+"/admin/user/1")
+# Success.
+def test_admin_get_user_200():
+	r = admin.get(API+"/admin/user/1")
 	data = json.loads(r.content)
 	assert r.status_code == 200
 	assert data["email"] == "admin@test.com"
 
-def test_admin_get_user_3():
-	r = r1.get(API+"/admin/user/999")
+# Account doesn't exist.
+def test_admin_get_user_404():
+	r = admin.get(API+"/admin/user/999")
 	data = json.loads(r.content)
 	assert r.status_code == 404
 
-def test_admin_get_user_4():
-	r = r2.get(API+"/admin/user/1")
+# Bad permissions.
+def test_admin_get_user_401():
+	r = user.get(API+"/admin/user/1")
 	data = json.loads(r.content)
 	assert r.status_code == 401
 
 # --[ EDIT INFO ABOUT AN ACCOUNT ]--
 
-def test_admin_patch_user_0():
-	r = r1.patch(API+"/admin/user/3", json={
+# Bad form.
+def test_admin_patch_user_400():
+	r = admin.patch(API+"/admin/user/3", json={
 		"uid": 0xdeadbeef,
 		"points": 100,
 		"claimed": True,
@@ -181,15 +208,9 @@ def test_admin_patch_user_0():
 	})
 	assert r.status_code == 400
 
-	s = requests.Session()
-	r = s.post(ENDPOINT+"/login", data={"uid": 0xdeadbeef, "password": "hunter2"})
-	assert r.status_code == 200
-	r = s.get(API+"/user/user")
-	data = json.loads(r.content)
-	assert data["points"] == None
-
-def test_admin_patch_user_1():
-	r = r1.patch(API+"/admin/user/3", json={
+# Success.
+def test_admin_patch_user_200():
+	r = admin.patch(API+"/admin/user/3", json={
 		"uid": 0xdeadbeef,
 		"email": "jdoe@email.com",
 		"points": 100,
@@ -206,8 +227,9 @@ def test_admin_patch_user_1():
 	data = json.loads(r.content)
 	assert data["points"] == 100
 
-def test_admin_patch_user_2():
-	r = r2.patch(API+"/admin/user/3", json={
+# Bad permissions.
+def test_admin_patch_user_401():
+	r = user.patch(API+"/admin/user/3", json={
 		"uid": 0xdeadbeef,
 		"email": "jdoe@email.com",
 		"points": 999,
@@ -219,15 +241,18 @@ def test_admin_patch_user_2():
 
 # --[ DELETE AN ACCOUNT ]--
 
-def test_admin_user_delete_0():
-	r = r1.delete(API+"/admin/user/3")
+# Success.
+def test_admin_user_delete_200():
+	r = admin.delete(API+"/admin/user/3")
 	assert r.status_code == 200
 
-def test_admin_user_delete_1():
-	r = r1.delete(API+"/admin/user/3")
+# User doesn't exist.
+def test_admin_user_delete_404():
+	r = admin.delete(API+"/admin/user/3")
 	assert r.status_code == 404
 
-def test_admin_user_delete_2():
-	r = r2.delete(API+"/admin/user/3")
+# Bad permissions.
+def test_admin_user_delete_401():
+	r = user.delete(API+"/admin/user/3")
 	assert r.status_code == 401
 

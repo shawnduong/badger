@@ -8,6 +8,8 @@ user:
           application/json:
             schema:
               $ref: "../../schemas/User.yaml#User"
+      500:
+        description: Internal server error.
   post:
     summary: Create a user account to link your card to.
     requestBody:
