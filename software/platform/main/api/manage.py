@@ -40,3 +40,35 @@ def manage_code_delete(codeId: int):
 	r = requests.delete(IMPLEMENTATION["manage"]+f"/code/{codeId}")
 	return r.content, r.status_code
 
+@app.route(managePrefix+"/submission", methods=["GET"])
+@admin_required
+@failsafe_500
+def manage_submission_get():
+	r = requests.get(IMPLEMENTATION["manage"]+"/submission")
+	return r.content, r.status_code
+
+@app.route(managePrefix+"/submission", methods=["POST"])
+@admin_required
+@failsafe_500
+def manage_submission_post():
+
+	# User ID is required.
+	try:
+		assert "userId" in request.json.keys()
+	except:
+		return {}, 400
+
+	try:
+		userId = int(request.json["userId"])
+	except:
+		return {}, 400
+
+	# User must exist.
+	try:
+		assert User.query.get(userId)
+	except:
+		return {}, 404
+
+	r = requests.post(IMPLEMENTATION["manage"]+"/submission", json=request.json)
+	return r.content, r.status_code
+

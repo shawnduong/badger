@@ -13,6 +13,7 @@ app.secret_key = os.urandom(32)
 
 # Define the implementation locations.
 IMPLEMENTATION = {
+	"main"    : "http://localhost:8080/api/v1",
 	"public"  : "http://localhost:64094/api/v1/public",
 	"user"    : "http://localhost:64095/api/v1/user",
 	"manage"  : "http://localhost:64096/api/v1/manage",

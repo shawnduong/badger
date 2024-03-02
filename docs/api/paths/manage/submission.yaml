@@ -10,6 +10,8 @@ submission:
               type: array
               items:
                 $ref: "../../schemas/Submission.yaml#/Submission"
+      401:
+        description: Unauthorized.
       500:
         description: Internal server error.
   post:
@@ -25,6 +27,8 @@ submission:
         description: Submission created.
       400:
         description: Bad client form.
+      401:
+        description: Unauthorized.
       404:
         description: User or code not found.
       409:
@@ -45,6 +49,8 @@ submission-submissionId:
         description: Submission updated.
       400:
         description: Bad client form.
+      401:
+        description: Unauthorized.
       404:
         description: Submission not found.
       500:
@@ -54,6 +60,8 @@ submission-submissionId:
     responses:
       200:
         description: Deletion successful.
+      401:
+        description: Unauthorized.
       404:
         description: Not found.
       500:

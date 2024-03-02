@@ -152,3 +152,76 @@ def test_manage_code_delete_200():
 def test_manage_code_delete_401():
 	r = user.delete(API+"/manage/code/1")
 	assert r.status_code == 401
+
+# --[ SUBMIT A CODE ON BEHALF OF A USER ]--
+
+# Success.
+def test_manage_submission_post_201():
+
+	# Make a code for testing. ID 1.
+	r = admin.post(API+"/manage/code", json={
+		"code": "FOO-BAR-123",
+		"points": 200
+	})
+	assert r.status_code == 201
+
+	# Make sure that was ID 1.
+	r = admin.get(API+"/manage/code/1")
+	data = json.loads(r.content)
+	assert data["id"] == 1
+
+	# Make another code for testing. ID 2.
+	r = admin.post(API+"/manage/code", json={
+		"code": "FOO-BAR-321",
+		"points": 200
+	})
+	assert r.status_code == 201
+
+	# Submit the code for another user.
+	r = admin.post(API+"/manage/submission", json={
+		"codeId": 1,
+		"userId": 2,
+	})
+	assert r.status_code == 201
+
+# Bad form.
+def test_manage_submission_post_400():
+	r = admin.post(API+"/manage/submission", json={
+		"userId": 2,
+	})
+	assert r.status_code == 400
+
+# Code doesn't exist.
+def test_manage_submission_post_404_0():
+	r = admin.post(API+"/manage/submission", json={
+		"codeId": 999,
+		"userId": 2,
+	})
+	assert r.status_code == 404
+
+# User doesn't exist.
+def test_manage_submission_post_404_1():
+	r = admin.post(API+"/manage/submission", json={
+		"codeId": 2,
+		"userId": 999,
+	})
+	assert r.status_code == 404
+
+# Submission already exists.
+def test_manage_submission_post_409():
+	r = admin.post(API+"/manage/submission", json={
+		"codeId": 1,
+		"userId": 2,
+	})
+	assert r.status_code == 409
+
+# Bad permissions.
+def test_manage_submission_post_401():
+
+	# Submit the code for another user.
+	r = user.post(API+"/manage/submission", json={
+		"codeId": 1,
+		"userId": 2,
+	})
+	assert r.status_code == 401
+

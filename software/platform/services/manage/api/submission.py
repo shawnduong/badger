@@ -19,15 +19,27 @@ def submission_post():
 		# These are required fields for this method.
 		for k in ("codeId", "userId"):
 			assert k in request.json.keys()
-		int(request.json["codeId"])
-		int(request.json["userId"])
+		codeId = int(request.json["codeId"])
+		userId = int(request.json["userId"])
 	except:
 		return {}, 400
 
 	# It is the responsibility of the caller to make sure that the code user
-	# exists.
+	# exists and return a 404 if not.
+	try:
+		r = requests.get(IMPLEMENTATION["manage"]+f"/code/{codeId}")
+		assert r.status_code == 200
+	except:
+		return {}, r.status_code
 
-	db.session.add(Submission(int(request.json["codeId"]), int(request.json["userId"])))
+	# This submission must be unique.
+	try:
+		s = Submission.query.filter_by(codeId=codeId, userId=userId).all()
+		assert len(s) == 0
+	except:
+		return {}, 409
+
+	db.session.add(Submission(codeId, userId))
 	db.session.commit()
 
 	return {}, 201
