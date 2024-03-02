@@ -51,14 +51,14 @@
 
 ## Manage
 
-- [ ] GET /manage/code: Get a list of all codes and their values.
-  - [ ] Test
-- [ ] POST /manage/code: Create a code.
-  - [ ] Test
-- [ ] PATCH /manage/code/{codeId}: Update a code.
-  - [ ] Test
-- [ ] DELETE /manage/code/{codeId}: Delete a code.
-  - [ ] Test
+- [x] GET /manage/code: Get a list of all codes and their values.
+  - [x] Test
+- [x] POST /manage/code: Create a code.
+  - [x] Test
+- [x] PATCH /manage/code/{codeId}: Update a code.
+  - [x] Test
+- [x] DELETE /manage/code/{codeId}: Delete a code.
+  - [x] Test
 
 - [ ] POST /manage/announcement: Create an announcement.
   - [ ] Test
