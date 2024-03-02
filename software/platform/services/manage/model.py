@@ -8,12 +8,12 @@ class Code(db.Model):
 
 	__tablename__ = "Code"
 
-	id  = db.Column(db.Integer, primary_key=True)
+	id = db.Column(db.Integer, primary_key=True)
 
 	code   = db.Column(db.String(256), unique=True , nullable=False)
 	points = db.Column(db.Integer    , unique=False, nullable=False)
 
-	def __init__(self, code, points=0):
+	def __init__(self, code: str, points: int=0):
 		self.code = code
 		self.points = points
 
@@ -21,6 +21,27 @@ class Code(db.Model):
 		data = {
 			"code": self.code,
 			"points": self.points,
+			"id": self.id,
+		}
+		return json.dumps(data)
+
+class Submission(db.Model):
+
+	__tablename__ = "Submission"
+
+	id = db.Column(db.Integer, primary_key=True)
+
+	codeId = db.Column(db.Integer, unique=False, nullable=False)
+	userId = db.Column(db.Integer, unique=False, nullable=False)
+
+	def __init__(self, codeId: int, userId: int):
+		self.codeId = codeId
+		self.userId = userId
+
+	def __str__(self):
+		data = {
+			"codeId": self.codeId,
+			"userId": self.userId,
 			"id": self.id,
 		}
 		return json.dumps(data)

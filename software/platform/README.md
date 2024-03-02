@@ -49,7 +49,7 @@
 - [x] POST /manage/code: Create a code.
 - [x] PATCH /manage/code/{codeId}: Update a code.
 - [x] DELETE /manage/code/{codeId}: Delete a code.
-- [ ] Tests
+- [x] Tests
 
 - [ ] GET /manage/submission: Get a list of all submissions.
 - [ ] POST /manage/submission: Create a submission.

@@ -15,7 +15,7 @@ class User(UserMixin, db.Model):
 
 	__tablename__ = "User"
 
-	id  = db.Column(db.Integer, primary_key=True)
+	id = db.Column(db.Integer, primary_key=True)
 
 	uid        = db.Column(db.Integer    , unique=False, nullable=True )
 	privilege  = db.Column(db.Integer    , unique=False, nullable=False)
@@ -25,8 +25,16 @@ class User(UserMixin, db.Model):
 	claimed    = db.Column(db.Boolean    , unique=False, nullable=False)
 	custom     = db.Column(db.Text       , unique=False, nullable=True )
 
-	def __init__(self, uid=None, privilege=PRIV_USER, email=None, password=None,
-		points=None, claimed=False, custom=None):
+	def __init__(
+		self,
+		uid: int=None,
+		privilege: int=PRIV_USER,
+		email: str=None,
+		password: str=None,
+		points: int=None,
+		claimed: bool=False,
+		custom: str=None
+	):
 		"""
 		Create a user account. Not all information needs to be defined, just the
 		privilege level and claimed status. Normal users can fill out the rest

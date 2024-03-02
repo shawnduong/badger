@@ -11,7 +11,7 @@ class Policy(db.Model):
 
 	__tablename__ = "Policy"
 
-	id  = db.Column(db.Integer, primary_key=True)
+	id = db.Column(db.Integer, primary_key=True)
 
 	# If True, then users are required to claim their account after first
 	# logging in with their badge ID. If False, then no account claim is needed
@@ -28,9 +28,9 @@ class Policy(db.Model):
 
 	def __init__(
 		self,
-		requireRegistration=True,
-		selfServiceAccountReset=False,
-		selfServiceAccountResetExpiry=None
+		requireRegistration: bool=True,
+		selfServiceAccountReset: bool=False,
+		selfServiceAccountResetExpiry: int=None
 	):
 		self.requireRegistration = requireRegistration
 		self.selfServiceAccountReset = selfServiceAccountReset
