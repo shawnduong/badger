@@ -292,7 +292,7 @@ paths:
           description: Not found.
         500:
           description: Internal server error.
-  /user/submission:
+  /manage/submission:
     get:
       summary: Get a list of all submissions and their values.
       responses:
@@ -307,7 +307,7 @@ paths:
         500:
           description: Internal server error.
     post:
-      summary: Create a submission.
+      summary: Create a submission on behalf of another user.
       requestBody:
         required: true
         content:
@@ -317,11 +317,15 @@ paths:
       responses:
         201:
           description: Submission created.
+        400:
+          description: Bad client form.
+        404:
+          description: User or code not found.
         409:
           description: Submission already exists.
         500:
           description: Internal server error.
-  /user/submission/{submissionId}:
+  /manage/submission/{submissionId}:
     patch:
       summary: Update a submission.
       requestBody:
@@ -742,6 +746,19 @@ paths:
         500:
           description: Internal server error.
   /admin/user/{userId}:
+    get:
+      summary: Get information about one account in particular.
+      responses:
+        200:
+          description: OK.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserPrivilegedView"
+        404:
+          description: Account not found.
+        500:
+          description: Internal server error.
     patch:
       summary: Update the information in a user account.
       requestBody:
