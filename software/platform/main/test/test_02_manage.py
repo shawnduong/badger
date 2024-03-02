@@ -56,6 +56,12 @@ def test_manage_code_get_200():
 	assert data[0]["points"] == 100
 	assert data[0]["id"] == 1
 
+# Bad permissions.
+def test_manage_code_get_401():
+
+	r = user.get(API+"/manage/code")
+	assert r.status_code == 401
+
 # --[ GET A SPECIFIC CODE ]--
 
 # Success.

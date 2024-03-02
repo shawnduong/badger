@@ -8,6 +8,8 @@ policy:
           application/json:
             schema:
               $ref: "../../schemas/Policy.yaml#/Policy"
+      401:
+        description: Unauthorized.
       500:
         description: Internal server error.
   patch:
@@ -23,5 +25,7 @@ policy:
         description: Policy updated.
       400:
         description: Bad client form.
+      401:
+        description: Unauthorized.
       500:
         description: Internal server error.

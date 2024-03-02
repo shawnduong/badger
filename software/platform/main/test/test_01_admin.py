@@ -37,7 +37,7 @@ def test_admin_policy_patch_400():
 	})
 	assert r.status_code == 400
 
-# Success,
+# Success.
 def test_admin_policy_patch_200():
 	r = admin.patch(API+"/admin/policy", json={
 		"requireRegistration": False,

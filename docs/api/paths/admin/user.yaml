@@ -10,6 +10,8 @@ user:
               type: array
               items:
                 $ref: "../../schemas/User.yaml#/UserPrivilegedView"
+      401:
+        description: Unauthorized.
       500:
         description: Internal server error.
   post:
@@ -23,6 +25,8 @@ user:
     responses:
       201:
         description: Account created.
+      401:
+        description: Unauthorized.
       409:
         description: Account already exists.
       400:
@@ -41,6 +45,8 @@ user-userId:
               $ref: "../../schemas/User.yaml#/UserPrivilegedView"
       400:
         description: Bad client form.
+      401:
+        description: Unauthorized.
       404:
         description: Account not found.
       500:
@@ -58,6 +64,8 @@ user-userId:
         description: Account updated.
       400:
         description: Bad client form.
+      401:
+        description: Unauthorized.
       404:
         description: Account not found.
       500:
@@ -67,6 +75,8 @@ user-userId:
     responses:
       200:
         description: Deletion successful.
+      401:
+        description: Unauthorized.
       404:
         description: Not found.
       500:
