@@ -953,413 +953,68 @@ paths:
 components:
   schemas:
     UserForm:
-      type: object
-      properties:
-        uid:
-          type: integer
-          example: 3735928559
-        email:
-          type: string
-          example: "jdoe@email.com"
-        password:
-          type: string
-          example: "hunter2"
-        custom:
-          type: string
-          example: "e2N1c3RvbUZpZWxkOjEwfQo="
-          description: Custom fields as Base64-encoded JSON.
+      $ref: "schemas/User.yaml#/UserForm"
     User:
-      type: object
-      properties:
-        id:
-          type: integer
-          example: 10
-        uid:
-          type: integer
-          example: 3735928559
-        email:
-          type: string
-          example: "jdoe@email.com"
-        points:
-          type: integer
-          example: 300
-        claimed:
-          type: boolean
-          example: true
-        custom:
-          type: string
-          example: "e2N1c3RvbUZpZWxkOjEwfQo="
-          description: Custom fields as Base64-encoded JSON.
+      $ref: "schemas/User.yaml#/User"
     UserPrivilegedForm:
-      type: object
-      properties:
-        uid:
-          type: integer
-          example: 3735928559
-        email:
-          type: string
-          example: "jdoe@email.com"
-        points:
-          type: integer
-          example: 300
-        claimed:
-          type: boolean
-          example: true
-        custom:
-          type: string
-          example: "e2N1c3RvbUZpZWxkOjEwfQo="
-          description: Custom fields as Base64-encoded JSON.
-        privilege:
-          type: integer
-          example: 0
-          description: 0 if user, 1 if admin. Left as an integer to allow for more privilege levels to be defined.
+      $ref: "schemas/User.yaml#/UserPrivilegedForm"
     UserPrivilegedView:
-      allOf:
-        - $ref: "#/components/schemas/UserPrivilegedForm"
-        - type: object
-          properties:
-            id:
-              type: integer
-              example: 10
+      $ref: "schemas/User.yaml#/UserPrivilegedView"
     CodeForm:
-      type: object
-      properties:
-        code:
-          type: string
-          example: "AAAA-BB-CCCC"
-        points:
-          type: integer
-          example: 20
+      $ref: "schemas/Code.yaml#/CodeForm"
     Code:
-      allOf:
-        - $ref: "#/components/schemas/CodeForm"
-        - type: object
-          properties:
-            id:
-              type: integer
-              example: 10
+      $ref: "schemas/Code.yaml#/Code"
     SubmissionForm:
-      type: object
-      properties:
-        codeId:
-          type: integer
-          example: 1
-          description: ID of the code this submission is associated with.
-        userId:
-          type: integer
-          example: 1
-          description: ID of the user this submission is associated with.
+      $ref: "schemas/Submission.yaml#/SubmissionForm"
     Submission:
-      allOf:
-        - $ref: "#/components/schemas/SubmissionForm"
-        - type: object
-          properties:
-            id:
-              type: integer
-              example: 10
+      $ref: "schemas/Submission.yaml#/Submission"
     AnnouncementForm:
-      type: object
-      properties:
-        timestamp:
-          type: integer
-          example: 1708743600
-          description: Announcement timestamp in epoch seconds.
-        body:
-          type: string
-          example: "We have leftover pizza in Room B4 if anyone would like to grab some!"
-        author:
-          type: string
-          example: "Jane Doe"
+      $ref: "schemas/Announcement.yaml#/AnnouncementForm"
     Announcement:
-      allOf:
-        - $ref: "#/components/schemas/AnnouncementForm"
-        - type: object
-          properties:
-            id:
-              type: integer
-              example: 10
+      $ref: "schemas/Announcement.yaml#/Announcement"
     EventForm:
-      type: object
-      properties:
-        title:
-          type: string
-          example: "Opening Ceremony"
-        location:
-          type: string
-          example: "Room A1"
-        map:
-          type: blob
-          example: "<binary blob>"
-        startTime:
-          type: integer
-          example: 1708743600
-          description: Start time in epoch seconds.
-        duration:
-          type: integer
-          example: 3600
-          description: Duration of the event in seconds.
-        points:
-          type: integer
-          example: 50
-          description: Points reward for attendance.
-        host:
-          type: string
-          example: "Jane Doe"
-        description:
-          type: string
-          example: "Lorem ipsum dolor sit amet."
+      $ref: "schemas/Event.yaml#/EventForm"
     Event:
-      allOf:
-        - $ref: "#/components/schemas/EventForm"
-        - type: object
-          properties:
-            id:
-              type: integer
-              example: 10
+      $ref: "schemas/Event.yaml#/Event"
     RsvpForm:
-      type: object
-      properties:
-        userId:
-          type: integer
-          example: 44
-          description: The ID of the user for whom this RSVP is for.
-        eventId:
-          type: integer
-          example: 3
-          description: The ID of the event for which this RSVP is for.
+      $ref: "schemas/Rsvp.yaml#/RsvpForm"
     Rsvp:
-      allOf:
-        - $ref: "#/components/schemas/RsvpForm"
-        - type: object
-          properties:
-            id:
-              type: integer
-              example: 10
+      $ref: "schemas/Rsvp.yaml#/Rsvp"
     AttendanceForm:
-      type: object
-      properties:
-        userId:
-          type: integer
-          example: 44
-          description: The ID of the user for whom this attendance is for.
-        eventId:
-          type: integer
-          example: 3
-          description: The ID of the event for which this attendance is for.
+      $ref: "schemas/Attendance.yaml#/AttendanceForm"
     Attendance:
-      allOf:
-        - $ref: "#/components/schemas/AttendanceForm"
-        - type: object
-          properties:
-            id:
-              type: integer
-              example: 10
+      $ref: "schemas/Attendance.yaml#/Attendance"
     EntitlementForm:
-      type: object
-      properties:
-        title:
-          type: string
-          example: "Lunch"
-        quantity:
-          type: integer
-          example: 3
-          description: How many redemptions you are entitled to.
+      $ref: "schemas/Entitlement.yaml#/EntitlementForm"
     Entitlement:
-      allOf:
-        - $ref: "#/components/schemas/EntitlementForm"
-        - type: object
-          properties:
-            id:
-              type: integer
-              example: 1
+      $ref: "schemas/Entitlement.yaml#/Entitlement"
     RedemptionForm:
-      type: object
-      properties:
-        entitlementId:
-          type: integer
-          example: 1
-          description: The ID of an entitlement.
-        userId:
-          type: integer
-          example: 44
-          description: The ID of the user for whom this redemption is for.
+      $ref: "schemas/Redemption.yaml#/RedemptionForm"
     Redemption:
-      allOf:
-        - $ref: "#/components/schemas/RedemptionForm"
-        - type: object
-          properties:
-            id:
-              type: integer
-              example: 1
+      $ref: "schemas/Redemption.yaml#/Redemption"
     RewardForm:
-      type: object
-      properties:
-        item:
-          type: string
-          example: "Sticker Pack"
-        points:
-          type: integer
-          example: 30
-          description: How many points it costs to claim this reward.
-        stockTotal:
-          type: integer
-          example: 50
-          description: How many of this item there are in total.
-        stockRemaining:
-          type: integer
-          example: 29
-          description: How many of this item there are left.
+      $ref: "schemas/Reward.yaml#/RewardForm"
     Reward:
-      allOf:
-        - $ref: "#/components/schemas/RewardForm"
-        - type: object
-          properties:
-            id:
-              type: integer
-              example: 3
+      $ref: "schemas/Reward.yaml#/Reward"
     ClaimForm:
-      type: object
-      properties:
-        rewardId:
-          type: integer
-          example: 3
-          description: ID of a reward you have claimed.
-        userId:
-          type: integer
-          example: 44
-          description: The ID of the user for whom this redemption is for.
-        retrieved:
-          type: boolean
-          example: false
-          description: Status of whether or not you have physically retrieved your claimed reward yet.
+      $ref: "schemas/Claim.yaml#/ClaimForm"
     Claim:
-      allOf:
-        - $ref: "#/components/schemas/ClaimForm"
-        - type: object
-          properties:
-            id:
-              type: integer
-              example: 3
+      $ref: "schemas/Claim.yaml#/Claim"
     Policy:
-      type: object
-      properties:
-        requireRegistration:
-          type: boolean
-          example: true
-          description: Require users to fill out their name, email, and password.
-        selfServiceAccountReset:
-          type: boolean
-          example: true
-          description: Allow users to self-service reset their own accounts.
-        selfServiceAccountResetExpiry:
-          type: integer
-          example: 3600
-          description: How long a self-service reset token is valid for.
+      $ref: "schemas/Policy.yaml#/Policy"
     SelfServiceResetForm:
-      type: object
-      properties:
-        email:
-          type: string
-          example: "jdoe@email.com"
+      $ref: "schemas/SelfServiceResetForm.yaml#/SelfServiceResetForm"
     ResetForm:
-      allOf:
-        - $ref: "#/components/schemas/SelfServiceResetForm"
-        - type: object
-          properties:
-            timestamp:
-              type: integer
-              example: 1708743600
-            token:
-              type: string
-              example: "8286d7b2-253a-447e-bcad-d17408a80d87"
-              description: Secret token used for account resets.
-            valid:
-              type: boolean
-              example: true
-              description: The reset token is valid.
-            fulfilled:
-              type: boolean
-              example: false
-              description: The reset has been completed.
+      $ref: "schemas/Reset.yaml#/ResetForm"
     Reset:
-      allOf:
-        - $ref: "#/components/schemas/ResetForm"
-        - type: object
-          properties:
-            id:
-              type: integer
-              example: 3
+      $ref: "schemas/Reset.yaml#/Reset"
     ConfigurationForm:
-      type: object
-      properties:
-        scannerId:
-          type: integer
-          example: 8
-          description: The scanner ID number, as with the scanner's DIP switches.
-        schedule:
-          type: array
-          items:
-            type: object
-            properties:
-              timestamp:
-                type: integer
-                example: 1704067200
-                description: The time at which this configuration will take effect.
-              display:
-                type: string
-                example: "Check-In Station"
-                description: The text that will be shown on the scanner's display.
-              mode:
-                type: string
-                example: "check-in"
-                description: The mode that this scanner will be in at that time.
+      $ref: "schemas/Configuration.yaml#/ConfigurationForm"
     Configuration:
-      allOf:
-        - $ref: "#/components/schemas/ConfigurationForm"
-        - type: object
-          properties:
-            id:
-              type: integer
-              example: 3
+      $ref: "schemas/Configuration.yaml#/Configuration"
     Scanner:
-      type: object
-      properties:
-        scannerId:
-          type: integer
-          example: 8
-          description: The scanner ID number, set with the scanner's DIP switches.
-        lastAlive:
-          type: integer
-          example: 1704067200
-          description: The time at which activity from the scanner was last detected.
-        scans:
-          type: array
-          items:
-            type: object
-            properties:
-              uid:
-                type: integer
-                example: 3735928559
-                description: The UID that was scanned.
-              timestamp: 
-                type: integer
-                example: 1704067200
-                description: The time at which it was scanned.
+      $ref: "schemas/Scanner.yaml#/Scanner"
     Scan:
-      type: object
-      properties:
-        scannerId:
-          type: integer
-          example: 8
-          description: The scanner ID number, set with the scanner's DIP switches.
-        scans:
-          type: array
-          example: [3735928559, 3405691582]
-          description: The UIDs of cards scanned in this batch.
+      $ref: "schemas/Scan.yaml#/Scan"
     Ping:
-      type: object
-      properties:
-        scannerId:
-          type: integer
-          example: 8
-          description: The scanner ID number, set with the scanner's DIP switches.
+      $ref: "schemas/Ping.yaml#/Ping"

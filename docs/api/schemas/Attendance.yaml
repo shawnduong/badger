@@ -1,0 +1,19 @@
+AttendanceForm:
+  type: object
+  properties:
+    userId:
+      type: integer
+      example: 44
+      description: The ID of the user for whom this attendance is for.
+    eventId:
+      type: integer
+      example: 3
+      description: The ID of the event for which this attendance is for.
+Attendance:
+  allOf:
+    - $ref: "#/components/schemas/AttendanceForm"
+    - type: object
+      properties:
+        id:
+          type: integer
+          example: 10

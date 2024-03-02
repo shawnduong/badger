@@ -1,0 +1,38 @@
+EventForm:
+  type: object
+  properties:
+    title:
+      type: string
+      example: "Opening Ceremony"
+    location:
+      type: string
+      example: "Room A1"
+    map:
+      type: blob
+      example: "<binary blob>"
+    startTime:
+      type: integer
+      example: 1708743600
+      description: Start time in epoch seconds.
+    duration:
+      type: integer
+      example: 3600
+      description: Duration of the event in seconds.
+    points:
+      type: integer
+      example: 50
+      description: Points reward for attendance.
+    host:
+      type: string
+      example: "Jane Doe"
+    description:
+      type: string
+      example: "Lorem ipsum dolor sit amet."
+Event:
+  allOf:
+    - $ref: "#/components/schemas/EventForm"
+    - type: object
+      properties:
+        id:
+          type: integer
+          example: 10

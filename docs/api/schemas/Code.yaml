@@ -1,0 +1,17 @@
+CodeForm:
+  type: object
+  properties:
+    code:
+      type: string
+      example: "AAAA-BB-CCCC"
+    points:
+      type: integer
+      example: 20
+Code:
+  allOf:
+    - $ref: "#/components/schemas/CodeForm"
+    - type: object
+      properties:
+        id:
+          type: integer
+          example: 10

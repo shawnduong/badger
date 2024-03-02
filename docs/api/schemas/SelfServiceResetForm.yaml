@@ -1,0 +1,6 @@
+SelfServiceResetForm:
+  type: object
+  properties:
+    email:
+      type: string
+      example: "jdoe@email.com"

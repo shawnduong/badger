@@ -1,0 +1,21 @@
+AnnouncementForm:
+  type: object
+  properties:
+    timestamp:
+      type: integer
+      example: 1708743600
+      description: Announcement timestamp in epoch seconds.
+    body:
+      type: string
+      example: "We have leftover pizza in Room B4 if anyone would like to grab some!"
+    author:
+      type: string
+      example: "Jane Doe"
+Announcement:
+  allOf:
+    - $ref: "#/components/schemas/AnnouncementForm"
+    - type: object
+      properties:
+        id:
+          type: integer
+          example: 10

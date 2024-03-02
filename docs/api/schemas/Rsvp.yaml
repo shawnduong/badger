@@ -1,0 +1,19 @@
+RsvpForm:
+  type: object
+  properties:
+    userId:
+      type: integer
+      example: 44
+      description: The ID of the user for whom this RSVP is for.
+    eventId:
+      type: integer
+      example: 3
+      description: The ID of the event for which this RSVP is for.
+Rsvp:
+  allOf:
+    - $ref: "#/components/schemas/RsvpForm"
+    - type: object
+      properties:
+        id:
+          type: integer
+          example: 10

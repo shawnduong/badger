@@ -1,0 +1,18 @@
+EntitlementForm:
+  type: object
+  properties:
+    title:
+      type: string
+      example: "Lunch"
+    quantity:
+      type: integer
+      example: 3
+      description: How many redemptions you are entitled to.
+Entitlement:
+  allOf:
+    - $ref: "#/components/schemas/EntitlementForm"
+    - type: object
+      properties:
+        id:
+          type: integer
+          example: 1

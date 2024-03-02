@@ -1,0 +1,7 @@
+Ping:
+  type: object
+  properties:
+    scannerId:
+      type: integer
+      example: 8
+      description: The scanner ID number, set with the scanner's DIP switches.

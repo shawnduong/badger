@@ -1,0 +1,69 @@
+UserForm:
+  type: object
+  properties:
+    uid:
+      type: integer
+      example: 3735928559
+    email:
+      type: string
+      example: "jdoe@email.com"
+    password:
+      type: string
+      example: "hunter2"
+    custom:
+      type: string
+      example: "e2N1c3RvbUZpZWxkOjEwfQo="
+      description: Custom fields as Base64-encoded JSON.
+User:
+  type: object
+  properties:
+    id:
+      type: integer
+      example: 10
+    uid:
+      type: integer
+      example: 3735928559
+    email:
+      type: string
+      example: "jdoe@email.com"
+    points:
+      type: integer
+      example: 300
+    claimed:
+      type: boolean
+      example: true
+    custom:
+      type: string
+      example: "e2N1c3RvbUZpZWxkOjEwfQo="
+      description: Custom fields as Base64-encoded JSON.
+UserPrivilegedForm:
+  type: object
+  properties:
+    uid:
+      type: integer
+      example: 3735928559
+    email:
+      type: string
+      example: "jdoe@email.com"
+    points:
+      type: integer
+      example: 300
+    claimed:
+      type: boolean
+      example: true
+    custom:
+      type: string
+      example: "e2N1c3RvbUZpZWxkOjEwfQo="
+      description: Custom fields as Base64-encoded JSON.
+    privilege:
+      type: integer
+      example: 0
+      description: 0 if user, 1 if admin. Left as an integer to allow for more privilege levels to be defined.
+UserPrivilegedView:
+  allOf:
+    - $ref: "#/components/schemas/UserPrivilegedForm"
+    - type: object
+      properties:
+        id:
+          type: integer
+          example: 10

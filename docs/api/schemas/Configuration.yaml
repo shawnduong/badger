@@ -1,0 +1,32 @@
+ConfigurationForm:
+  type: object
+  properties:
+    scannerId:
+      type: integer
+      example: 8
+      description: The scanner ID number, as with the scanner's DIP switches.
+    schedule:
+      type: array
+      items:
+        type: object
+        properties:
+          timestamp:
+            type: integer
+            example: 1704067200
+            description: The time at which this configuration will take effect.
+          display:
+            type: string
+            example: "Check-In Station"
+            description: The text that will be shown on the scanner's display.
+          mode:
+            type: string
+            example: "check-in"
+            description: The mode that this scanner will be in at that time.
+Configuration:
+  allOf:
+    - $ref: "#/components/schemas/ConfigurationForm"
+    - type: object
+      properties:
+        id:
+          type: integer
+          example: 3

@@ -1,0 +1,15 @@
+Policy:
+  type: object
+  properties:
+    requireRegistration:
+      type: boolean
+      example: true
+      description: Require users to fill out their name, email, and password.
+    selfServiceAccountReset:
+      type: boolean
+      example: true
+      description: Allow users to self-service reset their own accounts.
+    selfServiceAccountResetExpiry:
+      type: integer
+      example: 3600
+      description: How long a self-service reset token is valid for.

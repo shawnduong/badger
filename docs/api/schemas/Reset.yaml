@@ -1,0 +1,28 @@
+ResetForm:
+  allOf:
+    - $ref: "#/components/schemas/SelfServiceResetForm"
+    - type: object
+      properties:
+        timestamp:
+          type: integer
+          example: 1708743600
+        token:
+          type: string
+          example: "8286d7b2-253a-447e-bcad-d17408a80d87"
+          description: Secret token used for account resets.
+        valid:
+          type: boolean
+          example: true
+          description: The reset token is valid.
+        fulfilled:
+          type: boolean
+          example: false
+          description: The reset has been completed.
+Reset:
+  allOf:
+    - $ref: "#/components/schemas/ResetForm"
+    - type: object
+      properties:
+        id:
+          type: integer
+          example: 3

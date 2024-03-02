@@ -1,0 +1,11 @@
+Scan:
+  type: object
+  properties:
+    scannerId:
+      type: integer
+      example: 8
+      description: The scanner ID number, set with the scanner's DIP switches.
+    scans:
+      type: array
+      example: [3735928559, 3405691582]
+      description: The UIDs of cards scanned in this batch.

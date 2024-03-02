@@ -1,0 +1,24 @@
+Scanner:
+  type: object
+  properties:
+    scannerId:
+      type: integer
+      example: 8
+      description: The scanner ID number, set with the scanner's DIP switches.
+    lastAlive:
+      type: integer
+      example: 1704067200
+      description: The time at which activity from the scanner was last detected.
+    scans:
+      type: array
+      items:
+        type: object
+        properties:
+          uid:
+            type: integer
+            example: 3735928559
+            description: The UID that was scanned.
+          timestamp: 
+            type: integer
+            example: 1704067200
+            description: The time at which it was scanned.

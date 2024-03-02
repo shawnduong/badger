@@ -1,0 +1,26 @@
+RewardForm:
+  type: object
+  properties:
+    item:
+      type: string
+      example: "Sticker Pack"
+    points:
+      type: integer
+      example: 30
+      description: How many points it costs to claim this reward.
+    stockTotal:
+      type: integer
+      example: 50
+      description: How many of this item there are in total.
+    stockRemaining:
+      type: integer
+      example: 29
+      description: How many of this item there are left.
+Reward:
+  allOf:
+    - $ref: "#/components/schemas/RewardForm"
+    - type: object
+      properties:
+        id:
+          type: integer
+          example: 3
