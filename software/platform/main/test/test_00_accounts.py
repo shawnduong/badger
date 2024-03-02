@@ -131,6 +131,24 @@ def test_admin_get_user_1():
 	r = r2.get(API+"/admin/user")
 	assert r.status_code == 401
 
+# --[ GET INFO ABOUT A SPECIFIC ACCOUNT ]--
+
+def test_admin_get_user_2():
+	r = r1.get(API+"/admin/user/1")
+	data = json.loads(r.content)
+	assert r.status_code == 200
+	assert data["email"] == "admin@test.com"
+
+def test_admin_get_user_3():
+	r = r1.get(API+"/admin/user/999")
+	data = json.loads(r.content)
+	assert r.status_code == 404
+
+def test_admin_get_user_4():
+	r = r2.get(API+"/admin/user/1")
+	data = json.loads(r.content)
+	assert r.status_code == 401
+
 # --[ EDIT INFO ABOUT AN ACCOUNT ]--
 
 def test_admin_patch_user_0():

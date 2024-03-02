@@ -139,6 +139,8 @@
   - [x] Test
 - [x] POST /admin/user: Create a user account.
   - [x] Test
+- [x] GET /admin/user/{userId}: Get information about one account in particular.
+  - [x] Test
 - [x] PATCH /admin/user/{userId}: Update the information in a user account.
   - [x] Test
 - [x] DELETE /admin/user/{userId}: Delete an account.

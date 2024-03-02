@@ -4,6 +4,7 @@ from app import db
 from flask_login import UserMixin
 
 import bcrypt
+import json
 import re
 from typing import Union
 
@@ -82,4 +83,16 @@ class User(UserMixin, db.Model):
 			return user
 		except:
 			return None
+
+	def __str__(self):
+		data = {
+			"uid": self.uid,
+			"email": self.email,
+			"points": self.points,
+			"claimed": self.claimed,
+			"custom": self.custom,
+			"privilege": self.privilege,
+			"id": self.id,
+		}
+		return json.dumps(data)
 

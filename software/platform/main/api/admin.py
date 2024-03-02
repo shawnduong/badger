@@ -11,18 +11,7 @@ adminPrefix = "/api/v1/admin"
 def admin_user_get():
 
 	users = User.query.all()
-	output = [
-		{
-			"uid": u.uid,
-			"email": u.email,
-			"points": u.points,
-			"claimed": u.claimed,
-			"custom": u.custom,
-			"privilege": u.privilege,
-			"id": u.id,
-		}
-		for u in users
-	]
+	output = [str(u) for u in users]
 
 	return output, 200
 
@@ -58,6 +47,18 @@ def admin_user_post():
 	db.session.add(user)
 	db.session.commit()
 	return {}, 201
+
+@app.route(adminPrefix+"/user/<userId>", methods=["GET"])
+@admin_required
+@failsafe_500
+def admin_user_get_specific(userId: int):
+
+	try:
+		assert (u:=User.query.get(userId))
+	except:
+		return {}, 404
+
+	return str(u), 200
 
 @app.route(adminPrefix+"/user/<userId>", methods=["PATCH"])
 @admin_required
