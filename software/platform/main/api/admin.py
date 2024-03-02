@@ -72,7 +72,7 @@ def admin_user_patch(userId: int):
 		return {}, 400
 
 	try:
-		assert (u:=User.query.filter_by(uid=request.json["uid"]).first()) != None
+		assert (u:=User.query.get(userId))
 	except:
 		return {}, 404
 
