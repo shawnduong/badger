@@ -225,3 +225,17 @@ def test_manage_submission_post_401():
 	})
 	assert r.status_code == 401
 
+# --[ GET ALL SUBMISSIONS ]--
+
+# Success.
+def test_manage_submission_get_200():
+	r = admin.get(API+"/manage/submission")
+	data = [json.loads(obj) for obj in json.loads(r.content)]
+	assert data[0]["codeId"] == 1
+	assert data[0]["userId"] == 2
+
+# Bad permissions.
+def test_manage_submission_get_401():
+	r = user.get(API+"/manage/submission")
+	assert r.status_code == 401
+
