@@ -3,6 +3,8 @@ import os
 from flask import *
 from flask_sqlalchemy import *
 
+from lib.helper import *
+
 # Instantiate the application and define settings.
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///admin.sqlite"
@@ -19,5 +21,5 @@ with app.app_context():
 		db.session.add(Policy())
 		db.session.commit()
 
-from helper import *
-from admin import *
+API = "/api/v1/admin"
+from api.all import *

@@ -3,8 +3,6 @@ from app import *
 import json
 import re
 
-API = "/api/v1/manage"
-
 @app.route(API+"/code", methods=["GET"])
 @failsafe_500
 def code_get():

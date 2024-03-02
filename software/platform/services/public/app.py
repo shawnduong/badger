@@ -1,7 +1,7 @@
 from flask import *
 #from flask_sqlalchemy import *
 
-from helper import *
+from lib.helper import *
 
 import os
 
@@ -17,4 +17,5 @@ app.secret_key = os.urandom(32)
 #with app.app_context():
 #	db.create_all()
 
-from public import *
+API = "/api/v1/public"
+from api.all import *

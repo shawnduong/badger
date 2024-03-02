@@ -3,8 +3,6 @@ from app import *
 import json
 import re
 
-API = "/api/v1/admin"
-
 @app.route(API+"/policy", methods=["GET"])
 @failsafe_500
 def policy_get():

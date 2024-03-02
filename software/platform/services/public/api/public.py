@@ -3,8 +3,6 @@ from app import *
 import json
 import re
 
-API = "/api/v1/public"
-
 def _valid_email(email: str):
 	"""
 	Return true if a possible email address string is valid. Credits to

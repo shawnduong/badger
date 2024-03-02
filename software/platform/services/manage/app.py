@@ -3,6 +3,8 @@ import os
 from flask import *
 from flask_sqlalchemy import *
 
+from lib.helper import *
+
 # Instantiate the application and define settings.
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///manage.sqlite"
@@ -15,5 +17,5 @@ from model import *
 with app.app_context():
 	db.create_all()
 
-from helper import *
-from manage import *
+API = "/api/v1/manage"
+from api.all import *
