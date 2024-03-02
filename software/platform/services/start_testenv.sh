@@ -8,10 +8,10 @@ read -p "Press ENTER to acknowledge and proceed." </dev/tty
 rm -rf */instance/
 
 source admin/env/bin/activate
-python3 admin/main.py &
+./admin/main.py &
 
 source manage/env/bin/activate
-python3 manage/main.py &
+./manage/main.py &
 
 source public/env/bin/activate
-python3 public/main.py
+./public/main.py
