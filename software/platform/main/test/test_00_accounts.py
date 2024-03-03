@@ -189,30 +189,19 @@ def test_admin_user_get_specific_400():
 	data = json.loads(r.content)
 	assert r.status_code == 400
 
-# Account doesn't exist.
-def test_admin_user_get_specific_404():
-	r = admin.get(API+"/admin/user/999")
-	data = json.loads(r.content)
-	assert r.status_code == 404
-
 # Bad permissions.
 def test_admin_user_get_specific_401():
 	r = user.get(API+"/admin/user/1")
 	data = json.loads(r.content)
 	assert r.status_code == 401
 
-# --[ EDIT INFO ABOUT AN ACCOUNT ]--
+# Account doesn't exist.
+def test_admin_user_get_specific_404():
+	r = admin.get(API+"/admin/user/999")
+	data = json.loads(r.content)
+	assert r.status_code == 404
 
-# Bad form.
-def test_admin_user_patch_400():
-	r = admin.patch(API+"/admin/user/3", json={
-		"uid": 0xdeadbeef,
-		"points": 100,
-		"claimed": True,
-		"custom": "",
-		"privilege": 0
-	})
-	assert r.status_code == 400
+# --[ EDIT INFO ABOUT AN ACCOUNT ]--
 
 # Success.
 def test_admin_user_patch_200():
@@ -233,6 +222,17 @@ def test_admin_user_patch_200():
 	data = json.loads(r.content)
 	assert data["points"] == 100
 
+# Bad form.
+def test_admin_user_patch_400():
+	r = admin.patch(API+"/admin/user/3", json={
+		"uid": 0xdeadbeef,
+		"points": 100,
+		"claimed": True,
+		"custom": "",
+		"privilege": 0
+	})
+	assert r.status_code == 400
+
 # Bad permissions.
 def test_admin_user_patch_401():
 	r = user.patch(API+"/admin/user/3", json={
@@ -252,13 +252,13 @@ def test_admin_user_delete_200():
 	r = admin.delete(API+"/admin/user/3")
 	assert r.status_code == 200
 
-# User doesn't exist.
-def test_admin_user_delete_404():
-	r = admin.delete(API+"/admin/user/3")
-	assert r.status_code == 404
-
 # Bad permissions.
 def test_admin_user_delete_401():
 	r = user.delete(API+"/admin/user/3")
 	assert r.status_code == 401
+
+# User doesn't exist.
+def test_admin_user_delete_404():
+	r = admin.delete(API+"/admin/user/3")
+	assert r.status_code == 404
 
