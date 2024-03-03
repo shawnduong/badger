@@ -340,3 +340,19 @@ def test_manage_announcement_post_401():
 	})
 	assert r.status_code == 401
 
+# --[ GET ALL ANNOUNCEMENTS ]--
+
+# Success.
+def test_user_announcement_get_200():
+
+	r = user.get(API+"/user/announcement")
+	assert r.status_code == 200
+
+	data = [json.loads(obj) for obj in json.loads(r.content)]
+	assert data[0]["author"] == "Jane Doe"
+
+# Not logged in.
+def test_user_announcement_get_302():
+	r = requests.get(API+"/user/announcement", allow_redirects=False)
+	assert r.status_code == 302
+

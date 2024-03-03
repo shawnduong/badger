@@ -1,5 +1,12 @@
 from app import *
 
+@app.route(API+"/announcement", methods=["GET"])
+@failsafe_500
+def announcement_get():
+
+	announcements = [str(a) for a in Announcement.query.all()]
+	return announcements, 200
+
 @app.route(API+"/announcement", methods=["POST"])
 @failsafe_500
 def announcement_post():

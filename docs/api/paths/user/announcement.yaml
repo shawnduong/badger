@@ -10,5 +10,7 @@ announcement:
               type: array
               items:
                 $ref: "../../schemas/Announcement.yaml#/Announcement"
+      401:
+        description: Unauthorized.
       500:
         description: Internal server error.

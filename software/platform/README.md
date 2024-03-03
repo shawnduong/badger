@@ -58,7 +58,7 @@
 - [x] DELETE /manage/submission/{submissionId}: Delete a submission.
 - [x] Tests
 
-- [ ] POST /manage/announcement: Create an announcement.
+- [x] POST /manage/announcement: Create an announcement.
 - [ ] PATCH /manage/announcement/{announcementId}: Update an announcement.
 - [ ] DELETE /manage/announcement/{announcementId}: Delete an announcement.
 - [ ] Tests
