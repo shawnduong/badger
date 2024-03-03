@@ -63,7 +63,7 @@
 - [x] DELETE /manage/announcement/{announcementId}: Delete an announcement.
 - [x] Tests
 
-- [ ] POST /manage/event: Create an event.
+- [x] POST /manage/event: Create an event.
 - [ ] PATCH /manage/event/{eventId}: Update an event.
 - [ ] DELETE /manage/event/{eventId}: Delete an event.
 - [ ] Tests

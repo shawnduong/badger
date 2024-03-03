@@ -418,3 +418,40 @@ def test_manage_announcement_delete_404():
 	r = admin.delete(API+"/manage/announcement/999")
 	assert r.status_code == 404
 
+# --[ POST AN EVENT ]--
+
+# Success.
+def test_manage_event_post_201():
+	r = admin.post(API+"/manage/event", json={
+		"title": "Opening Ceremony",
+		"location": "Room A1",
+		"map": None,
+		"startTime": 1708743600,
+		"duration": 3600,
+		"points": 50,
+		"host": "Jane Doe",
+		"description": "Lorem ipsum dolor sit amet."
+	})
+	assert r.status_code == 201
+
+# Bad form.
+def test_manage_event_post_400():
+	r = admin.post(API+"/manage/event", json={
+		"title": "Opening Ceremony",
+	})
+	assert r.status_code == 400
+
+# Bad permissions.
+def test_manage_event_post_401():
+	r = user.post(API+"/manage/event", json={
+		"title": "Opening Ceremony",
+		"location": "Room A1",
+		"map": None,
+		"startTime": 1708743600,
+		"duration": 3600,
+		"points": 50,
+		"host": "Jane Doe",
+		"description": "Lorem ipsum dolor sit amet."
+	})
+	assert r.status_code == 401
+

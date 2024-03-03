@@ -7,6 +7,15 @@ event:
         application/json:
           schema:
             $ref: "../../schemas/Event.yaml#/EventForm"
+    responses:
+      201:
+        description: Event created.
+      400:
+        description: Bad client form.
+      401:
+        description: Unauthorized.
+      500:
+        description: Internal server error.
 event-eventId:
     patch:
       summary: Update an event.
