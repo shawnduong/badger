@@ -504,3 +504,25 @@ def test_manage_event_patch_401():
 	})
 	assert r.status_code == 401
 
+# --[ DELETE AN EVENT ]--
+
+# Success.
+def test_manage_event_delete_200():
+
+	r = admin.delete(API+"/manage/event/1")
+	assert r.status_code == 200
+
+	r = user.get(API+"/user/event")
+	assert r.status_code == 200
+	assert len(json.loads(r.content)) == 0
+
+# Unauthorized.
+def test_manage_event_delete_401():
+	r = user.delete(API+"/manage/event/1")
+	assert r.status_code == 401
+
+# Not found.
+def test_manage_event_delete_404():
+	r = admin.delete(API+"/manage/event/999")
+	assert r.status_code == 404
+

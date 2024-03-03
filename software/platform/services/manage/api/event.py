@@ -68,18 +68,18 @@ def event_patch(eventId: int):
 
 	return {}, 200
 
-#@app.route(API+"/event/<eventId>", methods=["DELETE"])
-#@failsafe_500
-#def event_delete(eventId: int):
-#
-#	try:
-#		a = Event.query.get(eventId)
-#		assert(a)
-#	except:
-#		return {}, 404
-#
-#	db.session.delete(a)
-#	db.session.commit()
-#
-#	return {}, 200
-#
+@app.route(API+"/event/<eventId>", methods=["DELETE"])
+@failsafe_500
+def event_delete(eventId: int):
+
+	try:
+		e = Event.query.get(eventId)
+		assert e
+	except:
+		return {}, 404
+
+	db.session.delete(e)
+	db.session.commit()
+
+	return {}, 200
+
