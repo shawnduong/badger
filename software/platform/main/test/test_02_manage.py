@@ -359,3 +359,45 @@ def test_user_announcement_get_302():
 	r = requests.get(API+"/user/announcement", allow_redirects=False)
 	assert r.status_code == 302
 
+# --[ UPDATE AN ANNOUNCEMENT ]--
+
+# Success.
+def test_manage_announcement_patch_200():
+
+	r = admin.patch(API+"/manage/announcement/1", json={
+		"timestamp": 1708743600,
+		"body": "We have leftover pizza in Room A4 if anyone would like to grab some!",
+		"author": "Jane Doe"
+	})
+	assert r.status_code == 200
+
+	r = user.get(API+"/user/announcement")
+	data = [json.loads(obj) for obj in json.loads(r.content)]
+	assert data[0]["body"] == "We have leftover pizza in Room A4 if anyone would like to grab some!"
+
+# Bad form.
+def test_manage_announcement_patch_400():
+	r = admin.patch(API+"/manage/announcement/1", json={
+		"timestamp": 1708743600,
+		"author": "Jane Doe"
+	})
+	assert r.status_code == 400
+
+# Bad permissions.
+def test_manage_announcement_patch_401():
+	r = user.patch(API+"/manage/announcement/1", json={
+		"timestamp": 1708743600,
+		"body": "We have leftover pizza in Room A4 if anyone would like to grab some!",
+		"author": "Jane Doe"
+	})
+	assert r.status_code == 401
+
+# Not found.
+def test_manage_announcement_patch_404():
+	r = admin.patch(API+"/manage/announcement/999", json={
+		"timestamp": 1708743600,
+		"body": "We have leftover pizza in Room A4 if anyone would like to grab some!",
+		"author": "Jane Doe"
+	})
+	assert r.status_code == 404
+

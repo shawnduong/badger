@@ -30,6 +30,10 @@ announcement-announcementId:
         description: Announcement updated.
       400:
         description: Bad client form.
+      401:
+        description: Unauthorized.
+      404:
+        description: Not found.
       500:
         description: Internal server error.
   delete:
@@ -37,6 +41,8 @@ announcement-announcementId:
     responses:
       200:
         description: Deletion successful.
+      401:
+        description: Unauthorized.
       404:
         description: Not found.
       500:
