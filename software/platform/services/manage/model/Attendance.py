@@ -4,9 +4,9 @@ from app import db
 
 import json
 
-class Rsvp(db.Model):
+class Attendance(db.Model):
 
-	__tablename__ = "Rsvp"
+	__tablename__ = "Attendance"
 
 	id = db.Column(db.Integer, primary_key=True)
 

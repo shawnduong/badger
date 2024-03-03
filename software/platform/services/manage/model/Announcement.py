@@ -20,11 +20,10 @@ class Announcement(db.Model):
 		self.author = author
 
 	def __str__(self):
-		data = {
+		return json.dumps({
 			"timestamp": self.timestamp,
 			"body": self.body,
 			"author": self.author,
 			"id": self.id,
-		}
-		return json.dumps(data)
+		})
 

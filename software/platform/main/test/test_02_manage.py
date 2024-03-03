@@ -700,3 +700,162 @@ def test_manage_rsvp_delete_404():
 	r = admin.delete(API+"/manage/rsvp/999")
 	assert r.status_code == 404
 
+# --[ MAKE AN ATTENDANCE ON A USER'S BEHALF ]--
+
+# Success.
+def test_manage_attendance_post_200():
+	r = admin.post(API+"/manage/attendance", json={
+		"userId": 2,
+		"eventId": 1,
+	})
+	assert r.status_code == 201
+
+# Bad form.
+def test_manage_attendance_post_400():
+	r = admin.post(API+"/manage/attendance", json={
+		"userId": 2,
+	})
+	assert r.status_code == 400
+
+# Bad permissions.
+def test_manage_attendance_post_401():
+	r = user.post(API+"/manage/attendance", json={
+		"userId": 2,
+		"eventId": 1,
+	})
+	assert r.status_code == 401
+
+# User not found.
+def test_manage_attendance_post_404_0():
+	r = admin.post(API+"/manage/attendance", json={
+		"userId": 999,
+		"eventId": 1,
+	})
+	assert r.status_code == 404
+
+# Event not found.
+def test_manage_attendance_post_404_1():
+	r = admin.post(API+"/manage/attendance", json={
+		"userId": 2,
+		"eventId": 999,
+	})
+	assert r.status_code == 404
+
+# Attendance already exists.
+def test_manage_attendance_post_409():
+	r = admin.post(API+"/manage/attendance", json={
+		"userId": 2,
+		"eventId": 1,
+	})
+	assert r.status_code == 409
+
+# --[ GET A LIST OF ALL ATTENDANCES ]--
+
+# Success.
+def test_manage_attendance_get_200():
+
+	r = admin.get(API+"/manage/attendance")
+	assert r.status_code == 200
+
+	data = [json.loads(obj) for obj in json.loads(r.content)]
+	assert data[0]["id"] == 1
+	assert data[0]["userId"] == 2
+	assert data[0]["eventId"] == 1
+
+# Unauthorized.
+def test_manage_attendance_get_401():
+	r = user.get(API+"/manage/attendance")
+	assert r.status_code == 401
+
+# --[ EDIT AN ATTENDANCE ]--
+
+# Success.
+def test_manage_attendance_patch_200():
+
+	r = admin.patch(API+"/manage/attendance/1", json={
+		"userId": 2,
+		"eventId": 2,
+	})
+	assert r.status_code == 200
+
+	r = admin.get(API+"/manage/attendance")
+	assert r.status_code == 200
+
+	data = [json.loads(obj) for obj in json.loads(r.content)]
+	assert data[0]["id"] == 1
+	assert data[0]["userId"] == 2
+	assert data[0]["eventId"] == 2
+
+# Bad form.
+def test_manage_attendance_patch_400():
+	r = admin.patch(API+"/manage/attendance/1", json={
+		"userId": 2,
+	})
+	assert r.status_code == 400
+
+# Bad permissions.
+def test_manage_attendance_patch_401():
+	r = user.patch(API+"/manage/attendance/1", json={
+		"userId": 2,
+		"eventId": 2,
+	})
+	assert r.status_code == 401
+
+# Attendance not found.
+def test_manage_attendance_patch_404_0():
+	r = admin.patch(API+"/manage/attendance/999", json={
+		"userId": 2,
+		"eventId": 2,
+	})
+	assert r.status_code == 404
+
+# User not found.
+def test_manage_attendance_patch_404_1():
+	r = admin.patch(API+"/manage/attendance/1", json={
+		"userId": 999,
+		"eventId": 2,
+	})
+	assert r.status_code == 404
+
+# Event not found.
+def test_manage_attendance_patch_404_2():
+	r = admin.patch(API+"/manage/attendance/1", json={
+		"userId": 2,
+		"eventId": 999,
+	})
+	assert r.status_code == 404
+
+# Attendance already exists.
+def test_manage_attendance_patch_409():
+	r = admin.patch(API+"/manage/attendance/1", json={
+		"userId": 2,
+		"eventId": 2,
+	})
+	assert r.status_code == 409
+
+# --[ DELETE AN ATTENDANCE ]--
+
+# Success.
+def test_manage_attendance_delete_200():
+
+	r = admin.delete(API+"/manage/attendance/1")
+	assert r.status_code == 200
+
+	data = [json.loads(obj) for obj in json.loads(r.content)]
+	assert len(data) == 0
+
+# Bad form.
+def test_manage_attendance_delete_400():
+	r = admin.delete(API+"/manage/attendance/abc")
+	assert r.status_code == 400
+
+# Bad permissions.
+def test_manage_attendance_delete_401():
+	r = user.delete(API+"/manage/attendance/1")
+	assert r.status_code == 401
+
+# Not found
+def test_manage_attendance_delete_404():
+	r = admin.delete(API+"/manage/attendance/1")
+	assert r.status_code == 404
+

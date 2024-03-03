@@ -18,10 +18,9 @@ class Code(db.Model):
 		self.points = points
 
 	def __str__(self):
-		data = {
+		return json.dumps({
 			"code": self.code,
 			"points": self.points,
 			"id": self.id,
-		}
-		return json.dumps(data)
+		})
 

@@ -74,11 +74,11 @@
 - [x] DELETE /manage/rsvp/{rsvpId}: Delete an RSVP.
 - [x] Tests
 
-- [ ] GET /manage/attendance: Get a list of all attendances.
-- [ ] POST /manage/attendance: Create an attendance on a user's behalf.
-- [ ] PATCH /manage/attendance/{attendanceId}: Update an attendance.
-- [ ] DELETE /manage/attendance/{attendanceId}: Delete an attendance.
-- [ ] Tests
+- [x] GET /manage/attendance: Get a list of all attendances.
+- [x] POST /manage/attendance: Create an attendance on a user's behalf.
+- [x] PATCH /manage/attendance/{attendanceId}: Update an attendance.
+- [x] DELETE /manage/attendance/{attendanceId}: Delete an attendance.
+- [x] Tests
 
 - [ ] POST /manage/entitlement: Create an entitlement.
 - [ ] PATCH /manage/entitlement/{entitlementId}: Update an entitlement.

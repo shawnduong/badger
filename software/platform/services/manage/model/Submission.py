@@ -18,10 +18,9 @@ class Submission(db.Model):
 		self.userId = userId
 
 	def __str__(self):
-		data = {
+		return json.dumps({
 			"codeId": self.codeId,
 			"userId": self.userId,
 			"id": self.id,
-		}
-		return json.dumps(data)
+		})
 

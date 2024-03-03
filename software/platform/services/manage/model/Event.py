@@ -33,7 +33,7 @@ class Event(db.Model):
 		self.description = description
 
 	def __str__(self):
-		data = {
+		return json.dumps({
 			"title": self.title,
 			"location": self.location,
 			"map": self.map,
@@ -42,6 +42,5 @@ class Event(db.Model):
 			"points": self.points,
 			"host": self.host,
 			"description": self.description,
-		}
-		return json.dumps(data)
+		})
 
