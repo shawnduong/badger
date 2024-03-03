@@ -349,7 +349,10 @@ def test_user_announcement_get_200():
 	assert r.status_code == 200
 
 	data = [json.loads(obj) for obj in json.loads(r.content)]
+	assert data[0]["timestamp"] == 1708743600
+	assert data[0]["body"] == "We have leftover pizza in Room B4 if anyone would like to grab some!"
 	assert data[0]["author"] == "Jane Doe"
+	assert data[0]["id"] == 1
 
 # Not logged in.
 def test_user_announcement_get_302():

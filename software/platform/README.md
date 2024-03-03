@@ -12,8 +12,8 @@
 - [x] PATCH /user/user: Update the information in a user account.
 - [x] Tests
 
-- [ ] GET /user/announcement: Get all announcements.
-- [ ] Tests
+- [x] GET /user/announcement: Get all announcements.
+- [x] Tests
 
 - [ ] POST /user/submission/{code}: Redeem a code for points.
 - [ ] Tests
