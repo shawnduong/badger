@@ -599,9 +599,81 @@ def test_manage_rsvp_get_200():
 
 	data = [json.loads(obj) for obj in json.loads(r.content)]
 	assert len(data) > 0
+	assert data[0]["userId"] == 2
+	assert data[0]["eventId"] == 1
 
 # Unauthorized.
 def test_manage_rsvp_get_401():
 	r = user.get(API+"/manage/rsvp")
 	assert r.status_code == 401
 
+# --[ UPDATE AN RSVP ]--
+
+# Success.
+def test_manage_patch_200():
+
+	# Make a new event for testing.
+	r = admin.post(API+"/manage/event", json={
+		"title": "Next Event",
+		"location": "Room A1",
+		"map": None,
+		"startTime": 1708743600+3600,
+		"duration": 3600,
+		"points": 50,
+		"host": "John Doe",
+		"description": "Lorem ipsum dolor sit amet."
+	})
+	assert r.status_code == 201
+
+	r = admin.patch(API+"/manage/rsvp/1", json={
+		"userId": 2,
+		"eventId": 2
+	})
+	assert r.status_code == 200
+
+# Bad form.
+def test_manage_patch_400():
+	r = admin.patch(API+"/manage/rsvp/1", json={
+		"eventId": 2
+	})
+	assert r.status_code == 400
+
+# Bad permissions.
+def test_manage_patch_401():
+	r = user.patch(API+"/manage/rsvp/1", json={
+		"userId": 2,
+		"eventId": 2
+	})
+	assert r.status_code == 401
+
+# RSVP not found.
+def test_manage_patch_404_0():
+	r = admin.patch(API+"/manage/rsvp/999", json={
+		"userId": 2,
+		"eventId": 2
+	})
+	assert r.status_code == 404
+
+# User not found.
+def test_manage_patch_404_1():
+	r = admin.patch(API+"/manage/rsvp/1", json={
+		"userId": 999,
+		"eventId": 2
+	})
+	assert r.status_code == 404
+
+# Event not found.
+def test_manage_patch_404_2():
+	r = admin.patch(API+"/manage/rsvp/1", json={
+		"userId": 2,
+		"eventId": 999
+	})
+	assert r.status_code == 404
+
+# RSVP already exists.
+def test_manage_patch_409():
+	r = admin.patch(API+"/manage/rsvp/1", json={
+		"userId": 2,
+		"eventId": 2
+	})
+	assert r.status_code == 409
