@@ -422,6 +422,7 @@ def test_manage_announcement_delete_404():
 
 # Success.
 def test_manage_event_post_201():
+
 	r = admin.post(API+"/manage/event", json={
 		"title": "Opening Ceremony",
 		"location": "Room A1",
@@ -433,6 +434,11 @@ def test_manage_event_post_201():
 		"description": "Lorem ipsum dolor sit amet."
 	})
 	assert r.status_code == 201
+
+	r = user.get(API+"/user/event")
+	assert r.status_code == 200
+	data = [json.loads(obj) for obj in json.loads(r.content)]
+	assert data[0]["description"] == "Lorem ipsum dolor sit amet."
 
 # Bad form.
 def test_manage_event_post_400():
@@ -459,6 +465,7 @@ def test_manage_event_post_401():
 
 # Success.
 def test_manage_event_patch_200():
+
 	r = admin.patch(API+"/manage/event/1", json={
 		"title": "Opening Ceremony",
 		"location": "Room A1",
@@ -470,6 +477,11 @@ def test_manage_event_patch_200():
 		"description": "The quick brown fox jumps over the lazy dog."
 	})
 	assert r.status_code == 200
+
+	r = user.get(API+"/user/event")
+	assert r.status_code == 200
+	data = [json.loads(obj) for obj in json.loads(r.content)]
+	assert data[0]["description"] == "The quick brown fox jumps over the lazy dog."
 
 # Bad form.
 def test_manage_event_patch_400():
