@@ -40,15 +40,65 @@ def test_user_submission_post_409():
 	r = user.post(API+"/user/submission/HELLO-WORLD")
 	assert r.status_code == 409
 
+# --[ MAKE AN RSVP ]--
+
+# Success.
+def test_user_rsvp_post_201():
+	r = user.post(API+"/user/rsvp/1")
+	assert r.status_code == 201
+
+# Not logged in.
+def test_user_rsvp_post_302():
+	r = requests.post(API+"/user/rsvp/1", allow_redirects=False)
+	assert r.status_code == 302
+
+# Bad form.
+def test_user_rsvp_post_400():
+	r = user.post(API+"/user/rsvp/abc")
+	assert r.status_code == 400
+
+# Event not found.
+def test_user_rsvp_post_404():
+	r = user.post(API+"/user/rsvp/999")
+	assert r.status_code == 404
+
+# RSVP already exists.
+def test_user_rsvp_post_409():
+	r = user.post(API+"/user/rsvp/1")
+	assert r.status_code == 409
+
 # --[ GET YOUR RSVPS ]--
 
 # Success.
 def test_user_rsvp_get_200():
 	r = user.get(API+"/user/rsvp")
 	assert r.status_code == 200
+	assert json.loads(r.content) == [1]
 
 # Not logged in.
 def test_user_rsvp_get_302():
 	r = requests.get(API+"/user/rsvp", allow_redirects=False)
 	assert r.status_code == 302
+
+# --[ DELETE AN RSVP ]--
+
+# Success.
+def test_user_rsvp_delete_200():
+	r = user.delete(API+"/user/rsvp/1")
+	assert r.status_code == 200
+
+# Not logged in.
+def test_user_rsvp_delete_302():
+	r = requests.delete(API+"/user/rsvp/1", allow_redirects=False)
+	assert r.status_code == 302
+
+# Bad form.
+def test_user_rsvp_delete_400():
+	r = user.delete(API+"/user/rsvp/abc")
+	assert r.status_code == 400
+
+# RSVP for an event not found.
+def test_user_rsvp_delete_404():
+	r = user.delete(API+"/user/rsvp/1")
+	assert r.status_code == 404
 

@@ -21,10 +21,10 @@
 - [x] GET /user/event: Get all events.
 - [x] Tests
 
-- [ ] GET /user/rsvp: Get all your RSVPs.
-- [ ] POST /user/rsvp/{eventId}: Submit an RSVP for an event.
-- [ ] DELETE /user/rsvp/{eventId}: Delete an RSVP for an event.
-- [ ] Tests
+- [x] GET /user/rsvp: Get all your RSVPs.
+- [x] POST /user/rsvp/{eventId}: Submit an RSVP for an event.
+- [x] DELETE /user/rsvp/{eventId}: Delete an RSVP for an event.
+- [x] Tests
 
 - [ ] GET /user/attendance: Get all your attendances.
 - [ ] POST /user/attendance/{code}: Submit an attendance code.

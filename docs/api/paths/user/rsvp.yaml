@@ -20,8 +20,14 @@ rsvp-eventId:
     responses:
       201:
         description: RSVP successful.
+      302:
+        description: Not logged in.
+      400:
+        description: Bad client form.
       404:
         description: Event not found.
+      409:
+        description: RSVP already exists.
       500:
         description: Internal server error.
   delete:
@@ -29,6 +35,10 @@ rsvp-eventId:
     responses:
       200:
         description: Deletion successful.
+      302:
+        description: Not logged in.
+      400:
+        description: Bad client form.
       404:
         description: Not found.
       500:
