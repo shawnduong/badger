@@ -242,10 +242,50 @@ def test_manage_submission_get_401():
 
 # --[ EDIT A SUBMISSION ]--
 
+# Success.
+def test_manage_submission_patch_200():
+	r = admin.patch(API+"/manage/submission/1", json={
+		"codeId": 2,
+		"userId": 1,
+	})
+	assert r.status_code == 200
+
 # Bad form.
 def test_manage_submission_patch_400():
 	r = admin.patch(API+"/manage/submission/1", json={
 		"userId": 2,
 	})
 	assert r.status_code == 400
+
+# Bad permissions.
+def test_manage_submission_patch_401():
+	r = user.patch(API+"/manage/submission/1", json={
+		"codeId": 2,
+		"userId": 2,
+	})
+	assert r.status_code == 401
+
+# Code not found.
+def test_manage_submission_patch_404_0():
+	r = admin.patch(API+"/manage/submission/1", json={
+		"codeId": 999,
+		"userId": 2,
+	})
+	assert r.status_code == 404
+
+# User not found.
+def test_manage_submission_patch_404_1():
+	r = admin.patch(API+"/manage/submission/1", json={
+		"codeId": 2,
+		"userId": 999,
+	})
+	assert r.status_code == 404
+
+# Submission not found.
+def test_manage_submission_patch_404_1():
+	r = admin.patch(API+"/manage/submission/999", json={
+		"codeId": 2,
+		"userId": 2,
+	})
+	assert r.status_code == 404
 

@@ -52,9 +52,9 @@
 - [x] DELETE /manage/code/{codeId}: Delete a code.
 - [x] Tests
 
-- [ ] GET /manage/submission: Get a list of all submissions.
-- [ ] POST /manage/submission: Create a submission.
-- [ ] PATCH /manage/submission/{submissionId}: Update a submission.
+- [x] GET /manage/submission: Get a list of all submissions.
+- [x] POST /manage/submission: Create a submission.
+- [x] PATCH /manage/submission/{submissionId}: Update a submission.
 - [ ] DELETE /manage/submission/{submissionId}: Delete a submission.
 - [ ] Tests
 
