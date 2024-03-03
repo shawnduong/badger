@@ -80,3 +80,23 @@ def rsvp_patch(rsvpId: int):
 
 	return {}, 200
 
+@app.route(API+"/rsvp/<rsvpId>", methods=["DELETE"])
+@failsafe_500
+def rsvp_delete(rsvpId: int):
+
+	try:
+		rsvpId = int(rsvpId)
+	except:
+		return {}, 400
+
+	try:
+		rsvp = Rsvp.query.get(rsvpId)
+		assert rsvp
+	except:
+		return {}, 404
+
+	db.session.delete(rsvp)
+	db.session.commit()
+
+	return {}, 200
+

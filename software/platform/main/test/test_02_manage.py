@@ -610,7 +610,7 @@ def test_manage_rsvp_get_401():
 # --[ UPDATE AN RSVP ]--
 
 # Success.
-def test_manage_patch_200():
+def test_manage_rsvp_patch_200():
 
 	# Make a new event for testing.
 	r = admin.post(API+"/manage/event", json={
@@ -632,14 +632,14 @@ def test_manage_patch_200():
 	assert r.status_code == 200
 
 # Bad form.
-def test_manage_patch_400():
+def test_manage_rsvp_patch_400():
 	r = admin.patch(API+"/manage/rsvp/1", json={
 		"eventId": 2
 	})
 	assert r.status_code == 400
 
 # Bad permissions.
-def test_manage_patch_401():
+def test_manage_rsvp_patch_401():
 	r = user.patch(API+"/manage/rsvp/1", json={
 		"userId": 2,
 		"eventId": 2
@@ -647,7 +647,7 @@ def test_manage_patch_401():
 	assert r.status_code == 401
 
 # RSVP not found.
-def test_manage_patch_404_0():
+def test_manage_rsvp_patch_404_0():
 	r = admin.patch(API+"/manage/rsvp/999", json={
 		"userId": 2,
 		"eventId": 2
@@ -655,7 +655,7 @@ def test_manage_patch_404_0():
 	assert r.status_code == 404
 
 # User not found.
-def test_manage_patch_404_1():
+def test_manage_rsvp_patch_404_1():
 	r = admin.patch(API+"/manage/rsvp/1", json={
 		"userId": 999,
 		"eventId": 2
@@ -663,7 +663,7 @@ def test_manage_patch_404_1():
 	assert r.status_code == 404
 
 # Event not found.
-def test_manage_patch_404_2():
+def test_manage_rsvp_patch_404_2():
 	r = admin.patch(API+"/manage/rsvp/1", json={
 		"userId": 2,
 		"eventId": 999
@@ -671,9 +671,32 @@ def test_manage_patch_404_2():
 	assert r.status_code == 404
 
 # RSVP already exists.
-def test_manage_patch_409():
+def test_manage_rsvp_patch_409():
 	r = admin.patch(API+"/manage/rsvp/1", json={
 		"userId": 2,
 		"eventId": 2
 	})
 	assert r.status_code == 409
+
+# --[ DELETE AN EVENT ]--
+
+# Success.
+def test_manage_rsvp_delete_200():
+	r = admin.delete(API+"/manage/rsvp/1")
+	assert r.status_code == 200
+
+# Bad client form.
+def test_manage_rsvp_delete_400():
+	r = admin.delete(API+"/manage/rsvp/abc")
+	assert r.status_code == 400
+
+# Unauthorized.
+def test_manage_rsvp_delete_401():
+	r = user.delete(API+"/manage/rsvp/1")
+	assert r.status_code == 401
+
+# RSVP not found.
+def test_manage_rsvp_delete_404():
+	r = admin.delete(API+"/manage/rsvp/999")
+	assert r.status_code == 404
+

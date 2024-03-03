@@ -54,3 +54,11 @@ def manage_rsvp_patch(rsvpId: int):
 	r = requests.patch(IMPLEMENTATION["manage"]+f"/rsvp/{rsvpId}", json=request.json)
 	return r.content, r.status_code
 
+@app.route(managePrefix+"/rsvp/<rsvpId>", methods=["DELETE"])
+@admin_required
+@failsafe_500
+def manage_rsvp_delete(rsvpId: int):
+
+	r = requests.delete(IMPLEMENTATION["manage"]+f"/rsvp/{rsvpId}")
+	return r.content, r.status_code
+

@@ -71,8 +71,8 @@
 - [x] GET /manage/rsvp: Get a list of all RSVPs.
 - [x] POST /manage/rsvp: Create an RSVP on a user's behalf.
 - [x] PATCH /manage/rsvp/{rsvpId}: Update an RSVP.
-- [ ] DELETE /manage/rsvp/{rsvpId}: Delete an RSVP.
-- [ ] Tests
+- [x] DELETE /manage/rsvp/{rsvpId}: Delete an RSVP.
+- [x] Tests
 
 - [ ] GET /manage/attendance: Get a list of all attendances.
 - [ ] POST /manage/attendance: Create an attendance on a user's behalf.
