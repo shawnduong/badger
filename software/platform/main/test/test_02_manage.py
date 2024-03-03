@@ -312,3 +312,31 @@ def test_manage_submission_delete_404():
 	r = admin.delete(API+"/manage/submission/999")
 	assert r.status_code == 404
 
+# --[ POST AN ANNOUNCEMENT ]--
+
+# Success.
+def test_manage_announcement_post_201():
+	r = admin.post(API+"/manage/announcement", json={
+		"timestamp": 1708743600,
+		"body": "We have leftover pizza in Room B4 if anyone would like to grab some!",
+		"author": "Jane Doe"
+	})
+	assert r.status_code == 201
+
+# Bad form.
+def test_manage_announcement_post_400():
+	r = admin.post(API+"/manage/announcement", json={
+		"timestamp": 1708743600,
+		"author": "Jane Doe"
+	})
+	assert r.status_code == 400
+
+# Bad permissions.
+def test_manage_announcement_post_401():
+	r = user.post(API+"/manage/announcement", json={
+		"timestamp": 1708743600,
+		"body": "We have leftover pizza in Room B4 if anyone would like to grab some!",
+		"author": "Jane Doe"
+	})
+	assert r.status_code == 401
+

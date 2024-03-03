@@ -7,6 +7,15 @@ announcement:
         application/json:
           schema:
             $ref: "../../schemas/Announcement.yaml#/AnnouncementForm"
+    responses:
+      201:
+        description: Announcement created.
+      400:
+        description: Bad client form.
+      401:
+        description: Unauthorized.
+      500:
+        description: Internal server error.
 announcement-announcementId:
   patch:
     summary: Update an announcement.
