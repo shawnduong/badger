@@ -18,8 +18,8 @@
 - [x] POST /user/submission/{code}: Redeem a code for points.
 - [x] Tests
 
-- [ ] GET /user/event: Get all events.
-- [ ] Tests
+- [x] GET /user/event: Get all events.
+- [x] Tests
 
 - [ ] GET /user/rsvp: Get all your RSVPs.
 - [ ] POST /user/rsvp/{eventId}: Submit an RSVP for an event.
