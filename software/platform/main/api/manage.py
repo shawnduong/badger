@@ -55,10 +55,6 @@ def manage_submission_post():
 	# User ID is required.
 	try:
 		assert "userId" in request.json.keys()
-	except:
-		return {}, 400
-
-	try:
 		userId = int(request.json["userId"])
 	except:
 		return {}, 400
@@ -80,12 +76,7 @@ def manage_submission_patch(submissionId: int):
 	# User ID is required.
 	try:
 		assert "userId" in request.json.keys()
-	except:
-		return {}, 400
-
-	try:
 		userId = int(request.json["userId"])
-		submissionId = int(submissionId)
 	except:
 		return {}, 400
 
@@ -96,5 +87,12 @@ def manage_submission_patch(submissionId: int):
 		return {}, 404
 
 	r = requests.patch(IMPLEMENTATION["manage"]+f"/submission/{submissionId}", json=request.json)
+	return r.content, r.status_code
+
+@app.route(managePrefix+"/submission/<submissionId>", methods=["DELETE"])
+@admin_required
+@failsafe_500
+def manage_submission_delete(submissionId: int):
+	r = requests.delete(IMPLEMENTATION["manage"]+f"/submission/{submissionId}")
 	return r.content, r.status_code
 

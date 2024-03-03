@@ -289,3 +289,26 @@ def test_manage_submission_patch_404_1():
 	})
 	assert r.status_code == 404
 
+# --[ DELETE A SUBMISSION ]--
+
+# Success.
+def test_manage_submission_delete_200():
+	r = admin.delete(API+"/manage/submission/1")
+	assert r.status_code == 200
+
+# Bad form.
+def test_manage_submission_delete_400():
+	r = admin.delete(API+"/manage/submission/abc")
+	assert r.status_code == 400
+
+# Bad permissions.
+def test_manage_submission_delete_401():
+	r = user.delete(API+"/manage/submission/1")
+	assert r.status_code == 401
+
+
+# Submission not found.
+def test_manage_submission_delete_404():
+	r = admin.delete(API+"/manage/submission/999")
+	assert r.status_code == 404
+

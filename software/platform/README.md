@@ -55,8 +55,8 @@
 - [x] GET /manage/submission: Get a list of all submissions.
 - [x] POST /manage/submission: Create a submission.
 - [x] PATCH /manage/submission/{submissionId}: Update a submission.
-- [ ] DELETE /manage/submission/{submissionId}: Delete a submission.
-- [ ] Tests
+- [x] DELETE /manage/submission/{submissionId}: Delete a submission.
+- [x] Tests
 
 - [ ] POST /manage/announcement: Create an announcement.
 - [ ] PATCH /manage/announcement/{announcementId}: Update an announcement.

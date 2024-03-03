@@ -54,6 +54,7 @@ def submission_patch(submissionId: int):
 			assert k in request.json.keys()
 		codeId = int(request.json["codeId"])
 		userId = int(request.json["userId"])
+		submissionId = int(submissionId)
 	except:
 		return {}, 400
 
@@ -85,3 +86,25 @@ def submission_patch(submissionId: int):
 	db.session.commit()
 
 	return {}, 200
+
+@app.route(API+"/submission/<submissionId>", methods=["DELETE"])
+@failsafe_500
+def submission_delete(submissionId: int):
+
+	try:
+		submissionId = int(submissionId)
+	except:
+		return {}, 400
+
+	# Get the existing submission.
+	try:
+		s = Submission.query.get(submissionId)
+		assert s
+	except:
+		return {}, 404
+
+	db.session.delete(s)
+	db.session.commit()
+
+	return {}, 200
+
