@@ -526,3 +526,66 @@ def test_manage_event_delete_404():
 	r = admin.delete(API+"/manage/event/999")
 	assert r.status_code == 404
 
+# --[ CREATE AN RSVP ON BEHALF OF ANOTHER USER ]--
+
+# Success.
+def test_manage_rsvp_post_201():
+
+	# Make an event to RSVP to.
+	r = admin.post(API+"/manage/event", json={
+		"title": "Opening Ceremony",
+		"location": "Room A1",
+		"map": None,
+		"startTime": 1708743600,
+		"duration": 3600,
+		"points": 50,
+		"host": "Jane Doe",
+		"description": "Lorem ipsum dolor sit amet."
+	})
+	assert r.status_code == 201
+
+	r = admin.post(API+"/manage/rsvp", json={
+		"userId": 2,
+		"eventId": 1
+	})
+	assert r.status_code == 201
+
+# Bad form.
+def test_manage_rsvp_post_400():
+	r = admin.post(API+"/manage/rsvp", json={
+		"userId": 2,
+	})
+	assert r.status_code == 400
+
+# Unauthorized.
+def test_manage_rsvp_post_400():
+	r = user.post(API+"/manage/rsvp", json={
+		"userId": 2,
+		"eventId": 1
+	})
+	assert r.status_code == 401
+
+# User not found.
+def test_manage_rsvp_post_404_0():
+	r = admin.post(API+"/manage/rsvp", json={
+		"userId": 999,
+		"eventId": 1
+	})
+	assert r.status_code == 404
+
+# Event not found.
+def test_manage_rsvp_post_404_1():
+	r = admin.post(API+"/manage/rsvp", json={
+		"userId": 1,
+		"eventId": 999
+	})
+	assert r.status_code == 404
+
+# RSVP already exists.
+def test_manage_rsvp_post_409():
+	r = admin.post(API+"/manage/rsvp", json={
+		"userId": 2,
+		"eventId": 1
+	})
+	assert r.status_code == 409
+

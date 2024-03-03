@@ -69,7 +69,7 @@
 - [x] Tests
 
 - [ ] GET /manage/rsvp: Get a list of all RSVPs.
-- [ ] POST /manage/rsvp: Create an RSVP on a user's behalf.
+- [x] POST /manage/rsvp: Create an RSVP on a user's behalf.
 - [ ] PATCH /manage/rsvp/{rsvpId}: Update an RSVP.
 - [ ] DELETE /manage/rsvp/{rsvpId}: Delete an RSVP.
 - [ ] Tests

@@ -4,7 +4,7 @@ from app import *
 @failsafe_500
 def event_get():
 
-	events = [str(a) for a in Event.query.all()]
+	events = [str(e) for e in Event.query.all()]
 	return events, 200
 
 @app.route(API+"/event", methods=["POST"])

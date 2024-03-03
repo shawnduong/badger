@@ -25,6 +25,7 @@ def submission_post():
 	# It is the responsibility of the caller to make sure that the user exists
 	# and return a 404 if not.
 	try:
+		# TODO: this can actually just be a direct query.
 		r = requests.get(IMPLEMENTATION["manage"]+f"/code/{codeId}")
 		assert r.status_code == 200
 	except:
