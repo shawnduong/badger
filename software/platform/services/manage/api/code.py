@@ -7,6 +7,16 @@ def code_get():
 	codes = [str(code) for code in Code.query.all()]
 	return codes, 200
 
+@app.route(API+"/code/lookup/<code>", methods=["GET"])
+@failsafe_500
+def code_get_lookup(code: str):
+
+	code = Code.query.filter_by(code=code).first()
+	if not code:
+		return {}, 404
+
+	return str(code), 200
+
 @app.route(API+"/code", methods=["POST"])
 @failsafe_500
 def code_post():

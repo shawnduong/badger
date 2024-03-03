@@ -15,8 +15,8 @@
 - [x] GET /user/announcement: Get all announcements.
 - [x] Tests
 
-- [ ] POST /user/submission/{code}: Redeem a code for points.
-- [ ] Tests
+- [x] POST /user/submission/{code}: Redeem a code for points.
+- [x] Tests
 
 - [ ] GET /user/event: Get all events.
 - [ ] Tests
