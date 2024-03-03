@@ -40,7 +40,7 @@ def user_user_post():
 
 		# User must exist.
 		if len(user) == 0:
-			return {}, 400
+			return {}, 404
 
 		# There must not be more than one user.
 		if len(user) > 1:

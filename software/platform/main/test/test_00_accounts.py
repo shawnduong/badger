@@ -34,17 +34,6 @@ user.post(ENDPOINT+"/login", data={"uid": 0xf00df00d, "password": "user"})
 
 # --[ MAKE AN ACCOUNT ]--
 
-# Bad form. Missing the email.
-def test_admin_user_post_400():
-	r = admin.post(API+"/admin/user", json={
-		"uid": 0xdeadbeef,
-		"points": None,
-		"claimed": False,
-		"custom": None,
-		"privilege": 0
-	})
-	assert r.status_code == 400
-
 # Success.
 def test_admin_user_post_201():
 	r = admin.post(API+"/admin/user", json={
@@ -57,17 +46,16 @@ def test_admin_user_post_201():
 	})
 	assert r.status_code == 201
 
-# Account already exists.
-def test_admin_user_post_409():
+# Bad form. Missing the email.
+def test_admin_user_post_400():
 	r = admin.post(API+"/admin/user", json={
 		"uid": 0xdeadbeef,
-		"email": None,
 		"points": None,
 		"claimed": False,
 		"custom": None,
 		"privilege": 0
 	})
-	assert r.status_code == 409
+	assert r.status_code == 400
 
 # Bad permissions.
 def test_admin_user_post_401():
@@ -81,16 +69,19 @@ def test_admin_user_post_401():
 	})
 	assert r.status_code == 401
 
-# --[ CLAIM AN ACCOUNT ]--
-
-# Bad form.
-def test_user_user_post_400():
-	r = requests.post(API+"/user/user", data={
+# Account already exists.
+def test_admin_user_post_409():
+	r = admin.post(API+"/admin/user", json={
 		"uid": 0xdeadbeef,
-		"password": "hunter2",
-		"custom": "",
+		"email": None,
+		"points": None,
+		"claimed": False,
+		"custom": None,
+		"privilege": 0
 	})
-	assert r.status_code == 400
+	assert r.status_code == 409
+
+# --[ CLAIM AN ACCOUNT ]--
 
 # Success.
 def test_user_user_post_201():
@@ -102,6 +93,25 @@ def test_user_user_post_201():
 	})
 	assert r.status_code == 201
 
+# Bad form.
+def test_user_user_post_400():
+	r = requests.post(API+"/user/user", data={
+		"uid": 0xdeadbeef,
+		"password": "hunter2",
+		"custom": "",
+	})
+	assert r.status_code == 400
+
+# No account with that UID exists.
+def test_user_user_post_404():
+	r = requests.post(API+"/user/user", data={
+		"uid": 9999,
+		"email": "jdoe@email.com",
+		"password": "hunter2",
+		"custom": "",
+	})
+	assert r.status_code == 404
+
 # Account already claimed.
 def test_user_user_post_409():
 	r = requests.post(API+"/user/user", data={
@@ -111,16 +121,6 @@ def test_user_user_post_409():
 		"custom": "",
 	})
 	assert r.status_code == 409
-
-# No account with that UID exists.
-def test_user_user_post_400():
-	r = requests.post(API+"/user/user", data={
-		"uid": 9999,
-		"email": "jdoe@email.com",
-		"password": "hunter2",
-		"custom": "",
-	})
-	assert r.status_code == 400
 
 # --[ GET INFO ABOUT YOUR OWN ACCOUNT ]--
 

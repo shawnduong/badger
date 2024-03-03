@@ -21,10 +21,12 @@ user:
     responses:
       201:
         description: Account created.
-      409:
-        description: Account already exists.
       400:
         description: Bad client form.
+      404:
+        description: No user with that UID exists.
+      409:
+        description: Account already exists.
       500:
         description: Internal server error.
   patch:
