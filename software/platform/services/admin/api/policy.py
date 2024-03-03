@@ -1,8 +1,5 @@
 from app import *
 
-import json
-import re
-
 @app.route(API+"/policy", methods=["GET"])
 @failsafe_500
 def policy_get():

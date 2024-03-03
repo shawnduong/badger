@@ -1,9 +1,5 @@
 from app import *
 
-import requests
-import json
-import re
-
 @app.route(API+"/announcement", methods=["POST"])
 @failsafe_500
 def announcement_post():

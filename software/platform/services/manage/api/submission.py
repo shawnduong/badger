@@ -1,8 +1,6 @@
 from app import *
 
 import requests
-import json
-import re
 
 @app.route(API+"/submission", methods=["GET"])
 @failsafe_500
