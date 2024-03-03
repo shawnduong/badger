@@ -68,7 +68,7 @@
 - [x] DELETE /manage/event/{eventId}: Delete an event.
 - [x] Tests
 
-- [ ] GET /manage/rsvp: Get a list of all RSVPs.
+- [x] GET /manage/rsvp: Get a list of all RSVPs.
 - [x] POST /manage/rsvp: Create an RSVP on a user's behalf.
 - [ ] PATCH /manage/rsvp/{rsvpId}: Update an RSVP.
 - [ ] DELETE /manage/rsvp/{rsvpId}: Delete an RSVP.

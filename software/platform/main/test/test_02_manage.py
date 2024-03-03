@@ -589,3 +589,19 @@ def test_manage_rsvp_post_409():
 	})
 	assert r.status_code == 409
 
+# --[ GET ALL RSVPs ]--
+
+# Success.
+def test_manage_rsvp_get_200():
+
+	r = admin.get(API+"/manage/rsvp")
+	assert r.status_code == 200
+
+	data = [json.loads(obj) for obj in json.loads(r.content)]
+	assert len(data) > 0
+
+# Unauthorized.
+def test_manage_rsvp_get_401():
+	r = user.get(API+"/manage/rsvp")
+	assert r.status_code == 401
+
