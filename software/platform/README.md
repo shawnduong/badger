@@ -65,8 +65,8 @@
 
 - [x] POST /manage/event: Create an event.
 - [x] PATCH /manage/event/{eventId}: Update an event.
-- [ ] DELETE /manage/event/{eventId}: Delete an event.
-- [ ] Tests
+- [x] DELETE /manage/event/{eventId}: Delete an event.
+- [x] Tests
 
 - [ ] GET /manage/rsvp: Get a list of all RSVPs.
 - [ ] POST /manage/rsvp: Create an RSVP on a user's behalf.
