@@ -40,3 +40,8 @@ def test_user_submission_post_409():
 	r = user.post(API+"/user/submission/HELLO-WORLD")
 	assert r.status_code == 409
 
+# --[ GET YOUR RSVPS ]--
+
+# Success.
+def test_user_rsvp_get_200():
+	pass

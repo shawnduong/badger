@@ -4,8 +4,8 @@ submission-code:
     responses:
       201:
         description: Code submission successful.
-      401:
-        description: Unauthorized.
+      302:
+        description: Not logged in.
       404:
         description: Code not found.
       409:

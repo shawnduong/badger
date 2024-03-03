@@ -8,6 +8,8 @@ user:
           application/json:
             schema:
               $ref: "../../schemas/User.yaml#User"
+      302:
+        description: Not logged in.
       500:
         description: Internal server error.
   post:
@@ -40,6 +42,8 @@ user:
     responses:
       200:
         description: Account updated.
+      302:
+        description: Not logged in.
       400:
         description: Bad client form.
       500:

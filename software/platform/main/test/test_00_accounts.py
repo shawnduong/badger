@@ -136,6 +136,11 @@ def test_user_user_get_200():
 	assert data["points"] == None
 	assert data["claimed"] == True
 
+# Not logged in.
+def test_user_user_get_302():
+	r = requests.get(API+"/user/user", allow_redirects=False)
+	assert r.status_code == 302
+
 # --[ UPDATE INFO ABOUT YOUR OWN ACCOUNT ]--
 
 # Success.
@@ -151,6 +156,16 @@ def test_user_user_patch_200():
 	r = user.get(API+"/user/user")
 	data = json.loads(r.content)
 	assert data["email"] == "test@example.com"
+
+# Not logged in.
+def test_user_user_patch_302():
+	r = requests.patch(API+"/user/user", allow_redirects=False, json={
+		"uid": 0xf00df00d,
+		"email": "test@example.com",
+		"password": "********",
+		"custom": "",
+	})
+	assert r.status_code == 302
 
 # Bad form.
 def test_user_user_patch_400():

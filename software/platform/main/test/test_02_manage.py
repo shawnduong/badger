@@ -589,7 +589,7 @@ def test_manage_rsvp_post_409():
 	})
 	assert r.status_code == 409
 
-# --[ GET ALL RSVPs ]--
+# --[ GET ALL RSVPS ]--
 
 # Success.
 def test_manage_rsvp_get_200():
