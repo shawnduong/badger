@@ -401,3 +401,20 @@ def test_manage_announcement_patch_404():
 	})
 	assert r.status_code == 404
 
+# --[ DELETE AN ANNOUNCEMENT ]--
+
+# Success.
+def test_manage_announcement_delete_200():
+	r = admin.delete(API+"/manage/announcement/1")
+	assert r.status_code == 200
+
+# Bad permissions.
+def test_manage_announcement_delete_401():
+	r = user.delete(API+"/manage/announcement/1")
+	assert r.status_code == 401
+
+# Not found.
+def test_manage_announcement_delete_404():
+	r = admin.delete(API+"/manage/announcement/999")
+	assert r.status_code == 404
+

@@ -59,9 +59,9 @@
 - [x] Tests
 
 - [x] POST /manage/announcement: Create an announcement.
-- [ ] PATCH /manage/announcement/{announcementId}: Update an announcement.
-- [ ] DELETE /manage/announcement/{announcementId}: Delete an announcement.
-- [ ] Tests
+- [x] PATCH /manage/announcement/{announcementId}: Update an announcement.
+- [x] DELETE /manage/announcement/{announcementId}: Delete an announcement.
+- [x] Tests
 
 - [ ] POST /manage/event: Create an event.
 - [ ] PATCH /manage/event/{eventId}: Update an event.

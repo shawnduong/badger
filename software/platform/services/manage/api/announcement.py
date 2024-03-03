@@ -48,3 +48,18 @@ def announcement_patch(announcementId: int):
 
 	return {}, 200
 
+@app.route(API+"/announcement/<announcementId>", methods=["DELETE"])
+@failsafe_500
+def announcement_delete(announcementId: int):
+
+	try:
+		a = Announcement.query.get(announcementId)
+		assert(a)
+	except:
+		return {}, 404
+
+	db.session.delete(a)
+	db.session.commit()
+
+	return {}, 200
+
