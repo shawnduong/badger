@@ -455,3 +455,40 @@ def test_manage_event_post_401():
 	})
 	assert r.status_code == 401
 
+# --[ UPDATE AN EVENT ]--
+
+# Success.
+def test_manage_event_patch_200():
+	r = admin.patch(API+"/manage/event/1", json={
+		"title": "Opening Ceremony",
+		"location": "Room A1",
+		"map": None,
+		"startTime": 1708743600,
+		"duration": 3600,
+		"points": 50,
+		"host": "Jane Doe",
+		"description": "The quick brown fox jumps over the lazy dog."
+	})
+	assert r.status_code == 200
+
+# Bad form.
+def test_manage_event_patch_400():
+	r = admin.patch(API+"/manage/event/1", json={
+		"title": "Opening Ceremony",
+	})
+	assert r.status_code == 400
+
+# Bad permissions.
+def test_manage_event_patch_401():
+	r = user.patch(API+"/manage/event/1", json={
+		"title": "Opening Ceremony",
+		"location": "Room A1",
+		"map": None,
+		"startTime": 1708743600,
+		"duration": 3600,
+		"points": 50,
+		"host": "Jane Doe",
+		"description": "The quick brown fox jumps over the lazy dog."
+	})
+	assert r.status_code == 401
+

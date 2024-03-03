@@ -19,9 +19,9 @@ def event_post():
 		):
 			assert k in request.json.keys()
 
-		startTime = int(request.json["startTime"])
-		duration  = int(request.json["duration"])
-		points    = int(request.json["points"])
+		startTime  = int(request.json["startTime"])
+		duration   = int(request.json["duration"])
+		points     = int(request.json["points"])
 	except:
 		return {}, 400
 
@@ -32,31 +32,42 @@ def event_post():
 	db.session.commit()
 	return {}, 201
 
-#@app.route(API+"/event/<eventId>", methods=["PATCH"])
-#@failsafe_500
-#def event_patch(eventId: int):
-#
-#	try:
-#		# These are required fields for this method.
-#		for k in ("timestamp", "body", "author"):
-#			assert k in request.json.keys()
-#		timestamp = int(request.json["timestamp"])
-#	except:
-#		return {}, 400
-#
-#	try:
-#		a = Event.query.get(eventId)
-#		assert(a)
-#	except:
-#		return {}, 404
-#
-#	a.timestamp = timestamp
-#	a.body = request.json["body"]
-#	a.author = request.json["author"]
-#	db.session.commit()
-#
-#	return {}, 200
-#
+@app.route(API+"/event/<eventId>", methods=["PATCH"])
+@failsafe_500
+def event_patch(eventId: int):
+
+	try:
+		# These are required fields for this method.
+		for k in (
+			"title", "location", "map", "startTime", "duration", "points",
+			"host", "description"
+		):
+			assert k in request.json.keys()
+
+		startTime  = int(request.json["startTime"])
+		duration   = int(request.json["duration"])
+		points     = int(request.json["points"])
+	except:
+		return {}, 400
+
+	try:
+		e = Event.query.get(eventId)
+		assert e
+	except:
+		return {}, 404
+
+	e.title       = request.json["title"]
+	e.location    = request.json["location"]
+	e.map         = request.json["map"]
+	e.startTime   = startTime
+	e.duration    = duration
+	e.points      = points
+	e.host        = request.json["host"]
+	e.description = request.json["description"]
+	db.session.commit()
+
+	return {}, 200
+
 #@app.route(API+"/event/<eventId>", methods=["DELETE"])
 #@failsafe_500
 #def event_delete(eventId: int):

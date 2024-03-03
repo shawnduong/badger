@@ -37,7 +37,7 @@ def announcement_patch(announcementId: int):
 
 	try:
 		a = Announcement.query.get(announcementId)
-		assert(a)
+		assert a
 	except:
 		return {}, 404
 
@@ -54,7 +54,7 @@ def announcement_delete(announcementId: int):
 
 	try:
 		a = Announcement.query.get(announcementId)
-		assert(a)
+		assert a
 	except:
 		return {}, 404
 

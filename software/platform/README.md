@@ -64,7 +64,7 @@
 - [x] Tests
 
 - [x] POST /manage/event: Create an event.
-- [ ] PATCH /manage/event/{eventId}: Update an event.
+- [x] PATCH /manage/event/{eventId}: Update an event.
 - [ ] DELETE /manage/event/{eventId}: Delete an event.
 - [ ] Tests
 

@@ -30,6 +30,8 @@ event-eventId:
           description: Event updated.
         400:
           description: Bad client form.
+        401:
+          description: Unauthorized.
         500:
           description: Internal server error.
     delete:
@@ -37,6 +39,8 @@ event-eventId:
       responses:
         200:
           description: Deletion successful.
+        401:
+          description: Unauthorized.
         404:
           description: Not found.
         500:
