@@ -7,6 +7,13 @@ def rsvp_get():
 	rsvps = [str(r) for r in Rsvp.query.all()]
 	return rsvps, 200
 
+@app.route(API+"/rsvp/lookup/<userId>", methods=["GET"])
+@failsafe_500
+def rsvp_get_lookup(userId: int):
+
+	rsvps = [str(r) for r in Rsvp.query.filter_by(userId=userId).all()]
+	return rsvps, 200
+
 @app.route(API+"/rsvp", methods=["POST"])
 @failsafe_500
 def rsvp_post():

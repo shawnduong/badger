@@ -44,4 +44,11 @@ def test_user_submission_post_409():
 
 # Success.
 def test_user_rsvp_get_200():
-	pass
+	r = user.get(API+"/user/rsvp")
+	assert r.status_code == 200
+
+# Not logged in.
+def test_user_rsvp_get_302():
+	r = requests.get(API+"/user/rsvp", allow_redirects=False)
+	assert r.status_code == 302
+
