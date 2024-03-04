@@ -865,3 +865,160 @@ def test_manage_attendance_delete_404():
 	r = admin.delete(API+"/manage/attendance/1")
 	assert r.status_code == 404
 
+# --[ CREATE AN ENTITLEMENT ]--
+
+# Success.
+def test_manage_entitlement_post_201():
+
+	r = admin.post(API+"/manage/entitlement", json={
+		"title": "Lunch",
+		"quantity": 3
+	})
+	assert r.status_code == 201
+
+	r = user.get(API+"/user/entitlement")
+	assert r.status_code == 200
+
+	data = [json.loads(obj) for obj in json.loads(r.content)]
+	assert data[0]["title"] == "Lunch"
+	assert data[0]["quantity"] == 3
+
+# Bad client form.
+def test_manage_entitlement_post_400_0():
+	r = admin.post(API+"/manage/entitlement", json={
+		"title": "Lunch",
+	})
+	assert r.status_code == 400
+
+# Bad client form. 
+def test_manage_entitlement_post_400_1():
+	r = admin.post(API+"/manage/entitlement", json={
+		"quantity": 3
+	})
+	assert r.status_code == 400
+
+# Bad client form. 
+def test_manage_entitlement_post_400_2():
+	r = admin.post(API+"/manage/entitlement", json={
+		"quantity": "foo"
+	})
+	assert r.status_code == 400
+
+# Unauthorized.
+def test_manage_entitlement_post_401():
+	r = user.post(API+"/manage/entitlement", json={
+		"title": "Lunch",
+		"quantity": 3
+	})
+	assert r.status_code == 401
+
+# Entitlement already exists.
+def test_manage_entitlement_post_409():
+	r = admin.post(API+"/manage/entitlement", json={
+		"title": "Lunch",
+		"quantity": 3
+	})
+	assert r.status_code == 409
+
+# --[ UPDATE AN ENTITLEMENT ]--
+
+# Success.
+def test_manage_entitlement_patch_200():
+
+	r = admin.patch(API+"/manage/entitlement/1", json={
+		"title": "Breakfast",
+		"quantity": 3
+	})
+	assert r.status_code == 200
+
+	r = user.get(API+"/user/entitlement")
+	assert r.status_code == 200
+
+	data = [json.loads(obj) for obj in json.loads(r.content)]
+	assert data[0]["title"] == "Breakfast"
+	assert data[0]["quantity"] == 3
+
+# Bad client form.
+def test_manage_entitlement_patch_400_0():
+	r = admin.patch(API+"/manage/entitlement/1", json={
+		"title": "Breakfast",
+	})
+	assert r.status_code == 400
+
+# Bad client form.
+def test_manage_entitlement_patch_400_1():
+	r = admin.patch(API+"/manage/entitlement/1", json={
+		"quantity": 3
+	})
+	assert r.status_code == 400
+
+# Bad client form.
+def test_manage_entitlement_patch_400_2():
+	r = admin.patch(API+"/manage/entitlement/1", json={
+		"quantity": "foo"
+	})
+	assert r.status_code == 400
+
+# Unauthorized.
+def test_manage_entitlement_patch_401():
+	r = user.patch(API+"/manage/entitlement/1", json={
+		"title": "Breakfast",
+		"quantity": 3
+	})
+	assert r.status_code == 401
+
+# Entitlement not found.
+def test_manage_entitlement_patch_404():
+	r = admin.patch(API+"/manage/entitlement/999", json={
+		"title": "Breakfast",
+		"quantity": 3
+	})
+	assert r.status_code == 404
+
+# Entitlement already exists.
+def test_manage_entitlement_patch_409():
+
+	r = admin.post(API+"/manage/entitlement", json={
+		"title": "Lunch",
+		"quantity": 3
+	})
+	assert r.status_code == 201
+
+	r = admin.patch(API+"/manage/entitlement/2", json={
+		"title": "Breakfast",
+		"quantity": 3
+	})
+	assert r.status_code == 409
+
+	r = admin.delete(API+"/manage/entitlement/2")
+	assert r.status_code == 200
+
+# --[ DELETE AN ENTITLEMENT ]--
+
+# Success.
+def test_manage_entitlement_delete_200():
+
+	r = admin.delete(API+"/manage/entitlement/1")
+	assert r.status_code == 200
+
+	r = user.get(API+"/user/entitlement")
+	assert r.status_code == 200
+
+	data = [json.loads(obj) for obj in json.loads(r.content)]
+	assert len(data) == 0
+
+# Bad form.
+def test_manage_entitlement_delete_400():
+	r = admin.delete(API+"/manage/entitlement/foo")
+	assert r.status_code == 400
+
+# Unauthorized.
+def test_manage_entitlement_delete_401():
+	r = user.delete(API+"/manage/entitlement/1")
+	assert r.status_code == 401
+
+# Not found.
+def test_manage_entitlement_delete_404():
+	r = admin.delete(API+"/manage/entitlement/1")
+	assert r.status_code == 404
+

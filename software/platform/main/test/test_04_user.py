@@ -156,3 +156,35 @@ def test_user_attendance_get_302():
 	r = requests.get(API+"/user/attendance", allow_redirects=False)
 	assert r.status_code == 302
 
+# --[ GET ALL ENTITLEMENTS ]--
+
+# Success.
+def test_user_entitlement_get_200():
+
+	# Make some entitlements to get.
+	r = admin.post(API+"/manage/entitlement", json={
+		"title": "Breakfast",
+		"quantity": 3
+	})
+	assert r.status_code == 201
+	r = admin.post(API+"/manage/entitlement", json={
+		"title": "Lunch",
+		"quantity": 3
+	})
+	assert r.status_code == 201
+
+	r = user.get(API+"/user/entitlement")
+	assert r.status_code == 200
+
+	data = [json.loads(obj) for obj in json.loads(r.content)]
+	assert len(data) == 2
+	assert data[0]["title"] == "Breakfast"
+	assert data[0]["quantity"] == 3
+	assert data[1]["title"] == "Lunch"
+	assert data[1]["quantity"] == 3
+
+# Not logged in.
+def test_user_entitlement_get_302():
+	r = requests.get(API+"/user/entitlement", allow_redirects=False)
+	assert r.status_code == 302
+

@@ -10,5 +10,7 @@ entitlement:
               type: array
               items:
                 $ref: "../../schemas/Entitlement.yaml#Entitlement"
+      302:
+        description: Not logged in.
       500:
         description: Internal server error.

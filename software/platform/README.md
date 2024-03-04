@@ -30,8 +30,8 @@
 - [x] POST /user/attendance/{code}: Submit an attendance code.
 - [x] Tests
 
-- [ ] GET /user/entitlement: Get a list of all the entitlements available.
-- [ ] Tests
+- [x] GET /user/entitlement: Get a list of all the entitlements available.
+- [x] Tests
 
 - [ ] GET /user/redemption: Get a list of all your entitlement redemptions.
 - [ ] Tests
@@ -80,10 +80,10 @@
 - [x] DELETE /manage/attendance/{attendanceId}: Delete an attendance.
 - [x] Tests
 
-- [ ] POST /manage/entitlement: Create an entitlement.
-- [ ] PATCH /manage/entitlement/{entitlementId}: Update an entitlement.
-- [ ] DELETE /manage/entitlement/{entitlementId}: Delete an entitlement.
-- [ ] Tests
+- [x] POST /manage/entitlement: Create an entitlement.
+- [x] PATCH /manage/entitlement/{entitlementId}: Update an entitlement.
+- [x] DELETE /manage/entitlement/{entitlementId}: Delete an entitlement.
+- [x] Tests
 
 - [ ] GET /manage/redemption: Get a list of all redemptions.
 - [ ] POST /manage/redemption: Create a redemption on behalf of a user.
