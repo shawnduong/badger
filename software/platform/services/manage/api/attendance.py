@@ -3,7 +3,6 @@ from app import *
 @app.route(API+"/attendance", methods=["GET"])
 @failsafe_500
 def attendance_get():
-
 	attendances = [str(a) for a in Attendance.query.all()]
 	return attendances, 200
 

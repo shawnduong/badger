@@ -9,8 +9,6 @@ userPrefix = "/api/v1/user"
 @login_required
 @failsafe_500
 def user_event_get():
-
 	r = requests.get(IMPLEMENTATION["user"]+"/event")
 	return r.content, r.status_code
-
 

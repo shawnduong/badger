@@ -5,7 +5,6 @@ import requests
 @app.route(API+"/submission", methods=["GET"])
 @failsafe_500
 def submission_get():
-
 	submissions = [str(s) for s in Submission.query.all()]
 	return submissions, 200
 

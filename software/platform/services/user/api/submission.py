@@ -5,6 +5,7 @@ import requests
 
 @app.route(API+"/submission/<code>/<userId>", methods=["POST"])
 @failsafe_500
+# nodoc
 def submission_post(code: str, userId: int):
 
 	r = requests.get(IMPLEMENTATION["manage"]+f"/code/lookup/{code}")

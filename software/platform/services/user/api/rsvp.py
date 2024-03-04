@@ -4,15 +4,16 @@ import requests
 
 @app.route(API+"/rsvp/<userId>", methods=["GET"])
 @failsafe_500
+# nodoc
 def rsvp_get(userId: int):
-
 	r = requests.get(IMPLEMENTATION["manage"]+f"/rsvp/lookup/{userId}")
 	data = [json.loads(obj)["eventId"] for obj in json.loads(r.content)]
 	return data, r.status_code
 
-@app.route(API+"/rsvp/<userId>/<eventId>", methods=["POST"])
+@app.route(API+"/rsvp/<eventId>/<userId>", methods=["POST"])
 @failsafe_500
-def rsvp_post(userId: int, eventId: int):
+# nodoc
+def rsvp_post(eventId: int, userId: int):
 
 	try:
 		userId = int(userId)
@@ -25,9 +26,10 @@ def rsvp_post(userId: int, eventId: int):
 	})
 	return r.content, r.status_code
 
-@app.route(API+"/rsvp/<userId>/<eventId>", methods=["DELETE"])
+@app.route(API+"/rsvp/<eventId>/<userId>", methods=["DELETE"])
 @failsafe_500
-def rsvp_delete(userId: int, eventId: int):
+# nodoc
+def rsvp_delete(eventId: int, userId: int):
 
 	r = requests.get(IMPLEMENTATION["manage"]+f"/rsvp/lookup/{userId}")
 	data = [json.loads(obj) for obj in json.loads(r.content)]

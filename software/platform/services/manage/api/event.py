@@ -3,7 +3,6 @@ from app import *
 @app.route(API+"/event", methods=["GET"])
 @failsafe_500
 def event_get():
-
 	events = [str(e) for e in Event.query.all()]
 	return events, 200
 

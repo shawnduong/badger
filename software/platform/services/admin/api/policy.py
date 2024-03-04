@@ -3,7 +3,6 @@ from app import *
 @app.route(API+"/policy", methods=["GET"])
 @failsafe_500
 def policy_get():
-
 	policy = Policy.query.first()
 	return str(policy), 200
 

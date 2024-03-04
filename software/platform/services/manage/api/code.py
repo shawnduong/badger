@@ -3,12 +3,12 @@ from app import *
 @app.route(API+"/code", methods=["GET"])
 @failsafe_500
 def code_get():
-
 	codes = [str(code) for code in Code.query.all()]
 	return codes, 200
 
 @app.route(API+"/code/lookup/<code>", methods=["GET"])
 @failsafe_500
+# nodoc
 def code_get_lookup(code: str):
 
 	code = Code.query.filter_by(code=code).first()

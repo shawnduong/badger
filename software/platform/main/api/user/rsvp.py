@@ -16,13 +16,13 @@ def user_rsvp_get():
 @login_required
 @failsafe_500
 def user_rsvp_post(eventId: int):
-	r = requests.post(IMPLEMENTATION["user"]+f"/rsvp/{current_user.id}/{eventId}")
+	r = requests.post(IMPLEMENTATION["user"]+f"/rsvp/{eventId}/{current_user.id}")
 	return r.content, r.status_code
 
 @app.route(userPrefix+"/rsvp/<eventId>", methods=["DELETE"])
 @login_required
 @failsafe_500
 def user_rsvp_delete(eventId: int):
-	r = requests.delete(IMPLEMENTATION["user"]+f"/rsvp/{current_user.id}/{eventId}")
+	r = requests.delete(IMPLEMENTATION["user"]+f"/rsvp/{eventId}/{current_user.id}")
 	return r.content, r.status_code
 
