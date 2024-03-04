@@ -85,11 +85,11 @@
 - [x] DELETE /manage/entitlement/{entitlementId}: Delete an entitlement.
 - [x] Tests
 
-- [ ] GET /manage/redemption: Get a list of all redemptions.
-- [ ] POST /manage/redemption: Create a redemption on behalf of a user.
-- [ ] PATCH /manage/redemption/{redemptionId}: Update a redemption.
-- [ ] DELETE /manage/redemption/{redemptionId}: Delete a redemption.
-- [ ] Tests
+- [x] GET /manage/redemption: Get a list of all redemptions.
+- [x] POST /manage/redemption: Create a redemption on behalf of a user.
+- [x] PATCH /manage/redemption/{redemptionId}: Update a redemption.
+- [x] DELETE /manage/redemption/{redemptionId}: Delete a redemption.
+- [x] Tests
 
 - [ ] POST /manage/reward: Create a reward.
 - [ ] PATCH /manage/reward/{rewardId}: Update a reward.

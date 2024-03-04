@@ -1022,3 +1022,213 @@ def test_manage_entitlement_delete_404():
 	r = admin.delete(API+"/manage/entitlement/1")
 	assert r.status_code == 404
 
+# --[ CREATE A REDEMPTION ON BEHALF OF A USER ]--
+
+# Success.
+def test_manage_redemption_post_200():
+
+	# Make an entitlement to redeem.
+	r = admin.post(API+"/manage/entitlement", json={
+		"title": "Breakfast",
+		"quantity": 3
+	})
+	assert r.status_code == 201
+
+	r = admin.post(API+"/manage/redemption", json={
+		"entitlementId": 1,
+		"userId": 2
+	})
+	assert r.status_code == 201
+
+# Bad form.
+def test_manage_redemption_post_400():
+	r = admin.post(API+"/manage/redemption", json={
+		"entitlementId": "foo",
+		"userId": 2
+	})
+	assert r.status_code == 400
+
+# Unauthorized.
+def test_manage_redemption_post_401():
+	r = user.post(API+"/manage/redemption", json={
+		"entitlementId": 1,
+		"userId": 2
+	})
+	assert r.status_code == 401
+
+# Entitlement not found.
+def test_manage_redemption_post_404_0():
+	r = admin.post(API+"/manage/redemption", json={
+		"entitlementId": 999,
+		"userId": 2
+	})
+	assert r.status_code == 404
+
+# User not found.
+def test_manage_redemption_post_404_1():
+	r = admin.post(API+"/manage/redemption", json={
+		"entitlementId": 1,
+		"userId": 999
+	})
+	assert r.status_code == 404
+
+# Maximum number of redemptions reached.
+def test_manage_redemption_post_409():
+
+	r = admin.post(API+"/manage/redemption", json={
+		"entitlementId": 1,
+		"userId": 2
+	})
+	assert r.status_code == 201
+
+	r = admin.post(API+"/manage/redemption", json={
+		"entitlementId": 1,
+		"userId": 2
+	})
+	assert r.status_code == 201
+
+	r = admin.post(API+"/manage/redemption", json={
+		"entitlementId": 1,
+		"userId": 2
+	})
+	assert r.status_code == 409
+
+# --[ UPDATE A REDEMPTION ]--
+
+# Success.
+def test_manage_redemption_patch_200():
+
+	# Make an entitlement to redeem.
+	r = admin.post(API+"/manage/entitlement", json={
+		"title": "Lunch",
+		"quantity": 3
+	})
+	assert r.status_code == 201
+
+	r = admin.patch(API+"/manage/redemption/3", json={
+		"entitlementId": 2,
+		"userId": 2
+	})
+	assert r.status_code == 200
+
+# Bad client form.
+def test_manage_redemption_patch_400_0():
+	r = admin.patch(API+"/manage/redemption/foo", json={
+		"entitlementId": 2,
+		"userId": 2
+	})
+	assert r.status_code == 400
+
+# Bad client form.
+def test_manage_redemption_patch_400_1():
+	r = admin.patch(API+"/manage/redemption/3", json={
+		"userId": 2
+	})
+	assert r.status_code == 400
+
+# Bad client form.
+def test_manage_redemption_patch_400_2():
+	r = admin.patch(API+"/manage/redemption/3", json={
+		"entitlementId": 2,
+		"userId": "foo"
+	})
+	assert r.status_code == 400
+
+# Unauthorized.
+def test_manage_redemption_patch_401():
+	r = user.patch(API+"/manage/redemption/3", json={
+		"entitlementId": 2,
+		"userId": 2
+	})
+	assert r.status_code == 401
+
+# Redemption not found.
+def test_manage_redemption_patch_404_0():
+	r = admin.patch(API+"/manage/redemption/999", json={
+		"entitlementId": 2,
+		"userId": 2
+	})
+	assert r.status_code == 404
+
+# Redemption not found.
+def test_manage_redemption_patch_404_1():
+	r = admin.patch(API+"/manage/redemption/3", json={
+		"entitlementId": 999,
+		"userId": 2
+	})
+	assert r.status_code == 404
+
+# Redemption not found.
+def test_manage_redemption_patch_404_2():
+	r = admin.patch(API+"/manage/redemption/3", json={
+		"entitlementId": 2,
+		"userId": 999
+	})
+	assert r.status_code == 404
+
+# Max number of redemptions reached.
+def test_manage_redemption_patch_409():
+
+	r = admin.post(API+"/manage/redemption", json={
+		"entitlementId": 1,
+		"userId": 2
+	})
+	assert r.status_code == 201
+
+	r = admin.patch(API+"/manage/redemption/3", json={
+		"entitlementId": 1,
+		"userId": 2
+	})
+	assert r.status_code == 409
+
+# --[ GET ALL REDEMPTIONS ]--
+
+# Success.
+def test_manage_redemption_get_200():
+
+	r = admin.get(API+"/manage/redemption")
+	assert r.status_code == 200
+
+	data = [json.loads(obj) for obj in json.loads(r.content)]
+	assert len(data) == 4
+
+# Unauthorized.
+def test_manage_redemption_get_401():
+	r = user.get(API+"/manage/redemption")
+	assert r.status_code == 401
+
+# --[ DELETE REDEMPTIONS ]--
+
+# Success.
+def test_manage_redemption_delete_200():
+	r = admin.delete(API+"/manage/redemption/1")
+	assert r.status_code == 200
+	r = admin.delete(API+"/manage/redemption/2")
+	assert r.status_code == 200
+	r = admin.delete(API+"/manage/redemption/3")
+	assert r.status_code == 200
+	r = admin.delete(API+"/manage/redemption/4")
+	assert r.status_code == 200
+
+# Bad client form.
+def test_manage_redemption_delete_400():
+	r = admin.delete(API+"/manage/redemption/foo")
+	assert r.status_code == 400
+
+# Unauthorized.
+def test_manage_redemption_delete_401():
+	r = user.delete(API+"/manage/redemption/1")
+	assert r.status_code == 401
+
+# Not found.
+def test_manage_redemption_delete_404():
+	r = admin.delete(API+"/manage/redemption/1")
+	assert r.status_code == 404
+
+# Just cleaning up here.
+def test_manage_redemption_cleanup():
+	r = admin.delete(API+"/manage/entitlement/1")
+	assert r.status_code == 200
+	r = admin.delete(API+"/manage/entitlement/2")
+	assert r.status_code == 200
+
