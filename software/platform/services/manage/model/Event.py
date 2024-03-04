@@ -15,19 +15,21 @@ class Event(db.Model):
 	map          = db.Column(db.LargeBinary, unique=False, nullable=True )
 	startTime    = db.Column(db.Integer    , unique=False, nullable=False)
 	duration     = db.Column(db.Integer    , unique=False, nullable=False)
+	code         = db.Column(db.String(256), unique=False, nullable=False)
 	points       = db.Column(db.Integer    , unique=False, nullable=False)
 	host         = db.Column(db.Text       , unique=False, nullable=False)
 	description  = db.Column(db.Text       , unique=False, nullable=False)
 
 	def __init__(
 		self, title: str, location: str, map: bytes, startTime: int,
-		duration: int, points: int, host: str, description: str
+		duration: int, code: str, points: int, host: str, description: str
 	):
 		self.title = title
 		self.location = location
 		self.map = map
 		self.startTime = startTime
 		self.duration = duration
+		self.code = code
 		self.points = points
 		self.host = host
 		self.description = description
@@ -39,6 +41,7 @@ class Event(db.Model):
 			"map": self.map,
 			"startTime": self.startTime,
 			"duration": self.duration,
+			"code": self.code,
 			"points": self.points,
 			"host": self.host,
 			"description": self.description,

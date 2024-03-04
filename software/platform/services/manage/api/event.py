@@ -14,8 +14,8 @@ def event_post():
 	try:
 		# These are required fields for this method.
 		for k in (
-			"title", "location", "map", "startTime", "duration", "points",
-			"host", "description"
+			"title", "location", "map", "startTime", "duration", "code",
+			"points", "host", "description"
 		):
 			assert k in request.json.keys()
 
@@ -27,7 +27,8 @@ def event_post():
 
 	db.session.add(Event(
 		request.json["title"], request.json["location"], request.json["map"],
-		startTime, duration, points, request.json["host"], request.json["description"]
+		startTime, duration, request.json["code"], points, request.json["host"],
+		request.json["description"]
 	))
 	db.session.commit()
 	return {}, 201
@@ -39,8 +40,8 @@ def event_patch(eventId: int):
 	try:
 		# These are required fields for this method.
 		for k in (
-			"title", "location", "map", "startTime", "duration", "points",
-			"host", "description"
+			"title", "location", "map", "startTime", "duration", "code",
+			"points", "host", "description"
 		):
 			assert k in request.json.keys()
 
@@ -61,6 +62,7 @@ def event_patch(eventId: int):
 	e.map         = request.json["map"]
 	e.startTime   = startTime
 	e.duration    = duration
+	e.code        = request.json["code"]
 	e.points      = points
 	e.host        = request.json["host"]
 	e.description = request.json["description"]

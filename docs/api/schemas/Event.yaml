@@ -18,6 +18,10 @@ EventForm:
       type: integer
       example: 3600
       description: Duration of the event in seconds.
+    code:
+      type: string
+      example: "0123-45-6789"
+      description: Code associated with an event that users can use if scanning doesn't work.
     points:
       type: integer
       example: 50

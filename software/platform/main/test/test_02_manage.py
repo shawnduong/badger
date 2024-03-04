@@ -429,6 +429,7 @@ def test_manage_event_post_201():
 		"map": None,
 		"startTime": 1708743600,
 		"duration": 3600,
+		"code": "ATTEND-0123",
 		"points": 50,
 		"host": "Jane Doe",
 		"description": "Lorem ipsum dolor sit amet."
@@ -455,6 +456,7 @@ def test_manage_event_post_401():
 		"map": None,
 		"startTime": 1708743600,
 		"duration": 3600,
+		"code": "ATTEND-0123",
 		"points": 50,
 		"host": "Jane Doe",
 		"description": "Lorem ipsum dolor sit amet."
@@ -472,6 +474,7 @@ def test_manage_event_patch_200():
 		"map": None,
 		"startTime": 1708743600,
 		"duration": 3600,
+		"code": "ATTEND-0123",
 		"points": 50,
 		"host": "Jane Doe",
 		"description": "The quick brown fox jumps over the lazy dog."
@@ -498,6 +501,7 @@ def test_manage_event_patch_401():
 		"map": None,
 		"startTime": 1708743600,
 		"duration": 3600,
+		"code": "ATTEND-0123",
 		"points": 50,
 		"host": "Jane Doe",
 		"description": "The quick brown fox jumps over the lazy dog."
@@ -538,6 +542,7 @@ def test_manage_rsvp_post_201():
 		"map": None,
 		"startTime": 1708743600,
 		"duration": 3600,
+		"code": "ATTEND-0123",
 		"points": 50,
 		"host": "Jane Doe",
 		"description": "Lorem ipsum dolor sit amet."
@@ -619,6 +624,7 @@ def test_manage_rsvp_patch_200():
 		"map": None,
 		"startTime": 1708743600+3600,
 		"duration": 3600,
+		"code": "ATTEND-4567",
 		"points": 50,
 		"host": "John Doe",
 		"description": "Lorem ipsum dolor sit amet."
