@@ -6,6 +6,12 @@ def redemption_get():
 	redemptions = [str(r) for r in Redemption.query.all()]
 	return redemptions, 200
 
+@app.route(API+"/redemption/lookup/<userId>", methods=["GET"])
+@failsafe_500
+def redemption_get_lookup(userId: int):
+	redemptions = [str(r) for r in Redemption.query.filter_by(userId=userId)]
+	return redemptions, 200
+
 @app.route(API+"/redemption", methods=["POST"])
 @failsafe_500
 def redemption_post():

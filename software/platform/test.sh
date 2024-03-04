@@ -19,6 +19,7 @@ tmux new-session \; \
 	select-pane -t 0 \; \
 	send-keys -t 0 \
 		"
+		clear
 		trap 'trap - SIGTERM && kill -- -$$' SIGINT SIGTERM EXIT
 		source ${workdir}/env/bin/activate
 		rm -f ${workdir}/services/*/instance/*.sqlite
@@ -33,8 +34,9 @@ tmux new-session \; \
 		" \; \
 	send-keys -t 1 \
 		"
+		clear
 		source ${workdir}/env/bin/activate
-		sleep 3
+		sleep 1
 		pytest
 		";
 

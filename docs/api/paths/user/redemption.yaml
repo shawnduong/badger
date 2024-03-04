@@ -10,5 +10,7 @@ redemption:
               type: array
               items:
                 $ref: "../../schemas/Redemption.yaml#/RedemptionForm"
+      302:
+        description: Not logged in.
       500:
         description: Internal server error.

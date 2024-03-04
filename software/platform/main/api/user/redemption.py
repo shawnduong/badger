@@ -5,9 +5,10 @@ import requests
 
 userPrefix = "/api/v1/user"
 
-@app.route(userPrefix+"/entitlement", methods=["GET"])
+@app.route(userPrefix+"/redemption", methods=["GET"])
 @login_required
 @failsafe_500
-def user_entitlement_get():
-	r = requests.get(IMPLEMENTATION["user"]+"/entitlement")
+def user_redemption_get():
+	r = requests.get(IMPLEMENTATION["user"]+f"/redemption/{current_user.id}")
 	return r.content, r.status_code
+

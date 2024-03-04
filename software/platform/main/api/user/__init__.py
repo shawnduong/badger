@@ -3,6 +3,7 @@ __all__ = [
 	"attendance",
 	"entitlement",
 	"event",
+	"redemption",
 	"rsvp",
 	"submission",
 	"user"
