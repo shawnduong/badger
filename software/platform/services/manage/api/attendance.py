@@ -6,6 +6,13 @@ def attendance_get():
 	attendances = [str(a) for a in Attendance.query.all()]
 	return attendances, 200
 
+@app.route(API+"/attendance/lookup/<userId>", methods=["GET"])
+@failsafe_500
+# nodoc
+def attendance_get_lookup(userId: int):
+	attendances = [a.eventId for a in Attendance.query.filter_by(userId=userId).all()]
+	return attendances, 200
+
 @app.route(API+"/attendance", methods=["POST"])
 @failsafe_500
 def attendance_post():

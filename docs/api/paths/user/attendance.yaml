@@ -10,6 +10,8 @@ attendance:
               type: array
               example: [10, 15, 17]
               description: Event IDs of all the events you've attended. 
+      302:
+        description: Not logged in.
       500:
         description: Internal server error.
 attendance-code:
@@ -18,7 +20,11 @@ attendance-code:
     responses:
       201:
         description: Attendance code successfully submitted.
+      302:
+        description: Not logged in.
       404:
         description: Attendance code not found.
+      409:
+        description: Attendance already exists.
       500:
         description: Internal server error.

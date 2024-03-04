@@ -1,1 +1,1 @@
-__all__ = ["announcement", "event", "rsvp", "submission", "user"]
+__all__ = ["announcement", "attendance", "event", "rsvp", "submission", "user"]

@@ -45,5 +45,6 @@ class Event(db.Model):
 			"points": self.points,
 			"host": self.host,
 			"description": self.description,
+			"id": self.id,
 		})
 

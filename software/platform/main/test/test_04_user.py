@@ -102,3 +102,57 @@ def test_user_rsvp_delete_404():
 	r = user.delete(API+"/user/rsvp/1")
 	assert r.status_code == 404
 
+# --[ SUBMIT AN ATTENDANCE CODE ]--
+
+# Success.
+def test_user_attendance_post_201():
+
+	# Make an event to attend.
+	r = admin.post(API+"/manage/event", json={
+		"title": "Billy Bob's Event",
+		"location": "Room C1",
+		"map": None,
+		"startTime": 1708743600+3600*2,
+		"duration": 3600,
+		"code": "BILLY-BOB-1234",
+		"points": 50,
+		"host": "Billy Bob",
+		"description": "Lorem ipsum dolor sit amet."
+	})
+	assert r.status_code == 201
+
+	# Submit the attendance code.
+	r = user.post(API+"/user/attendance/BILLY-BOB-1234")
+	assert r.status_code == 201
+
+# Not logged in.
+def test_user_attendance_post_302():
+	r = requests.post(API+"/user/attendance/BILLY-BOB-1234", allow_redirects=False)
+	assert r.status_code == 302
+
+# Code not found.
+def test_user_attendance_post_404():
+	r = user.post(API+"/user/attendance/00000-111-2222")
+	assert r.status_code == 404
+
+# Submission already exists.
+def test_user_attendance_post_409():
+	r = user.post(API+"/user/attendance/BILLY-BOB-1234")
+	assert r.status_code == 409
+
+# --[ GET YOUR ATTENDANCES ]--
+
+# Success.
+def test_user_attendance_get_200():
+
+	r = user.get(API+"/user/attendance")
+	assert r.status_code == 200
+
+	data = json.loads(r.content)
+	assert len(data) > 0
+
+# Not logged in.
+def test_user_attendance_get_302():
+	r = requests.get(API+"/user/attendance", allow_redirects=False)
+	assert r.status_code == 302
+

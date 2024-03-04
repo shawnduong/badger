@@ -26,9 +26,9 @@
 - [x] DELETE /user/rsvp/{eventId}: Delete an RSVP for an event.
 - [x] Tests
 
-- [ ] GET /user/attendance: Get all your attendances.
-- [ ] POST /user/attendance/{code}: Submit an attendance code.
-- [ ] Tests
+- [x] GET /user/attendance: Get all your attendances.
+- [x] POST /user/attendance/{code}: Submit an attendance code.
+- [x] Tests
 
 - [ ] GET /user/entitlement: Get a list of all the entitlements available.
 - [ ] Tests

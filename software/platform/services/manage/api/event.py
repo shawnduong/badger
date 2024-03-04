@@ -6,6 +6,21 @@ def event_get():
 	events = [str(e) for e in Event.query.all()]
 	return events, 200
 
+@app.route(API+"/event/lookup/<code>", methods=["GET"])
+@failsafe_500
+# nodoc
+def event_get_lookup(code: str):
+
+	event = Event.query.filter_by(code=code).first()
+
+	try:
+		assert event
+		return str(event), 200
+	except:
+		pass
+
+	return {}, 404
+
 @app.route(API+"/event", methods=["POST"])
 @failsafe_500
 def event_post():
