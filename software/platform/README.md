@@ -96,11 +96,11 @@
 - [x] DELETE /manage/reward/{rewardId}: Delete a reward.
 - [x] Tests
 
-- [ ] GET /manage/claim: Get a list of all reward claims.
-- [ ] POST /manage/claim: Create a reward claim on a user's behalf.
-- [ ] PATCH /manage/claim/{claimId}: Update a reward claim.
-- [ ] DELETE /manage/claim/{claimId}: Delete a reward claim.
-- [ ] Tests
+- [x] GET /manage/claim: Get a list of all reward claims.
+- [x] POST /manage/claim: Create a reward claim on a user's behalf.
+- [x] PATCH /manage/claim/{claimId}: Update a reward claim.
+- [x] DELETE /manage/claim/{claimId}: Delete a reward claim.
+- [x] Tests
 
 ## Admin
 

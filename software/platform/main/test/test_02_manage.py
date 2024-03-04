@@ -1353,8 +1353,6 @@ def test_manage_reward_patch_409():
 
 # Success.
 def test_manage_reward_delete_200():
-	r = admin.delete(API+"/manage/reward/1")
-	assert r.status_code == 200
 	r = admin.delete(API+"/manage/reward/2")
 	assert r.status_code == 200
 
@@ -1365,11 +1363,166 @@ def test_manage_reward_delete_400():
 
 # Unauthorized
 def test_manage_reward_delete_401():
-	r = user.delete(API+"/manage/reward/1")
+	r = user.delete(API+"/manage/reward/2")
 	assert r.status_code == 401
 
 # Reward not found.
 def test_manage_reward_delete_404():
-	r = admin.delete(API+"/manage/reward/1")
+	r = admin.delete(API+"/manage/reward/2")
+	assert r.status_code == 404
+
+# --[ CLAIM A REWARD ON BEHALF OF ANOTHER USER ]--
+
+# Success.
+def test_manage_claim_post_201():
+	r = admin.post(API+"/manage/claim", json={
+		"rewardId": 1,
+		"userId": 2,
+		"retrieved": False,
+	})
+	assert r.status_code == 201
+
+# Bad form.
+def test_manage_claim_post_400_0():
+	r = admin.post(API+"/manage/claim", json={
+		"userId": 2,
+		"retrieved": False,
+	})
+	assert r.status_code == 400
+
+# Bad form.
+def test_manage_claim_post_400_1():
+	r = admin.post(API+"/manage/claim", json={
+		"rewardId": 1,
+		"retrieved": False,
+	})
+	assert r.status_code == 400
+
+# Bad form.
+def test_manage_claim_post_400_2():
+	r = admin.post(API+"/manage/claim", json={
+		"rewardId": 1,
+		"userId": 2,
+	})
+	assert r.status_code == 400
+
+# Unauthorized.
+def test_manage_claim_post_401():
+	r = user.post(API+"/manage/claim", json={
+		"rewardId": 1,
+		"userId": 2,
+		"retrieved": False,
+	})
+	assert r.status_code == 401
+
+# Reward not found.
+def test_manage_claim_post_404_0():
+	r = admin.post(API+"/manage/claim", json={
+		"rewardId": 999,
+		"userId": 2,
+		"retrieved": False,
+	})
+	assert r.status_code == 404
+
+# User not found.
+def test_manage_claim_post_404_1():
+	r = admin.post(API+"/manage/claim", json={
+		"rewardId": 1,
+		"userId": 999,
+		"retrieved": False,
+	})
+	assert r.status_code == 404
+
+# --[ UPDATE A REWARD CLAIM ]--
+
+# Success.
+def test_manage_claim_patch_200():
+
+	r = admin.post(API+"/manage/reward", json={
+		"item": "Electronics Kit",
+		"points": 50,
+		"stockTotal": 100
+	})
+	assert r.status_code == 201
+
+	r = admin.patch(API+"/manage/claim/1", json={
+		"rewardId": 2,
+		"userId": 2,
+		"retrieved": False,
+	})
+	assert r.status_code == 200
+
+# Bad client form.
+def test_manage_claim_patch_400_0():
+	r = admin.patch(API+"/manage/claim/abc", json={
+		"rewardId": 2,
+		"userId": 2,
+		"retrieved": False,
+	})
+	assert r.status_code == 400
+
+# Bad client form.
+def test_manage_claim_patch_400_1():
+	r = admin.patch(API+"/manage/claim/1", json={
+		"rewardId": "foo",
+		"userId": 2,
+		"retrieved": False,
+	})
+	assert r.status_code == 400
+
+# Bad client form.
+def test_manage_claim_patch_400_2():
+	r = admin.patch(API+"/manage/claim/1", json={
+		"rewardId": 2,
+		"userId": "foo",
+		"retrieved": False,
+	})
+	assert r.status_code == 400
+
+# Unauthorized.
+def test_manage_claim_patch_401():
+	r = user.patch(API+"/manage/claim/1", json={
+		"rewardId": 2,
+		"userId": 2,
+		"retrieved": False,
+	})
+	assert r.status_code == 401
+
+# -- [ GET REWARD CLAIMS ]--
+
+# Success.
+def test_manage_claim_get_200():
+
+	r = admin.get(API+"/manage/claim")
+	assert r.status_code == 200
+
+	data = [json.loads(obj) for obj in json.loads(r.content)]
+	assert data == [{"rewardId": 2, "userId": 2, "retrieved": False, "id": 1}]
+
+# Unauthorized.
+def test_manage_claim_get_401():
+	r = user.get(API+"/manage/claim")
+	assert r.status_code == 401
+
+# --[ DELETE A REWARD CLAIM ]--
+
+# Success.
+def test_manage_claim_delete_200():
+	r = admin.delete(API+"/manage/claim/1")
+	assert r.status_code == 200
+
+# Bad form.
+def test_manage_claim_delete_400():
+	r = admin.delete(API+"/manage/claim/abc")
+	assert r.status_code == 400
+
+# Success.
+def test_manage_claim_delete_401():
+	r = user.delete(API+"/manage/claim/1")
+	assert r.status_code == 401
+
+# Not found.
+def test_manage_claim_delete_404():
+	r = admin.delete(API+"/manage/claim/1")
 	assert r.status_code == 404
 

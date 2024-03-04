@@ -6,6 +6,8 @@ import json
 
 class Redemption(db.Model):
 
+	__tablename__ = "Redemption"
+
 	id = db.Column(db.Integer, primary_key=True)
 
 	entitlementId = db.Column(db.Integer, unique=False, nullable=False)
