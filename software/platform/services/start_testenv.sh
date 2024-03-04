@@ -7,7 +7,7 @@ read -p "Press ENTER to acknowledge and proceed." </dev/tty
 
 rm -rf */instance/
 
-source env/bin/activate
+source ../env/bin/activate
 
 ./admin/main.py &
 ./manage/main.py &

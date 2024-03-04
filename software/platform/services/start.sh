@@ -2,7 +2,7 @@
 
 trap "trap - SIGTERM && kill -- -$$" SIGINT SIGTERM EXIT
 
-source env/bin/activate
+source ../env/bin/activate
 
 ./admin/main.py &
 ./manage/main.py &
