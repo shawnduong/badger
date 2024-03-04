@@ -107,17 +107,3 @@ def admin_user_delete(userId: int):
 	db.session.commit()
 	return {}, 200
 
-@app.route(adminPrefix+"/policy", methods=["GET"])
-@admin_required
-@failsafe_500
-def admin_policy_get():
-	r = requests.get(IMPLEMENTATION["admin"]+"/policy")
-	return r.content, r.status_code
-
-@app.route(adminPrefix+"/policy", methods=["PATCH"])
-@admin_required
-@failsafe_500
-def admin_policy_patch():
-	r = requests.patch(IMPLEMENTATION["admin"]+"/policy", json=request.json)
-	return r.content, r.status_code
-

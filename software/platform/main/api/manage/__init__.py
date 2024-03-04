@@ -7,5 +7,5 @@ __all__ = [
 	"redemption",
 	"reward",
 	"rsvp",
-	"submission"
+	"submission",
 ]
