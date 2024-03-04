@@ -33,8 +33,8 @@
 - [x] GET /user/entitlement: Get a list of all the entitlements available.
 - [x] Tests
 
-- [ ] GET /user/redemption: Get a list of all your entitlement redemptions.
-- [ ] Tests
+- [x] GET /user/redemption: Get a list of all your entitlement redemptions.
+- [x] Tests
 
 - [ ] GET /user/reward: Get a list of all the rewards available.
 - [ ] Tests
@@ -91,10 +91,10 @@
 - [x] DELETE /manage/redemption/{redemptionId}: Delete a redemption.
 - [x] Tests
 
-- [ ] POST /manage/reward: Create a reward.
-- [ ] PATCH /manage/reward/{rewardId}: Update a reward.
-- [ ] DELETE /manage/reward/{rewardId}: Delete a reward.
-- [ ] Tests
+- [x] POST /manage/reward: Create a reward.
+- [x] PATCH /manage/reward/{rewardId}: Update a reward.
+- [x] DELETE /manage/reward/{rewardId}: Delete a reward.
+- [x] Tests
 
 - [ ] GET /manage/claim: Get a list of all reward claims.
 - [ ] POST /manage/claim: Create a reward claim on a user's behalf.

@@ -10,6 +10,8 @@ claim:
               type: array
               items:
                 $ref: "../../schemas/Claim.yaml#/ClaimForm"
+      302:
+        description: Not logged in.
       500:
         description: Internal server error.
 claim-rewardId:
@@ -18,6 +20,8 @@ claim-rewardId:
     responses:
       201:
         description: Reward claimed.
+      302:
+        description: Not logged in.
       400:
         description: Reward claim failed.
         content:
@@ -29,5 +33,7 @@ claim-rewardId:
                   type: string
                   example: "Insufficient points balance."
                   description: An explanation of why the request failed.
+      404:
+        description: Reward not found.
       500:
         description: Internal server error.

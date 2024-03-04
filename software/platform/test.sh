@@ -39,4 +39,3 @@ tmux new-session \; \
 		sleep 1
 		pytest
 		";
-

@@ -5,6 +5,7 @@ __all__ = [
 	"entitlement",
 	"event",
 	"redemption",
+	"reward",
 	"rsvp",
 	"submission"
 ]

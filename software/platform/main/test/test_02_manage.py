@@ -1232,3 +1232,144 @@ def test_manage_redemption_cleanup():
 	r = admin.delete(API+"/manage/entitlement/2")
 	assert r.status_code == 200
 
+# --[ MAKE A REWARD ]--
+
+# Success.
+def test_manage_reward_post_201():
+
+	r = admin.post(API+"/manage/reward", json={
+		"item": "Sticker Pack",
+		"points": 50,
+		"stockTotal": 100
+	})
+	assert r.status_code == 201
+
+	r = admin.post(API+"/manage/reward", json={
+		"item": "Electronics Kit",
+		"points": 50,
+		"stockTotal": 100
+	})
+	assert r.status_code == 201
+
+# Bad form.
+def test_manage_reward_post_400():
+	r = admin.post(API+"/manage/reward", json={
+		"points": 50,
+		"stockTotal": 100
+	})
+	assert r.status_code == 400
+
+# Unauthorized.
+def test_manage_reward_post_401():
+	r = user.post(API+"/manage/reward", json={
+		"item": "Sticker Pack",
+		"points": 50,
+		"stockTotal": 100
+	})
+	assert r.status_code == 401
+
+# Reward already exists.
+def test_manage_reward_post_409():
+	r = admin.post(API+"/manage/reward", json={
+		"item": "Sticker Pack",
+		"points": 50,
+		"stockTotal": 100
+	})
+	assert r.status_code == 409
+
+# --[ UPDATE A REWARD ]--
+
+# Success.
+def test_manage_reward_patch_200():
+	r = admin.patch(API+"/manage/reward/1", json={
+		"item": "Sticker Pack",
+		"points": 50,
+		"stockTotal": 150
+	})
+	assert r.status_code == 200
+
+# Bad client form.
+def test_manage_reward_patch_400_0():
+	r = admin.patch(API+"/manage/reward/foo", json={
+		"item": "Sticker Pack",
+		"points": 50,
+		"stockTotal": 150
+	})
+	assert r.status_code == 400
+
+# Bad client form.
+def test_manage_reward_patch_400_1():
+	r = admin.patch(API+"/manage/reward/1", json={
+		"item": "Sticker Pack",
+		"points": "foo",
+		"stockTotal": 150
+	})
+	assert r.status_code == 400
+
+# Bad client form.
+def test_manage_reward_patch_400_2():
+	r = admin.patch(API+"/manage/reward/1", json={
+		"item": "Sticker Pack",
+		"points": 50,
+		"stockTotal": "foo"
+	})
+	assert r.status_code == 400
+
+# Bad client form.
+def test_manage_reward_patch_400_2():
+	r = admin.patch(API+"/manage/reward/foo", json={
+		"item": "Sticker Pack",
+	})
+	assert r.status_code == 400
+
+# Unauthorized.
+def test_manage_reward_patch_401():
+	r = user.patch(API+"/manage/reward/1", json={
+		"item": "Sticker Pack",
+		"points": 50,
+		"stockTotal": 150
+	})
+	assert r.status_code == 401
+
+# Reward not found.
+def test_manage_reward_patch_404():
+	r = admin.patch(API+"/manage/reward/999", json={
+		"item": "Sticker Pack",
+		"points": 50,
+		"stockTotal": 150
+	})
+	assert r.status_code == 404
+
+# Reward already exists.
+def test_manage_reward_patch_409():
+	r = admin.patch(API+"/manage/reward/1", json={
+		"item": "Electronics Kit",
+		"points": 50,
+		"stockTotal": 100
+	})
+	assert r.status_code == 409
+
+# --[ DELETE A REWARD ]--
+
+# Success.
+def test_manage_reward_delete_200():
+	r = admin.delete(API+"/manage/reward/1")
+	assert r.status_code == 200
+	r = admin.delete(API+"/manage/reward/2")
+	assert r.status_code == 200
+
+# Bad client form.
+def test_manage_reward_delete_400():
+	r = admin.delete(API+"/manage/reward/foo")
+	assert r.status_code == 400
+
+# Unauthorized
+def test_manage_reward_delete_401():
+	r = user.delete(API+"/manage/reward/1")
+	assert r.status_code == 401
+
+# Reward not found.
+def test_manage_reward_delete_404():
+	r = admin.delete(API+"/manage/reward/1")
+	assert r.status_code == 404
+

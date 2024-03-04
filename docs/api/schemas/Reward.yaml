@@ -12,15 +12,15 @@ RewardForm:
       type: integer
       example: 50
       description: How many of this item there are in total.
-    stockRemaining:
-      type: integer
-      example: 29
-      description: How many of this item there are left.
 Reward:
   allOf:
     - $ref: "#/RewardForm"
     - type: object
       properties:
+        stockRemaining:
+          type: integer
+          example: 29
+          description: How many of this item there are left.
         id:
           type: integer
           example: 3
