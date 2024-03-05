@@ -22,7 +22,6 @@ def reward_post():
 
 	# This reward must be unique.
 	try:
-		print(Reward.query.filter_by(item=request.json["item"]).all())
 		assert len(Reward.query.filter_by(item=request.json["item"]).all()) == 0
 	except:
 		return {}, 409

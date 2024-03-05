@@ -1251,6 +1251,26 @@ def test_manage_reward_post_201():
 	})
 	assert r.status_code == 201
 
+	r = user.get(API+"/user/reward")
+	assert r.status_code == 200
+	data = [json.loads(obj) for obj in json.loads(r.content)]
+	assert data == [
+		{
+			"item": "Sticker Pack",
+			"points": 50,
+			"stockTotal": 100,
+			"stockRemaining": 100,
+			"id": 1,
+		},
+		{
+			"item": "Electronics Kit",
+			"points": 50,
+			"stockTotal": 100,
+			"stockRemaining": 100,
+			"id": 2,
+		},
+	]
+
 # Bad form.
 def test_manage_reward_post_400():
 	r = admin.post(API+"/manage/reward", json={
@@ -1281,12 +1301,33 @@ def test_manage_reward_post_409():
 
 # Success.
 def test_manage_reward_patch_200():
+
 	r = admin.patch(API+"/manage/reward/1", json={
 		"item": "Sticker Pack",
 		"points": 50,
 		"stockTotal": 150
 	})
 	assert r.status_code == 200
+
+	r = user.get(API+"/user/reward")
+	assert r.status_code == 200
+	data = [json.loads(obj) for obj in json.loads(r.content)]
+	assert data == [
+		{
+			"item": "Sticker Pack",
+			"points": 50,
+			"stockTotal": 150,
+			"stockRemaining": 150,
+			"id": 1,
+		},
+		{
+			"item": "Electronics Kit",
+			"points": 50,
+			"stockTotal": 100,
+			"stockRemaining": 100,
+			"id": 2,
+		},
+	]
 
 # Bad client form.
 def test_manage_reward_patch_400_0():
@@ -1353,8 +1394,22 @@ def test_manage_reward_patch_409():
 
 # Success.
 def test_manage_reward_delete_200():
+
 	r = admin.delete(API+"/manage/reward/2")
 	assert r.status_code == 200
+
+	r = user.get(API+"/user/reward")
+	assert r.status_code == 200
+	data = [json.loads(obj) for obj in json.loads(r.content)]
+	assert data == [
+		{
+			"item": "Sticker Pack",
+			"points": 50,
+			"stockTotal": 150,
+			"stockRemaining": 150,
+			"id": 1,
+		},
+	]
 
 # Bad client form.
 def test_manage_reward_delete_400():
@@ -1375,12 +1430,26 @@ def test_manage_reward_delete_404():
 
 # Success.
 def test_manage_claim_post_201():
+
 	r = admin.post(API+"/manage/claim", json={
 		"rewardId": 1,
 		"userId": 2,
 		"retrieved": False,
 	})
 	assert r.status_code == 201
+
+	r = user.get(API+"/user/reward")
+	assert r.status_code == 200
+	data = [json.loads(obj) for obj in json.loads(r.content)]
+	assert data == [
+		{
+			"item": "Sticker Pack",
+			"points": 50,
+			"stockTotal": 150,
+			"stockRemaining": 149,
+			"id": 1,
+		},
+	]
 
 # Bad form.
 def test_manage_claim_post_400_0():
@@ -1441,7 +1510,7 @@ def test_manage_claim_patch_200():
 	r = admin.post(API+"/manage/reward", json={
 		"item": "Electronics Kit",
 		"points": 50,
-		"stockTotal": 100
+		"stockTotal": 100,
 	})
 	assert r.status_code == 201
 
@@ -1451,6 +1520,26 @@ def test_manage_claim_patch_200():
 		"retrieved": False,
 	})
 	assert r.status_code == 200
+
+	r = user.get(API+"/user/reward")
+	assert r.status_code == 200
+	data = [json.loads(obj) for obj in json.loads(r.content)]
+	assert data == [
+		{
+			"item": "Sticker Pack",
+			"points": 50,
+			"stockTotal": 150,
+			"stockRemaining": 150,
+			"id": 1,
+		},
+		{
+			"item": "Electronics Kit",
+			"points": 50,
+			"stockTotal": 100,
+			"stockRemaining": 99,
+			"id": 2,
+		},
+	]
 
 # Bad client form.
 def test_manage_claim_patch_400_0():
@@ -1508,8 +1597,49 @@ def test_manage_claim_get_401():
 
 # Success.
 def test_manage_claim_delete_200():
+
+	r = user.get(API+"/user/reward")
+	assert r.status_code == 200
+	data = [json.loads(obj) for obj in json.loads(r.content)]
+	assert data == [
+		{
+			"item": "Sticker Pack",
+			"points": 50,
+			"stockTotal": 150,
+			"stockRemaining": 150,
+			"id": 1,
+		},
+		{
+			"item": "Electronics Kit",
+			"points": 50,
+			"stockTotal": 100,
+			"stockRemaining": 99,
+			"id": 2,
+		},
+	]
+
 	r = admin.delete(API+"/manage/claim/1")
 	assert r.status_code == 200
+
+	r = user.get(API+"/user/reward")
+	assert r.status_code == 200
+	data = [json.loads(obj) for obj in json.loads(r.content)]
+	assert data == [
+		{
+			"item": "Sticker Pack",
+			"points": 50,
+			"stockTotal": 150,
+			"stockRemaining": 150,
+			"id": 1,
+		},
+		{
+			"item": "Electronics Kit",
+			"points": 50,
+			"stockTotal": 100,
+			"stockRemaining": 100,
+			"id": 2,
+		},
+	]
 
 # Bad form.
 def test_manage_claim_delete_400():

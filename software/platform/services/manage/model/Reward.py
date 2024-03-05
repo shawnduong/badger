@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from app import db
+from model.Claim import Claim
 
 import json
 
@@ -22,7 +23,9 @@ class Reward(db.Model):
 			"item": self.item,
 			"points": self.points,
 			"stockTotal": self.stockTotal,
-			"stockRemaining": 10, # TODO CALCULATE
+			"stockRemaining":
+				self.stockTotal
+				- len(Claim.query.filter_by(rewardId=self.id).all()),
 			"id": self.id
 		})
 

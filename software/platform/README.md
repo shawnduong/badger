@@ -36,8 +36,8 @@
 - [x] GET /user/redemption: Get a list of all your entitlement redemptions.
 - [x] Tests
 
-- [ ] GET /user/reward: Get a list of all the rewards available.
-- [ ] Tests
+- [x] GET /user/reward: Get a list of all the rewards available.
+- [x] Tests
 
 - [ ] GET /user/claim: Get a list of all your reward claims.
 - [ ] POST /user/claim/{rewardId}: Claim a reward.

@@ -228,3 +228,33 @@ def test_user_redemption_get_302():
 	r = requests.get(API+"/user/redemption", allow_redirects=False)
 	assert r.status_code == 302
 
+# --[ LIST THE REWARDS ]--
+
+# Success.
+def test_user_reward_get_200():
+
+	r = user.get(API+"/user/reward")
+	assert r.status_code == 200
+
+	data = [json.loads(obj) for obj in json.loads(r.content)]
+	assert data == [
+		{
+			"item": "Sticker Pack",
+			"points": 50,
+			"stockTotal": 150,
+			"stockRemaining": 150,
+			"id": 1,
+		},
+		{
+			"item": "Electronics Kit",
+			"points": 50,
+			"stockTotal": 100,
+			"stockRemaining": 100,
+			"id": 2,
+		},
+	]
+
+# Not logged in.
+def test_user_reward_get_302():
+	r = requests.get(API+"/user/reward", allow_redirects=False)
+	assert r.status_code == 302
