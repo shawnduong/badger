@@ -120,11 +120,11 @@
 - [ ] DELETE /admin/reset/{resetId}: Delete a reset request.
 - [ ] Tests
 
-- [ ] GET /admin/configure: Get the scanner configurations.
-- [ ] POST /admin/configure: Create a scanner configuration.
-- [ ] PATCH /admin/configure/{configurationId}: Update a configuration.
-- [ ] DELETE /admin/configure/{configurationId}: Delete a configuration.
-- [ ] Tests
+- [x] GET /admin/configure: Get the scanner configurations.
+- [x] POST /admin/configure: Create a scanner configuration.
+- [x] PATCH /admin/configure/{configurationId}: Update a configuration.
+- [x] DELETE /admin/configure/{configurationId}: Delete a configuration.
+- [x] Tests
 
 - [ ] GET /admin/scanner: Get a list of scanner statuses.
 - [ ] Tests

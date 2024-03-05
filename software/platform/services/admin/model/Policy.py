@@ -37,9 +37,9 @@ class Policy(db.Model):
 		self.selfServiceAccountResetExpiry = selfServiceAccountResetExpiry
 
 	def __str__(self):
-		data = {
+		return json.dumps({
 			"requireRegistration": self.requireRegistration,
 			"selfServiceAccountReset": self.selfServiceAccountReset,
 			"selfServiceAccountResetExpiry": self.selfServiceAccountResetExpiry,
-		}
-		return json.dumps(data)
+		})
+
