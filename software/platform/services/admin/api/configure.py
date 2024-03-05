@@ -14,7 +14,7 @@ def configure_post():
 
 	try:
 		# These are required fields for this method.
-		for k in ("scannerId", "schedule"):
+		for k in ("authorization", "scannerId", "schedule"):
 			assert k in request.json.keys()
 		scannerId = int(request.json["scannerId"])
 		assert type(request.json["schedule"]) is list
@@ -28,7 +28,7 @@ def configure_post():
 	except:
 		return {}, 409
 
-	db.session.add(Configuration(scannerId, request.json["schedule"]))
+	db.session.add(Configuration(request.json["authorization"], scannerId, request.json["schedule"]))
 	db.session.commit()
 
 	return {}, 201
@@ -39,7 +39,7 @@ def configure_patch(configurationId: int):
 
 	try:
 		# These are required fields for this method.
-		for k in ("scannerId", "schedule"):
+		for k in ("authorization", "scannerId", "schedule"):
 			assert k in request.json.keys()
 		configurationId = int(configurationId)
 		scannerId = int(request.json["scannerId"])
@@ -61,6 +61,7 @@ def configure_patch(configurationId: int):
 	except:
 		return {}, 409
 
+	c.authorization = request.json["authorization"]
 	c.scannerId = scannerId
 	c.schedule = json.dumps(request.json["schedule"])
 	db.session.commit()

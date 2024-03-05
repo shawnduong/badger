@@ -1,6 +1,10 @@
 ConfigurationForm:
   type: object
   properties:
+    authorization:
+      type: string
+      example: "43e11b16-4431-4cff-91bd-d7c8b9cf1e47"
+      description: A secret string used to authorize the scanner.
     scannerId:
       type: integer
       example: 8

@@ -67,6 +67,7 @@ def test_admin_policy_patch_401():
 # Success.
 def test_admin_configure_post_200():
 	r = admin.post(API+"/admin/configure", json={
+		"authorization": "43e11b16-4431-4cff-91bd-d7c8b9cf1e47",
 		"scannerId": 1,
 		"schedule": [
 			{
@@ -123,6 +124,7 @@ def test_admin_configure_post_400_2():
 # Unauthorized.
 def test_admin_configure_post_401():
 	r = user.post(API+"/admin/configure", json={
+		"authorization": "43e11b16-4431-4cff-91bd-d7c8b9cf1e47",
 		"scannerId": 1,
 		"schedule": [
 			{
@@ -142,6 +144,7 @@ def test_admin_configure_post_401():
 # Configuration for this scanner ID already exists.
 def test_admin_configure_post_409():
 	r = admin.post(API+"/admin/configure", json={
+		"authorization": "43e11b16-4431-4cff-91bd-d7c8b9cf1e47",
 		"scannerId": 1,
 		"schedule": [
 			{
@@ -163,6 +166,7 @@ def test_admin_configure_post_409():
 # Success.
 def test_admin_configure_patch_200():
 	r = admin.patch(API+"/admin/configure/1", json={
+		"authorization": "43e11b16-4431-4cff-91bd-d7c8b9cf1e47",
 		"scannerId": 2,
 		"schedule": [
 			{
@@ -189,6 +193,7 @@ def test_admin_configure_patch_400():
 # Unauthorized
 def test_admin_configure_patch_401():
 	r = user.patch(API+"/admin/configure/1", json={
+		"authorization": "43e11b16-4431-4cff-91bd-d7c8b9cf1e47",
 		"scannerId": 2,
 		"schedule": [
 			{
@@ -208,6 +213,7 @@ def test_admin_configure_patch_401():
 # Configuration not found.
 def test_admin_configure_patch_404():
 	r = admin.patch(API+"/admin/configure/9600", json={
+		"authorization": "43e11b16-4431-4cff-91bd-d7c8b9cf1e47",
 		"scannerId": 2,
 		"schedule": [
 			{
@@ -229,6 +235,7 @@ def test_admin_configure_patch_409():
 
 	# This is what configuration id 1 will collide with.
 	r = admin.post(API+"/admin/configure", json={
+		"authorization": "43e11b16-4431-4cff-91bd-d7c8b9cf1e47",
 		"scannerId": 5,
 		"schedule": [
 			{
@@ -247,6 +254,7 @@ def test_admin_configure_patch_409():
 
 	# This existing config will collide with that.
 	r = admin.patch(API+"/admin/configure/1", json={
+		"authorization": "43e11b16-4431-4cff-91bd-d7c8b9cf1e47",
 		"scannerId": 5,
 		"schedule": [
 			{
@@ -274,6 +282,7 @@ def test_admin_configure_get_200():
 	data = [json.loads(obj) for obj in json.loads(r.content)]
 	assert data == [
 		{
+			"authorization": "43e11b16-4431-4cff-91bd-d7c8b9cf1e47",
 			"scannerId": 2,
 			"schedule": [
 				{
@@ -290,6 +299,7 @@ def test_admin_configure_get_200():
 			"id": 1
 		},
 		{
+			"authorization": "43e11b16-4431-4cff-91bd-d7c8b9cf1e47",
 			"scannerId": 5,
 			"schedule": [
 				{
