@@ -18,24 +18,24 @@ tmux new-session \; \
 	attach \; \
 	select-pane -t 0 \; \
 	send-keys -t 0 \
-		"
-		clear
-		trap 'trap - SIGTERM && kill -- -$$' SIGINT SIGTERM EXIT
-		source ${workdir}/env/bin/activate
-		rm -f ${workdir}/services/*/instance/*.sqlite
-		rm -f ${workdir}/services/*/*.sqlite
-		rm -f ${workdir}/main/instance/*.sqlite
-		rm -f ${workdir}/main/*.sqlite
-		${workdir}/services/admin/main.py &
-		${workdir}/services/manage/main.py &
-		${workdir}/services/public/main.py &
-		${workdir}/services/user/main.py &
-		${workdir}/main/main.py &
-		" \; \
+"
+clear
+trap 'trap - SIGTERM && kill -- -$$' SIGINT SIGTERM EXIT
+source ${workdir}/env/bin/activate
+rm -f ${workdir}/services/*/instance/*.sqlite
+rm -f ${workdir}/services/*/*.sqlite
+rm -f ${workdir}/main/instance/*.sqlite
+rm -f ${workdir}/main/*.sqlite
+${workdir}/services/admin/main.py &
+${workdir}/services/manage/main.py &
+${workdir}/services/public/main.py &
+${workdir}/services/user/main.py &
+${workdir}/main/main.py &
+" \; \
 	send-keys -t 1 \
-		"
-		clear
-		source ${workdir}/env/bin/activate
-		sleep 1
-		pytest
-		";
+"
+clear
+source ${workdir}/env/bin/activate
+sleep 1
+pytest
+";
