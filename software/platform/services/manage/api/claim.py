@@ -6,6 +6,13 @@ def claim_get():
 	claims = [str(claim) for claim in Claim.query.all()]
 	return claims, 200
 
+@app.route(API+"/claim/lookup/<userId>", methods=["GET"])
+@failsafe_500
+# nodoc
+def claim_get_lookup(userId: int):
+	claims = [str(claim) for claim in Claim.query.filter_by(userId=userId)]
+	return claims, 200
+
 @app.route(API+"/claim", methods=["POST"])
 @failsafe_500
 def claim_post():
@@ -26,6 +33,10 @@ def claim_post():
 		assert Reward.query.get(rewardId)
 	except:
 		return {}, 404
+
+	# It is also the responsibility of the caller to make sure that the user has
+	# enough points. That check is not done at this level, since this method is
+	# at the level of a staff override.
 
 	claim = Claim(rewardId, userId, retrieved)
 	db.session.add(claim)

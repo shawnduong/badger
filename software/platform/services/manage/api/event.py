@@ -6,6 +6,17 @@ def event_get():
 	events = [str(e) for e in Event.query.all()]
 	return events, 200
 
+@app.route(API+"/event/<eventId>", methods=["GET"])
+@failsafe_500
+# nodoc
+def event_get_specific(eventId: int):
+
+	try:
+		assert (e:=Event.query.get(eventId))
+		return str(e), 200
+	except:
+		return {}, 404
+
 @app.route(API+"/event/lookup/<code>", methods=["GET"])
 @failsafe_500
 # nodoc

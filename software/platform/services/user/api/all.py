@@ -1,5 +1,6 @@
 from api.announcement import *
 from api.attendance import *
+from api.claim import *
 from api.entitlement import *
 from api.event import *
 from api.redemption import *

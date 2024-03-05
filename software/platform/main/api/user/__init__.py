@@ -1,6 +1,7 @@
 __all__ = [
 	"announcement",
 	"attendance",
+	"claim",
 	"entitlement",
 	"event",
 	"redemption",

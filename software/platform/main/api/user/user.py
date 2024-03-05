@@ -14,7 +14,7 @@ def user_user_get():
 		"id": current_user.id,
 		"uid": current_user.uid,
 		"email": current_user.email,
-		"points": current_user.points,
+		"points": current_user.update_points(),
 		"claimed": current_user.claimed,
 	}, 200
 

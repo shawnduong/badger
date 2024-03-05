@@ -39,9 +39,9 @@
 - [x] GET /user/reward: Get a list of all the rewards available.
 - [x] Tests
 
-- [ ] GET /user/claim: Get a list of all your reward claims.
-- [ ] POST /user/claim/{rewardId}: Claim a reward.
-- [ ] Tests
+- [x] GET /user/claim: Get a list of all your reward claims.
+- [x] POST /user/claim/{rewardId}: Claim a reward.
+- [x] Tests
 
 ## Manage
 

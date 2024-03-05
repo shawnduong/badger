@@ -6,6 +6,22 @@ def code_get():
 	codes = [str(code) for code in Code.query.all()]
 	return codes, 200
 
+@app.route(API+"/code/<codeId>", methods=["GET"])
+@failsafe_500
+def code_get_specific(codeId: int):
+
+	try:
+		codeId = int(codeId)
+	except:
+		return {}, 400
+
+	try:
+		assert (c:=Code.query.get(codeId))
+	except:
+		return {}, 404
+
+	return str(c), 200
+
 @app.route(API+"/code/lookup/<code>", methods=["GET"])
 @failsafe_500
 # nodoc
@@ -39,22 +55,6 @@ def code_post():
 	db.session.commit()
 
 	return {}, 201
-
-@app.route(API+"/code/<codeId>", methods=["GET"])
-@failsafe_500
-def code_get_specific(codeId: int):
-
-	try:
-		int(codeId)
-	except:
-		return {}, 400
-
-	try:
-		assert (c:=Code.query.get(codeId))
-	except:
-		return {}, 404
-
-	return str(c), 200
 
 @app.route(API+"/code/<codeId>", methods=["PATCH"])
 @failsafe_500

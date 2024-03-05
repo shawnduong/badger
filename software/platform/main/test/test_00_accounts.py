@@ -133,7 +133,7 @@ def test_user_user_get_200():
 	assert data["id"] == 2
 	assert data["uid"] == 0xf00df00d
 	assert data["email"] == "user@test.com"
-	assert data["points"] == None
+	assert data["points"] == 0
 	assert data["claimed"] == True
 
 # Not logged in.
@@ -235,7 +235,7 @@ def test_admin_user_patch_200():
 	assert r.status_code == 200
 	r = s.get(API+"/user/user")
 	data = json.loads(r.content)
-	assert data["points"] == 100
+	assert data["points"] == 0  # Points will always be calculated, never set.
 
 # Bad form.
 def test_admin_user_patch_400():

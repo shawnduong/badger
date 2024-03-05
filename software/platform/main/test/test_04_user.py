@@ -10,6 +10,22 @@ admin.post(ENDPOINT+"/login", data={"uid": 0xfeedf00d, "password": "admin"})
 user = requests.Session()
 user.post(ENDPOINT+"/login", data={"uid": 0xf00df00d, "password": "user"})
 
+# --[ GET YOUR OWN USER ACCOUNT DETAILS ]--
+
+def test_user_user_get_200():
+
+	r = user.get(API+"/user/user")
+	assert r.status_code == 200
+
+	data = json.loads(r.content)
+	assert data == {
+		"claimed": True,
+		"email": "test@example.com",
+		"id": 2,
+		"points": 0,
+		"uid": 0xf00df00d,
+	}
+
 # --[ REDEEM A CODE ]--
 
 # Success.
@@ -24,6 +40,11 @@ def test_user_submission_post_201():
 
 	r = user.post(API+"/user/submission/HELLO-WORLD")
 	assert r.status_code == 201
+
+	r = user.get(API+"/user/user")
+	assert r.status_code == 200
+	data = json.loads(r.content)
+	assert data["points"] == 10
 
 # Not logged in.
 def test_user_submission_post_302():
@@ -124,6 +145,11 @@ def test_user_attendance_post_201():
 	# Submit the attendance code.
 	r = user.post(API+"/user/attendance/BILLY-BOB-1234")
 	assert r.status_code == 201
+
+	r = user.get(API+"/user/user")
+	assert r.status_code == 200
+	data = json.loads(r.content)
+	assert data["points"] == 60
 
 # Not logged in.
 def test_user_attendance_post_302():
@@ -258,3 +284,27 @@ def test_user_reward_get_200():
 def test_user_reward_get_302():
 	r = requests.get(API+"/user/reward", allow_redirects=False)
 	assert r.status_code == 302
+
+# --[ CLAIM A REWARD ]--
+
+# Success.
+def test_user_reward_post_200():
+	r = user.post(API+"/user/claim/1")
+	assert r.status_code == 201
+
+# Not logged in.
+def test_user_reward_post_302():
+	r = requests.post(API+"/user/claim/1", allow_redirects=False)
+	assert r.status_code == 302
+
+# Not enough points.
+def test_user_reward_post_400():
+	r = user.post(API+"/user/claim/1")
+	assert r.status_code == 400
+	assert json.loads(r.content)["message"] == "Insufficient points balance."
+
+# Reward not found.
+def test_user_reward_post_404():
+	r = user.post(API+"/user/claim/999")
+	assert r.status_code == 404
+

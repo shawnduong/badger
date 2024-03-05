@@ -7,6 +7,17 @@ def reward_get():
 	rewards = [str(r) for r in Reward.query.all()]
 	return rewards, 200
 
+@app.route(API+"/reward/<rewardId>", methods=["GET"])
+@failsafe_500
+# nodoc
+def reward_get_specific(rewardId: int):
+
+	try:
+		assert (r:=Reward.query.get(rewardId))
+		return str(r), 200
+	except Exception as e:
+		return {}, 404
+
 @app.route(API+"/reward", methods=["POST"])
 @failsafe_500
 def reward_post():

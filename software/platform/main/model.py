@@ -1,11 +1,12 @@
 from __future__ import annotations
 
-from app import db
+from app import db, IMPLEMENTATION
 from flask_login import UserMixin
 
 import bcrypt
 import json
 import re
+import requests
 from typing import Union
 
 class User(UserMixin, db.Model):
@@ -91,6 +92,52 @@ class User(UserMixin, db.Model):
 			return user
 		except:
 			return None
+
+	def update_points(self):
+		"""
+		Update self.points as sum(event attendance, code submission) - sum(claim).
+		"""
+
+		points = 0
+
+		try:
+			r = requests.get(IMPLEMENTATION["manage"]+f"/attendance/lookup/{self.id}")
+			attendances = [json.loads(obj) for obj in json.loads(r.content)]
+		except:
+			return False
+
+		for attendance in attendances:
+			r = requests.get(IMPLEMENTATION["manage"]+f"/event/{attendance['eventId']}")
+			if r.status_code != 200:
+				continue
+			points += json.loads(r.content)["points"]
+
+		try:
+			r = requests.get(IMPLEMENTATION["manage"]+f"/submission/lookup/{self.id}")
+			submissions = [json.loads(obj) for obj in json.loads(r.content)]
+		except:
+			return False
+
+		for submission in submissions:
+			r = requests.get(IMPLEMENTATION["manage"]+f"/code/{submission['codeId']}")
+			if r.status_code != 200:
+				continue
+			points += json.loads(r.content)["points"]
+
+		try:
+			r = requests.get(IMPLEMENTATION["manage"]+f"/claim/lookup/{self.id}")
+			claims = [json.loads(obj) for obj in json.loads(r.content)]
+		except:
+			return False
+
+		for claim in claims:
+			r = requests.get(IMPLEMENTATION["manage"]+f"/reward/{claim['rewardId']}")
+			if r.status_code != 200:
+				continue
+			points -= json.loads(r.content)["points"]
+
+		self.points = points
+		return points
 
 	def __str__(self):
 		data = {

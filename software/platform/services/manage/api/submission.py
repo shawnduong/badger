@@ -8,6 +8,13 @@ def submission_get():
 	submissions = [str(s) for s in Submission.query.all()]
 	return submissions, 200
 
+@app.route(API+"/submission/lookup/<userId>", methods=["GET"])
+@failsafe_500
+# nodoc
+def submission_get_lookup(userId: int):
+	submissions = [str(s) for s in Submission.query.filter_by(userId=userId).all()]
+	return submissions, 200
+
 @app.route(API+"/submission", methods=["POST"])
 @failsafe_500
 def submission_post():
