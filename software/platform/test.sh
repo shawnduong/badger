@@ -10,6 +10,7 @@ workdir=$(dirname -- "$(readlink -f -- "$BASH_SOURCE")")
 pkill -f ${workdir}/services/admin/main.py
 pkill -f ${workdir}/services/manage/main.py
 pkill -f ${workdir}/services/public/main.py
+pkill -f ${workdir}/services/scanner/main.py
 pkill -f ${workdir}/services/user/main.py
 pkill -f ${workdir}/main/main.py
 
@@ -29,6 +30,7 @@ rm -f ${workdir}/main/*.sqlite
 ${workdir}/services/admin/main.py &
 ${workdir}/services/manage/main.py &
 ${workdir}/services/public/main.py &
+${workdir}/services/scanner/main.py &
 ${workdir}/services/user/main.py &
 ${workdir}/main/main.py &
 " \; \

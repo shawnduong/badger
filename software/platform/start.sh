@@ -10,6 +10,7 @@ workdir=$(dirname -- "$(readlink -f -- "$BASH_SOURCE")")
 ${workdir}/services/admin/main.py &
 ${workdir}/services/manage/main.py &
 ${workdir}/services/public/main.py &
+${workdir}/services/scanner/main.py &
 ${workdir}/services/user/main.py &
 
 # Primary platform.
