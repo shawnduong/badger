@@ -13,7 +13,25 @@ def ping_post():
 	except:
 		return {}, 400
 
-	# TODO
+	# Get the authorization from the configuration.
+	r = requests.get(IMPLEMENTATION["admin"]+f"/configure/lookup/{scannerId}")
+	if r.status_code != 200:
+		return {}, 500
+
+	data = json.loads(r.content)
+
+	# Make sure the authorization is valid.
+	try:
+		assert data["authorization"] == request.json["authorization"]
+	except:
+		return {}, 401
+
+	try:
+		assert (s:=Scanner.query.filter_by(scannerId=scannerId).first())
+	except:
+		return {}, 404
+
+	s.lastAlive = int(time.time())
 
 	return {}, 202
 

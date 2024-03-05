@@ -8,6 +8,18 @@ def configure_get():
 	configurations = [str(c) for c in Configuration.query.all()]
 	return configurations, 200
 
+@app.route(API+"/configure/lookup/<scannerId>", methods=["GET"])
+@failsafe_500
+# nodoc
+def configure_get_lookup():
+
+	configuration = Configuration.query.filter_by(scannerId=int(scannerId))
+
+	if not configuration:
+		return {}, 404
+
+	return str(configuration), 200
+
 @app.route(API+"/configure", methods=["POST"])
 @failsafe_500
 def configure_post():

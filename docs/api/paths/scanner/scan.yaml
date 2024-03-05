@@ -10,5 +10,9 @@ scan:
     responses:
       202:
         description: Update received.
+      401:
+        description: Unauthorized.
+      404:
+        description: Scanner registration not found.
       500:
         description: Internal server error.
