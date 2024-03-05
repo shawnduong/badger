@@ -13,7 +13,7 @@ app.secret_key = os.urandom(32)
 
 # Load the database.
 db = SQLAlchemy(app)
-from model import *
+from model.all import *
 with app.app_context():
 	db.create_all()
 	# If a policy does not already exist, create a default one.
